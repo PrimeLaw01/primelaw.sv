@@ -110,16 +110,6 @@ h3 {
     padding: 50px 5%;
 }
 
-@keyframes aparecer {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
 .titulo-pregunta {
     font-size: 42px;
@@ -159,7 +149,6 @@ h3 {
     overflow: hidden;
 }
 
-/* EFECTOS Y ANIMACIONES */
 @keyframes barridoResplandor {
     0% { 
         left: -110%; 
@@ -952,7 +941,97 @@ h3 {
     opacity: 0.7;
 }
 
-/* MEDIA QUERIES */
+
+
+
+/*Responsive*/
+@media (max-width: 600px) {
+    .columna-imagen {
+        display: none;
+    }
+
+    .encabezado-principal {
+        flex-direction: column;
+        padding: 10px 5%;
+        gap: 15px;
+    }
+
+    .logo-firma {
+        width: 60px;
+    }
+
+    .nombre-firma {
+        font-size: 20px;
+    }
+
+    .navegacion-superior {
+        padding: 8px 15px;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        border-radius: 8px;
+    }
+
+    .enlace-nav {
+        margin: 0 5px;
+        font-size: 16px;
+    }
+
+    .barra-busqueda {
+        padding: 5px;
+        border-radius: 25px;
+        flex-wrap: wrap;
+    }
+
+    .entrada-busqueda {
+        padding: 8px 10px;
+        font-size: 14px;
+        width: 60%;
+    }
+
+    .texto-opciones {
+        display: none;
+    }
+
+    .boton-buscar {
+        padding: 8px 15px;
+        font-size: 14px;
+        margin-right: 5px;
+    }
+
+    .titulo-pregunta {
+        font-size: 28px;
+        padding: 0 10px;
+    }
+
+    .subtitulo-ayuda {
+        font-size: 20px;
+    }
+
+    .columna-texto {
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    .lista-servicios {
+        display: inline-block;
+        text-align: left;
+        margin: 20px 0;
+    }
+
+    .contenedor-botones {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        padding: 0 10%;
+    }
+    
+    .boton-primario, .boton-secundario {
+        width: 100%;
+    }
+}
+
+
 @media (max-width: 900px) {
     .contenedor-contacto {
         flex-direction: column;
@@ -1031,72 +1110,6 @@ h3 {
     .columna-footer h4 {
         margin: 0 auto 25px;
     }
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Times New Roman', Times, serif;
-}
-
-body {
-    background-color: #ffffff;
-    color: #333;
-    overflow-x: hidden;
-}
-
-h1, 
-h2 {
-    font-family: 'Cinzel Decorative', serif;
-}
-
-h3 {
-    font-family: 'Lora', serif;
-}
-
-/* ENCABEZADO */
-.encabezado-principal {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 3%;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(5px);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.contenedor-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logo-firma {
-    width: 80px;
-}
-
-.nombre-firma {
-    font-size: 24px;
-    letter-spacing: 2px;
-    font-weight: bold;
-}
-
-.navegacion-superior {
-    background: linear-gradient(to right, #003f63, #0081c2);
-    padding: 10px 30px;
-    border-radius: 11px;
-}
-
-.enlace-nav {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 20px;
 }
 
 /* ANIMACIONES BASE */
