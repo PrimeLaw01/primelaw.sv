@@ -1368,3 +1368,60 @@ h3 {
     color: #003f63;
     font-weight: 600;
 }
+
+
+
+@media (max-width: 600px) {
+    .contenedor-footer {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+        padding: 0 10%;
+    }
+
+    .footer-logo-container {
+        margin: 0 auto 15px; 
+        width: 100px;
+    }
+
+    .descripcion-firma {
+        font-size: 14px;
+        max-width: 280px;
+        margin: 0 auto;
+    }
+
+    .columna-footer h4 {
+        margin: 0 auto 20px;
+        display: table;
+        font-size: 1.1rem;
+    }
+
+    .enlaces-footer {
+        padding: 0;
+    }
+
+    .enlaces-footer li {
+        margin-bottom: 12px;
+    }
+
+    .enlaces-footer a {
+        font-size: 16px;
+        display: block; 
+    }
+
+    .redes-sociales {
+        justify-content: center;
+        gap: 25px;
+        margin-top: 20px;
+    }
+
+    .redes-sociales i {
+        font-size: 1.8rem;
+    }
+
+    .barra-copyright {
+        font-size: 12px;
+        padding: 20px 5%;
+        line-height: 1.4;
+    }
+}
