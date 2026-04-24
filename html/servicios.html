@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios - Prime Law</title>
+    <link rel="stylesheet" href="../css/inicio.css">
+    <link rel="stylesheet" href="../css/servicios.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/logo-sin-fondo.png">
+
+</head>
+<body>
+
+    <header class="encabezado-principal">
+        <div class="contenedor-logo">
+            <img src="images/logo.png" alt="Logo" class="logo-firma">
+            <span class="nombre-firma">PRIME LAW</span>
+        </div>
+        <nav class="navegacion-superior">
+            <a href="../html/servicios.html" class="enlace-nav">Servicios</a>
+            <a href="../html/areas.html" class="enlace-nav">Áreas</a>
+            <a href="../index.html#redes-sociales-pl" class="enlace-nav">Contacto</a>
+        </nav>
+    </header>
+
+
+    <div class="contenedor-regresar">
+            <a href="../index.html" class="enlace-regresar">
+                <i class="fa-solid fa-arrow-rotate-left"></i> Regresar
+            </a>
+        </div>
+
+    <main>
+        
+        <section class="seccion-detalle-servicios">
+            <div class="intro-servicios revelar">
+                <h1 class="titulo-pregunta">NUESTROS SERVICIOS</h1>
+                <p class="subtitulo-ayuda">Excelencia jurídica diseñada para su seguridad y crecimiento.</p>
+            </div>
+
+            <div class="bloque-servicio revelar-izq">
+                <img src="../images/litigacion.png" alt="Litigación" class="imagen-servicio-detalle">
+                <div class="texto-servicio-detalle">
+                    <h2>Litigación</h2>
+                    <p>Representamos y defendemos sus intereses ante los tribunales de justicia con una estrategia agresiva y técnica. Nos especializamos en resolver conflictos complejos con el menor impacto para usted.</p>
+                    <ul class="check-lista">
+                        <li><i class="fa-solid fa-circle-check"></i> Defensa en Procesos Civiles y Mercantiles</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Recursos de Apelación y Casación</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Arbitraje y Resolución Alterna de Conflictos</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Litigios Administrativos y Contenciosos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bloque-servicio invertido revelar-der">
+                <img src="../images/asesoria.png" alt="Asesoría" class="imagen-servicio-detalle">
+                <div class="texto-servicio-detalle">
+                    <h2>Asesoría</h2>
+                    <p>Acompañamos a empresas y particulares en la toma de decisiones estratégicas, previniendo riesgos legales antes de que se conviertan en problemas.</p>
+                    <ul class="check-lista">
+                        <li><i class="fa-solid fa-circle-check"></i> Consultoría Empresarial Preventiva</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Redacción y Revisión de Contratos</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Auditorías Legales (Due Diligence)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Cumplimiento Normativo Corporativo</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="../index.html#seccion-contacto">
+                    <button class="boton-primario">Solicitar asesoría personalizada</button>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="pie-pagina">
+        <div class="contenedor-footer">
+            <div class="columna-footer info-principal">
+                <div class="footer-logo-container">
+                    <img src="images/logo-sin-fondo.png" alt="Logo" class="logo-footer">
+                </div>
+                <p class="descripcion-firma">Comprometidos con la excelencia jurídica y la protección estratégica de sus intereses.</p>
+                <div class="redes-sociales">
+                    <a href="https://wa.me/50376325091" target="_blank" title="+503 7632-5091"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="mailto:primelaw.sv@gmail.com" title="primelaw.sv@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="columna-footer">
+                <h4>ENLACES</h4>
+                <ul class="enlaces-footer">
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="../html/servicios.html">Servicios</a></li>
+                    <li><a href="../index.html#redes-sociales-pl">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="columna-footer">
+                <h4>LEGAL</h4>
+                <ul class="enlaces-footer">
+                    <li><a href="#">Privacidad</a></li>
+                    <li><a href="#">Términos</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="barra-copyright">
+            <p>© 2026 Prime Law Oficina Jurídica. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('activo');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.revelar, .revelar-izq, .revelar-der').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

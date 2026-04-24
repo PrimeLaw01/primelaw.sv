@@ -1,0 +1,227 @@
+/* SECCIÓN PRINCIPAL Y BÚSQUEDA */
+.seccion-ruta-legal {
+    padding-top: 30px;
+    padding-bottom: 40px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.contenedor-busqueda {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+main {
+    padding-top: 0;
+}
+
+/* GRID DE TARJETAS */
+.contenedor-cards-areas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 20px 5% 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* TARJETAS INDIVIDUALES */
+.tarjeta-area-vertical {
+    background: #fff;
+    border-radius: 20px; 
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    
+    
+    opacity: 0;
+    transform: translateY(30px);
+    transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease;
+}
+
+/* Esta clase la activa el JavaScript al hacer scroll */
+.tarjeta-area-vertical.activo {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tarjeta-area-vertical:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 63, 99, 0.15);
+}
+
+.imagen-tarjeta-v {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+/* CONTENIDO DE TARJETA */
+.contenido-tarjeta-v {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.contenido-tarjeta-v h3 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #003f63;
+}
+
+.contenido-tarjeta-v p {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.enlace-incluye {
+    text-decoration: none;
+    color: #b89a5b;
+    font-weight: bold;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.enlace-incluye:hover {
+    color: #003f63;
+    transform: translateX(5px);
+}
+
+/* SISTEMA DE MODAL */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 20, 31, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-contenido {
+    background: #ffffff;
+    width: 100%;
+    max-width: 700px;
+    max-height: 85vh;
+    border-radius: 15px;
+    position: relative;
+    padding: 40px;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    animation: aparecerModal 0.4s ease-out;
+}
+
+/* Personalización del scrollbar del modal */
+.modal-contenido::-webkit-scrollbar {
+    width: 8px;
+}
+.modal-contenido::-webkit-scrollbar-thumb {
+    background: #b89a5b;
+    border-radius: 10px;
+}
+
+@keyframes aparecerModal {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* ELEMENTOS INTERNOS DEL MODAL */
+#modal-titulo {
+    font-family: 'Cinzel Decorative', serif;
+    color: #003f63;
+    font-size: 24px;
+    border-bottom: 2px solid #b89a5b;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.descripcion-legal {
+    font-family: 'Lora', serif;
+    line-height: 1.8;
+    color: #444;
+    font-size: 16px;
+    text-align: justify;
+}
+
+.separador-dorado {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #b89a5b, transparent);
+    margin: 25px 0;
+}
+
+.lista-servicios {
+    list-style: none;
+    padding: 0;
+}
+
+.lista-servicios li {
+    margin-bottom: 12px;
+    padding-left: 25px;
+    position: relative;
+    font-family: 'Lora', serif;
+    color: #333;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.lista-servicios li::before {
+    content: '•';
+    color: #b89a5b;
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* BOTONES Y CIERRE */
+.cerrar-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.3s;
+}
+
+.cerrar-modal:hover { color: #003f63; }
+
+.boton-cerrar {
+    background: #003f63;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    margin-top: 20px;
+    transition: background 0.3s;
+}
+
+.boton-cerrar:hover {
+    background: #b89a5b;
+}

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Áreas - Prime Law</title>
+    
+    <link rel="stylesheet" href="../css/inicio.css">
+    <link rel="stylesheet" href="../css/areas.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="../images/logo-sin-fondo.png">
+</head>
+<body>
+
+    <header class="encabezado-principal">
+        <div class="contenedor-logo">
+            <img src="../images/logo.png" alt="Logo" class="logo-firma">
+            <span class="nombre-firma">PRIME LAW</span>
+        </div>
+        <nav class="navegacion-superior">
+            <a href="../index.html#servicios" class="enlace-nav">Servicios</a>
+            <a href="../html/areas.html" class="enlace-nav">Áreas</a>
+            <a href="../index.html#redes-sociales-pl" class="enlace-nav">Contacto</a>
+        </nav>
+    </header>
+    
+    <div class="contenedor-regresar">
+        <a href="../index.html" class="enlace-regresar">
+            <i class="fa-solid fa-arrow-rotate-left"></i> Regresar
+        </a>
+    </div>
+
+    <main class="seccion-ruta-legal">
+        <div class="contenedor-busqueda">
+            <div class="barra-busqueda">
+                <i class="fa-solid fa-magnifying-glass" style="color: white; margin-left: 15px;"></i>
+                <input type="text" id="input-busqueda" onkeyup="filtrarAreas()" placeholder="Explore conceptos legales (Ej. Derecho Civil)" class="entrada-busqueda">
+                
+            </div>
+        </div>
+
+        <div class="contenedor-cards-areas">
+            <article class="tarjeta-area-vertical revelar">
+                <img src="../images/derAdministrativo.png" alt="Derecho Administrativo" onclick="abrirModal('derecho-administrativo')" style="cursor:pointer;">
+                <div class="contenido-tarjeta-v">
+                    <h3>Derecho Administrativo</h3>
+                    <p>Garantiza que las instituciones actúen con eficacia y transparencia, protegiendo los derechos ciudadanos.</p>
+                    <a href="javascript:void(0)" onclick="abrirModal('derecho-administrativo')" class="enlace-incluye">
+                        ¿Qué incluye? <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="tarjeta-area-vertical revelar">
+                <img src="../images/derCorporativo.png" alt="Derecho Corporativo" onclick="abrirModal('derecho-corporativo')" style="cursor:pointer;">
+                <div class="contenido-tarjeta-v">
+                    <h3>Derecho Corporativo</h3>
+                    <p>Regulamos la constitución, gobierno y funcionamiento estratégico de su empresa.</p>
+                    <a href="javascript:void(0)" onclick="abrirModal('derecho-corporativo')" class="enlace-incluye">
+                        ¿Qué incluye? <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="tarjeta-area-vertical revelar">
+                <img src="../images/derCivil.png" alt="Derecho Civil" onclick="abrirModal('derecho-civil')" style="cursor:pointer;">
+                <div class="contenido-tarjeta-v">
+                    <h3>Derecho Civil</h3>
+                    <p>Regulación de relaciones jurídicas entre personas, propiedad, contratos y familia.</p>
+                    <a href="javascript:void(0)" onclick="abrirModal('derecho-civil')" class="enlace-incluye">
+                        ¿Qué incluye? <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="tarjeta-area-vertical revelar">
+                <img src="../images/derMercantil.png" alt="Derecho Mercantil" onclick="abrirModal('derecho-mercantil')" style="cursor:pointer;">
+                <div class="contenido-tarjeta-v">
+                    <h3>Derecho Mercantil</h3>
+                    <p>Seguridad jurídica en sus actos de comercio y transacciones empresariales.</p>
+                    <a href="javascript:void(0)" onclick="abrirModal('derecho-mercantil')" class="enlace-incluye">
+                        ¿Qué incluye? <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="tarjeta-area-vertical revelar">
+                <img src="../images/derTributario.png" alt="Derecho Tributario" onclick="abrirModal('derecho-tributario')" style="cursor:pointer;">
+                <div class="contenido-tarjeta-v">
+                    <h3>Derecho Tributario</h3>
+                    <p>Asesoría en cumplimiento fiscal y defensa técnica ante autoridades tributarias.</p>
+                    <a href="javascript:void(0)" onclick="abrirModal('derecho-tributario')" class="enlace-incluye">
+                        ¿Qué incluye? <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="tarjeta-area-vertical revelar">
+                <img src="../images/derAduanero.png" alt="Derecho Aduanero" onclick="abrirModal('derecho-aduanero')" style="cursor:pointer;">
+                <div class="contenido-tarjeta-v">
+                    <h3>Derecho Aduanero</h3>
+                    <p>Regulación de operaciones de comercio internacional, importaciones y exportaciones.</p>
+                    <a href="javascript:void(0)" onclick="abrirModal('derecho-aduanero')" class="enlace-incluye">
+                        ¿Qué incluye? <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="tarjeta-area-vertical revelar">
+                <img src="../images/derLaboral.png" alt="Derecho Laboral" onclick="abrirModal('derecho-laboral')" style="cursor:pointer;">
+                <div class="contenido-tarjeta-v">
+                    <h3>Derecho Laboral</h3>
+                    <p>Protección en la relación empleador-trabajador y cumplimiento de normativa vigente.</p>
+                    <a href="javascript:void(0)" onclick="abrirModal('derecho-laboral')" class="enlace-incluye">
+                        ¿Qué incluye? <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="tarjeta-area-vertical revelar">
+                <img src="../images/derConsumo.png" alt="Derecho de Consumo" onclick="abrirModal('derecho-consumo')" style="cursor:pointer;">
+                <div class="contenido-tarjeta-v">
+                    <h3>Derecho Consumo</h3>
+                    <p>Protección frente a prácticas abusivas y asesoría ante la Defensoría del Consumidor.</p>
+                    <a href="javascript:void(0)" onclick="abrirModal('derecho-consumo')" class="enlace-incluye">
+                        ¿Qué incluye? <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="tarjeta-area-vertical revelar">
+                <img src="../images/derPropiedadIntelectual.png" alt="Propiedad Intelectual" onclick="abrirModal('propiedad-intelectual')" style="cursor:pointer;">
+                <div class="contenido-tarjeta-v">
+                    <h3>Propiedad Intelectual</h3>
+                    <p>Protección de marcas, invenciones, derechos de autor y activos intangibles.</p>
+                    <a href="javascript:void(0)" onclick="abrirModal('propiedad-intelectual')" class="enlace-incluye">
+                        ¿Qué incluye? <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="tarjeta-area-vertical revelar">
+                <img src="../images/derAmbiental.png" alt="Derecho Ambiental" onclick="abrirModal('derecho-ambiental')" style="cursor:pointer;">
+                <div class="contenido-tarjeta-v">
+                    <h3>Derecho Ambiental</h3>
+                    <p>Cumplimiento normativo y gestión de recursos naturales para sostenibilidad jurídica.</p>
+                    <a href="javascript:void(0)" onclick="abrirModal('derecho-ambiental')" class="enlace-incluye">
+                        ¿Qué incluye? <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="tarjeta-area-vertical revelar">
+                <img src="../images/derNotarial.png" alt="Derecho Notarial" onclick="abrirModal('derecho-notarial')" style="cursor:pointer;">
+                <div class="contenido-tarjeta-v">
+                    <h3>Derecho Notarial</h3>
+                    <p>Fe pública y seguridad jurídica en escrituras, testamentos y constitución de sociedades.</p>
+                    <a href="javascript:void(0)" onclick="abrirModal('derecho-notarial')" class="enlace-incluye">
+                        ¿Qué incluye? <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer class="pie-pagina">
+        <div class="contenedor-footer">
+            <div class="columna-footer info-principal">
+                <div class="footer-logo-container">
+                    <img src="../images/logo-sin-fondo.png" alt="Logo" class="logo-footer">
+                </div>
+                <p class="descripcion-firma">Comprometidos con la excelencia jurídica y la protección estratégica de sus intereses.</p>
+                <div class="redes-sociales">
+                    <a href="https://wa.me/50376325091" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="mailto:primelaw.sv@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="columna-footer">
+                <h4>ENLACES</h4>
+                <ul class="enlaces-footer">
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="../html/servicios.html">Servicios</a></li>
+                    <li><a href="../index.html#redes-sociales-pl">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="columna-footer">
+                <h4>LEGAL</h4>
+                <ul class="enlaces-footer">
+                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="barra-copyright">
+            <p>© 2026 Prime Law. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div id="modal-derecho" class="modal-overlay">
+        <div class="modal-contenido">
+            <span class="cerrar-modal" onclick="cerrarModal()">&times;</span>
+            <div class="modal-header">
+                <h2 id="modal-titulo">Cargando...</h2>
+            </div>
+            <div class="modal-body">
+                <div id="modal-descripcion" class="descripcion-legal"></div>
+                <div class="separador-dorado"></div>
+                <h3>Servicios específicos:</h3>
+                <ul id="modal-lista" class="lista-servicios"></ul>
+            </div>
+            <div class="modal-footer">
+                <button class="boton-cerrar" onclick="cerrarModal()">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/areas.js"></script>
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('activo');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.revelar').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

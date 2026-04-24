@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Law: Asesoría Jurídica</title>
+    <link rel="stylesheet" href="css/inicio.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="../images/logo-sin-fondo.png">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+
+    <header class="encabezado-principal">
+        <div class="contenedor-logo">
+            <img src="../images/logo.png" alt="Prime Law Logo" class="logo-firma">
+            <span class="nombre-firma">PRIME LAW</span>
+        </div>
+        <nav class="navegacion-superior">
+            <a href="../html/servicios.html" class="enlace-nav">Servicios</a>
+            <a href="../html/areas.html" class="enlace-nav">Áreas</a>
+            <a href="#redes-sociales-pl" class="enlace-nav">Contacto</a>
+        </nav>
+    </header>
+
+    <main class="contenido-hero">
+        <section class="seccion-principal">
+            <h1 class="titulo-pregunta">¿TIENE DUDAS SOBRE QUÉ DEBE HACER CON SU CASO?</h1>
+            <p class="subtitulo-ayuda">Estamos aquí para ayudarle</p>
+
+            <div class="contenedor-flexible">
+                <aside class="columna-imagen">
+                    <div class="contenedor-resplandor">
+                        <img src="../images/contrato.png" alt="Acuerdo legal" class="imagen-decorativa">
+                    </div>
+                </aside>
+
+                <article class="columna-texto">
+                    <p class="texto-explorar">Explore su situación:</p>
+                    <ul class="lista-servicios">
+                        <li>¿Cuestiones de derecho administrativo?</li>
+                        <li>¿Asesoría jurídica empresarial?</li>
+                        <li>¿Defensa de procesos civiles o mercantiles?</li>
+                    </ul>
+                    <p class="texto-descripcion">Todo esto y más lo podrás encontrar en nuestros servicios y áreas de especialización</p>
+                </article>
+
+                <aside class="columna-imagen">
+                    <div class="contenedor-resplandor">
+                        <img src="../images/escudo.png" alt="Justicia y defensa" class="imagen-decorativa">
+                    </div>
+                </aside>
+            </div>
+
+            <div class="contenedor-botones">
+                <a href="#seccion-contacto"><button class="boton-primario">Consultar ahora</button></a>
+                <a href="../html/areas.html"><button class="boton-secundario">Leer más sobre derechos</button></a>
+            </div>
+        </section>
+
+        <section class="seccion-ruta-legal revelar">
+            <h2 class="titulo-paso">El primer paso hacia su tranquilidad es entender su caso</h2>
+            <p class="subtitulo-ruta">Identifiquemos la mejor ruta legal para su conflicto con la siguiente información:</p>
+
+            <div class="contenedor-busqueda-principal">
+                <div class="barra-busqueda">
+                    <i class="fa-solid fa-magnifying-glass" style="color: white; margin-left: 15px;"></i>
+                    
+                    <input type="text" id="busqueda-inicio" onkeyup="mostrarSugerencias()" placeholder="Explore conceptos legales..." class="entrada-busqueda" autocomplete="off">
+                    
+                    <span class="texto-opciones" onclick="toggleOpciones()">Ver opciones</span>
+                    
+                    <button class="boton-buscar" onclick="buscarDesdeInicio()">Buscar</button>
+                </div>
+                
+                <div id="lista-sugerencias" class="sugerencias-dropdown"></div>
+            </div>
+
+            <div class="contenedor-detalle-area revelar-izq">
+                <div class="info-area">
+                    <h3 class="nombre-area">DERECHO ADMINISTRATIVO</h3>
+                    <p class="descripcion-area">Esta área garantiza que las instituciones actúen con eficacia y transparencia protegiendo los derechos de los ciudadanos.</p>
+                    <button class="boton-buscar" style="background:#000; color:#fff">¿Qué incluye?</button>
+                </div>
+                <div class="imagen-area">
+                    <img src="../images/derAdministrativo.png" alt="Derecho administrativo" class="foto-redondeada">
+                </div>
+            </div>
+
+            <div class="contenedor-detalle-area revelar-der" style="flex-direction: row-reverse;">
+                <div class="info-area">
+                    <h3 class="nombre-area">DERECHO CORPORATIVO</h3>
+                    <p class="descripcion-area">Área del Derecho que regula la constitución, gobierno y funcionamiento de las empresas.</p>
+                    <button class="boton-buscar" style="background:#000; color:#fff">¿Qué incluye?</button>
+                </div>
+                <div class="imagen-area">
+                    <img src="images/derCorporativo.png" alt="Derecho Corporativo" class="foto-redondeada">
+                </div>
+            </div>
+
+            <a href="../html/areas.html"><button class="boton-primario" style="margin-top: 30px;">Seguir aprendiendo</button></a>
+        </section>
+
+        <section class="seccion-servicios-cards">
+            <h2 class="titulo-servicios revelar">¿Qué servicios ofrece Prime Law?</h2>
+            <div class="contenedor-cards">
+                <article class="tarjeta-servicio revelar">
+                    <h3 class="subtitulo-card">Litigación</h3>
+                    <p class="texto-card">Ofrecemos servicios de litigación, representando y defendiendo a nuestros clientes en procesos judiciales.</p>
+                    <div class="marco-imagen-card">
+                        <img src="../images/litigacion.png" alt="Litigación" class="imagen-card">
+                    </div>
+                </article>
+                <article class="tarjeta-servicio revelar">
+                    <h3 class="subtitulo-card">Asesoría</h3>
+                    <p class="texto-card">Ofrecemos asesoría empresarial, acompañando a nuestros clientes en la gestión legal y estratégica.</p>
+                    <div class="marco-imagen-card">
+                        <img src="../images/asesoria.png" alt="Asesoría" class="imagen-card">
+                    </div>
+                </article>
+            </div>
+            <a href="../html/servicios.html"><button class="boton-primario" style="margin-top: 50px;">Ver más información</button></a>
+        </section>
+
+        <section class="seccion-sobre-prime">
+            <h2 class="titulo-sobre revelar">SOBRE PRIME LAW</h2>
+
+            <div class="contenedor-mision-vision">
+                
+                <div class="tarjeta-mision revelar-izq">
+                    <img src="../images/mision.png" alt="Misión Prime Law" class="icono-mision">
+                    <div class="texto-mision-col">
+                        <h3>MISIÓN</h3>
+                        <p>Ofrecer soluciones legales confiables y estratégicas que permitan a las empresas desarrollarse con seguridad, respaldadas por un equipo comprometido con la excelencia y la integridad profesional.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-mision revelar-der invertida">
+                    <img src="images/vision.png" alt="Visión Prime Law" class="icono-mision">
+                    <div class="texto-mision-col">
+                        <h3>VISIÓN</h3>
+                        <p>Consolidarnos como el aliado estratégico de las empresas, ofreciendo soluciones legales que garanticen confianza, crecimiento y liderazgo en el ámbito corporativo.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-mision revelar-izq">
+                    <img src="../images/valores.png" alt="Valores Prime Law" class="icono-mision">
+                    <div class="texto-mision-col">
+                        <h3>VALORES</h3>
+                        <p>Excelencia, integridad, compromiso y transparencia son los pilares que rigen cada una de nuestras actuaciones jurídicas.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <section class="seccion-redes-premium revelar" id="redes-sociales-pl">
+            <h2 class="titulo-redes">CANALES DE CONTACTO Y ACTUALIDAD</h2>
+            
+            <div class="contenedor-redes-flotantes">
+                
+                <a href="https://wa.me/50325199778" target="_blank" class="tarjeta-red whatsapp revelar-izq">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <h4>WhatsApp</h4>
+                    <p>Asesoría inmediata y consultas rápidas directamente con nuestros expertos.</p>
+                </a>
+
+                <a href="#" target="_blank" class="tarjeta-red revelar">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                    <h4>LinkedIn</h4>
+                    <p>Artículos jurídicos y actualidad corporativa para empresas líderes.</p>
+                </a>
+
+                <a href="#" target="_blank" class="tarjeta-red revelar">
+                    <i class="fa-brands fa-instagram"></i>
+                    <h4>Instagram</h4>
+                    <p>Cápsulas informativas sobre qué es el derecho y procesos legales.</p>
+                </a>
+
+                <a href="#" target="_blank" class="tarjeta-red revelar-der">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <h4>Facebook</h4>
+                    <p>Eventos legales, noticias de la firma y nuestra comunidad jurídica.</p>
+                </a>
+                
+                <a href="#" class="tarjeta-red revelar">
+                    <i class="fa-brands fa-tiktok"></i>
+                    <h4>TikTok</h4>
+                    <p>Cápsulas legales rápidas y consejos prácticos para su día a día.</p>
+                </a>
+                
+
+            </div>
+
+            <p class="footer-redes">Descubra quiénes somos <br> <i class="fa-solid fa-chevron-down"></i></p>
+        </section>
+
+        <section class="seccion-quienes-somos">
+        <h2 class="titulo-quienes revelar">¿QUIÉNES SOMOS?</h2>
+
+        <div class="tarjeta-fundador revelar">
+            <div class="contenedor-foto-perfil revelar-izq">
+                <h3 class="nombre-lic">Mtro. Ernesto Ramírez</h3>
+                <img src="../images/ernesto.png" alt="Lic. Ernesto Ramírez" class="foto-perfil">
+            </div>
+
+            <div class="info-fundador revelar-der">
+                <h3 class="cargo-fundador">Fundador de Prime Law</h3>
+                <ul class="lista-titulos">
+                    <li>Abogado y Notario</li>
+                    <li>Especialista en Derecho Administrativo</li>
+                    <li>Máster en Derecho Empresarial</li>
+                </ul>
+                <p class="frase-personal">
+                    La búsqueda de un experto en diversos tipos de derechos puede llegar a ser exhaustiva; 
+                    pero no te preocupes, estoy aquí para ayudarte.
+                </p>
+                <button class="boton-primario">Conoce más sobre mí</button>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="seccion-contacto" class="seccion-contacto revelar">
+        <div class="contenedor-contacto">
+            
+            <div class="columna-info-directa revelar-izq">
+                <h2>Hablemos de su caso</h2>
+                <p>Estamos listos para brindarle la asesoría legal que usted y su empresa necesitan.</p>
+                
+                <div class="item-contacto">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>+503 7632-5091</span>
+                </div>
+                
+                <div class="item-contacto">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>primelaw.sv@gmail.com</span>
+                </div>
+                
+                <div class="item-contacto">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>San Salvador, El Salvador</span>
+                </div>
+            </div>
+
+            <div class="columna-formulario revelar-der">
+                <form action="#">
+                    <div class="grupo-entrada">
+                        <label>Nombre completo</label>
+                        <input type="text" placeholder="Ej. José Enriquez" required>
+                    </div>
+                    
+                    <div class="grupo-entrada">
+                        <label>Teléfono de contacto</label>
+                        <input type="tel" placeholder="Ej. 0000-0000" required>
+                    </div>
+
+                    <div class="grupo-entrada">
+                        <label>Asunto</label>
+                        <input type="text" placeholder="Ej. Asesoría Corporativa">
+                    </div>
+                    
+                    <div class="grupo-entrada">
+                        <label>Mensaje</label>
+                        <textarea rows="4" placeholder="Describa brevemente su consulta..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="boton-enviar">Enviar Consulta</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="seccion-ubicacion revelar">
+        <h2 class="titulo-ubicacion">Nuestra Ubicación</h2>
+        
+        <div class="contenedor-mapa-info">
+            <div class="marco-mapa revelar-izq">
+                <div class="marco-mapa revelar-izq">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.2317290224314!2d-89.23860532458657!3d13.70441038668252!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f633190643d958b%3A0xe784ba0a2ca3a44d!2sRatio%20Legis%20oficina%20juridica!5e0!3m2!1ses-419!2ssv!4v1776958021164!5m2!1ses-419!2ssv" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <div class="info-oficina revelar-der">
+                <h3 class="nombre-sede">Oficinas Prime Law - Sede Escalón</h3>
+                <div class="detalle-direccion">
+                    <p>
+                        <i class="fa-solid fa-location-dot" style="color: #d83030;"></i> 79 Avenida Norte, Colonia Escalón, San Salvador.
+                    </p>
+                </div>
+                
+                <p class="titulo-horario"><strong>Horarios de Atención:</strong></p>
+                <ul class="horarios-lista">
+                    <li><i class="fa-regular fa-clock"></i> Lunes a Viernes: 8:00 AM – 6:00 PM</li>
+                    <li><i class="fa-regular fa-clock"></i> Sábado: 8:00 AM – 12:00 PM</li>
+                    <li><i class="fa-solid fa-phone-volume"></i> PBX: +503 2519-9778</li>
+                </ul>
+                
+                <a href="https://www.google.com/maps/dir//Ratio+Legis+oficina+juridica,+79+Avenida+Nte.,+San+Salvador/" target="_blank" class="enlace-mapa-boton">
+                    <button class="boton-ver-maps">¿Cómo llegar?</button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <footer class="pie-pagina">
+        <div class="contenedor-footer">
+            <div class="columna-footer info-principal">
+                <div class="footer-logo-container">
+                    <img src="../images/logo-sin-fondo.png" alt="Logo" class="logo-footer">
+                </div>
+                <p class="descripcion-firma">Comprometidos con la excelencia jurídica y la protección estratégica de sus intereses.</p>
+                <div class="redes-sociales">
+                    <a href="https://wa.me/50376325091" target="_blank" title="+503 7632-5091">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <a href="mailto:primelaw.sv@gmail.com" title="primelaw.sv@gmail.com">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
+                    <a href="#" target="_blank">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" target="_blank" title="instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" target="_blank">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="columna-footer">
+                <h4>ENLACES</h4>
+                <ul class="enlaces-footer">
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="../html/servicios.html">Servicios</a></li>
+                    <li><a href="../index.html#redes-sociales-pl">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="columna-footer">
+                <h4>LEGAL</h4>
+                <ul class="enlaces-footer">
+                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="barra-copyright">
+            <p>© 2026 Prime Law. Todos los derechos reservados.</p>
+        </div>
+    </footer>   
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/formulario.js"></script>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('activo');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.revelar, .revelar-izq, .revelar-der').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
