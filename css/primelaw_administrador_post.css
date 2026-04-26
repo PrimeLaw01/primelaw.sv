@@ -1,571 +1,69 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #ffffff;
-    color: #333;
-    font-family: 'Lora', serif;
-    line-height: 1.6;
-}
-
-/* ENCABEZADO */
-.encabezado-simple {
-    padding: 20px 5%;
-}
-
-.contenedor-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logo-admin {
-    width: 50px;
-}
-
-.nombre-firma {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 20px;
-    letter-spacing: 2px;
-    font-weight: bold;
-}
-
-/* CONTENEDOR GENERAL */
-.contenedor-principal {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-}
-
-/* SECCIÓN REDES */
-.titulo-principal {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 42px;
-    margin-bottom: 5px;
-}
-
-.subtitulo-pregunta {
-    font-size: 28px;
-    color: #888;
-    margin-bottom: 40px;
-}
-
-.instruccion {
-    text-align: left;
-    max-width: 1100px;
-    margin: 0 auto 15px;
-    color: #777;
-    font-weight: bold;
-}
-
-.malla-redes {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-    background-color: #f0f2f5;
-    padding: 40px 20px;
-    border-radius: 10px;
-}
-
-.tarjeta-red-admin {
-    background: white;
-    padding: 25px 15px;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
-    border: 2px solid transparent;
-}
-
-.tarjeta-red-admin:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-}
-
-.tarjeta-red-admin.seleccionada {
-    border-color: #003f63;
-    background-color: #f8fbff;
-}
-
-.tarjeta-red-admin i {
-    font-size: 35px;
-    margin-bottom: 15px;
-}
-
-.tarjeta-red-admin h4 {
-    margin-bottom: 10px;
-    font-size: 18px;
-}
-
-.tarjeta-red-admin p {
-    font-size: 12px;
-    color: #777;
-    line-height: 1.4;
-}
-
-/* COLORES DE ICONOS */
-.icono-whatsapp { color: #25D366; }
-.icono-linkedin { color: #0077b5; }
-.icono-instagram { color: #e4405f; }
-.icono-facebook { color: #1877f2; }
-.icono-tiktok { color: #000000; }
-
-/* SECCIÓN PLANTILLAS */
-.titulo-seccion {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 36px;
-    margin: 80px 0 40px;
-}
-
-.bloque-plantilla {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 50px;
-    max-width: 1000px;
-    margin: 0 auto;
-    text-align: left;
-}
-
-.contenedor-imagen-muestra {
-    flex: 1;
-}
-
-.imagen-muestra {
-    width: 100%;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-}
-
-.texto-plantilla {
-    flex: 1.2;
-}
-
-.texto-plantilla h3 {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 26px;
-    margin-bottom: 15px;
-}
-
-.texto-plantilla p {
-    color: #888;
-    margin-bottom: 25px;
-}
-
-.boton-negro {
-    background: black;
-    color: white;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 8px;
-    font-family: 'Lora', serif;
-    font-size: 16px;
-    cursor: pointer;
-    transition: opacity 0.3s;
-}
-
-.boton-negro:hover {
-    opacity: 0.8;
-}
-
-/* BUSCADOR TEMAS */
-.barra-busqueda-admin {
-    display: flex;
-    align-items: center;
-    background: black;
-    border-radius: 50px;
-    padding: 10px 20px;
-    max-width: 800px;
-    margin: 0 auto 100px;
-}
-
-.barra-busqueda-admin i {
-    color: white;
-    margin-right: 15px;
-}
-
-.entrada-admin {
-    flex: 1;
-    background: transparent;
-    border: none;
-    color: white;
-    outline: none;
-    font-size: 16px;
-}
-
-.opcion-ver {
-    color: white;
-    font-size: 14px;
-    margin: 0 20px;
-    cursor: pointer;
-}
-
-.boton-buscar-admin {
-    background: white;
-    color: black;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 30px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-
-/* SECCIÓN GENERACIÓN CON IA */
-.seccion-ia-generacion {
-    padding: 60px 5%;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-.contenedor-ia-flexible {
-    display: flex;
-    align-items: flex-start;
-    gap: 50px;
-    margin-bottom: 50px;
-}
-
-.columna-escritura {
-    flex: 1.5;
-    text-align: left;
-}
-
-.instruccion-ia {
-    font-size: 18px;
-    color: #666;
-    margin-bottom: 25px;
-}
-
-/* EFECTO DE LÍNEAS TIPO CUADERNO */
-.campo-texto-lineas {
-    position: relative;
-    width: 100%;
-}
-
-#texto-publicacion {
-    width: 100%;
-    background: transparent;
-    border: none;
-    resize: none;
-    font-family: 'Lora', serif;
-    font-size: 18px;
-    line-height: 2.2; /* Alineado con las líneas */
-    padding: 0 10px;
-    outline: none;
-    position: relative;
-    z-index: 2;
-    color: #333;
-}
-
-.lineas-decorativas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(transparent 95%, #ccc 95%);
-    background-size: 100% 40px; /* Ajusta esto para que coincida con el line-height */
-    z-index: 1;
-    pointer-events: none;
-}
-
-.nota-ia {
-    margin-top: 30px;
-    font-size: 15px;
-    color: #888;
-    line-height: 1.6;
-}
-
-.nota-ia strong {
-    color: #555;
-}
-
-/* IMAGEN DE LA DERECHA */
-.columna-imagen-ia {
-    flex: 1;
-}
-
-.imagen-ia-decorativa {
-    width: 100%;
-    border-radius: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-/* BOTÓN FINAL CON DEGRADADO */
-.contenedor-accion-final {
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
-}
-
-.boton-publicacion-ia {
-    background: linear-gradient(135deg, #001a2c 0%, #0081c2 100%);
-    color: white;
-    padding: 15px 40px;
-    border: none;
-    border-radius: 12px;
-    font-size: 18px;
-    font-family: 'Lora', serif;
-    cursor: pointer;
-    box-shadow: 0 5px 20px rgba(0, 129, 194, 0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.boton-publicacion-ia:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 129, 194, 0.4);
-}
-
-
-.campo-edicion-final {
-    max-width: 800px;
-    margin: 20px auto;
-    border: 2px solid #0081c2;
-    border-radius: 15px;
-    padding: 15px;
-    background: #f9f9f9;
-}
-
-#texto-ia-editable {
-    width: 100%;
-    border: none;
-    background: transparent;
-    font-family: 'Lora', serif;
-    font-size: 17px;
-    outline: none;
-    resize: vertical;
-}
-
-.boton-confirmar-publicacion {
-    background: #25D366; /* Verde tipo éxito */
-    color: white;
-    padding: 15px 35px;
-    border: none;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.boton-confirmar-publicacion:hover {
-    background: #128C7E;
-    transform: scale(1.05);
-}
-
-
-
-/* NUEVA CONSOLA CANVA IA */
-.consola-canva-ia {
-    max-width: 800px;
-    margin: 0 auto;
-    background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-    overflow: hidden;
-    border: 1px solid #eee;
-}
-
-.caja-input-canva {
-    padding: 30px;
-    position: relative;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-#prompt-diseno {
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 15px;
-    padding: 20px 50px 20px 20px;
-    font-family: 'Lora', serif;
-    font-size: 16px;
-    resize: none;
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-#prompt-diseno:focus {
-    border-color: #8b3dff;
-}
-
-.limpiar-prompt {
-    position: absolute;
-    right: 50px;
-    top: 50px;
-    background: #eee;
-    border: none;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    color: #666;
-}
-
-.acciones-input {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.btn-ia-canva {
-    padding: 12px 35px;
-    border-radius: 10px;
-    border: none;
-    font-family: 'Lora', serif;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.btn-ia-canva.sparkle {
-    background: white;
-    color: #333;
-    border: 1px solid #ddd;
-}
-
-.btn-ia-canva.buscar {
-    background: #8b3ffc; /* Morado Canva */
-    color: white;
-}
-
-.btn-ia-canva:hover {
-    transform: scale(1.02);
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background-color: #ffffff; color: #333; font-family: 'Lora', serif; line-height: 1.6; }
 
-/* RESULTADO PREVIEW */
-.resultado-diseno-canva {
-    background: #f8f9fa;
-    padding: 40px;
-}
-
-.status-diseno {
-    font-size: 18px;
-    margin-bottom: 20px;
-    color: #444;
-}
-
-.preview-card {
-    background: #000; /* Fondo negro elegante como tu imagen */
-    width: 280px;
-    margin: 0 auto;
-    border-radius: 12px;
-    padding: 20px;
-    color: white;
-    text-align: left;
-}
-
-.tag-derecho {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 24px;
-    display: block;
-    border-bottom: 1px solid rgba(255,255,255,0.3);
-    margin-bottom: 5px;
-}
+.encabezado-simple { padding: 20px 5%; }
+.contenedor-logo { display: flex; align-items: center; gap: 10px; }
+.logo-admin { width: 50px; }
+.nombre-firma { font-family: 'Cinzel Decorative', serif; font-size: 20px; letter-spacing: 2px; font-weight: bold; }
 
-.titulo-preview {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 20px;
-    line-height: 1.1;
-    margin-bottom: 15px;
-}
+.contenedor-principal { max-width: 1200px; margin: 0 auto; padding: 20px; text-align: center; }
 
-.sub-preview {
-    font-size: 8px;
-    letter-spacing: 1px;
-    color: #ccc;
-    margin-bottom: 20px;
-}
+.titulo-principal { font-family: 'Cinzel Decorative', serif; font-size: 42px; }
+.subtitulo-pregunta { font-size: 28px; color: #888; margin-bottom: 40px; }
 
-.imagen-preview-placeholder {
-    width: 100%;
-    height: 180px;
-    background: #222;
-    border-radius: 8px;
-    overflow: hidden;
-    position: relative;
+.malla-redes { 
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; 
+    background-color: #f0f2f5; padding: 40px 20px; border-radius: 10px; 
 }
 
-.img-canva-interna {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.7;
+.tarjeta-red-admin { 
+    background: white; padding: 25px 15px; border-radius: 15px; 
+    cursor: pointer; transition: 0.3s; border: 2px solid transparent; 
 }
+.tarjeta-red-admin.seleccionada { border-color: #0081c2; background-color: #f8fbff; }
+.tarjeta-red-admin i { font-size: 35px; margin-bottom: 15px; }
+.icono-whatsapp { color: #25D366; } .icono-linkedin { color: #0077b5; }
 
-.marca-agua {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-15deg);
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 30px;
-    opacity: 0.2;
+/* SECCION CANVA */
+.titulo-seccion { font-family: 'Cinzel Decorative', serif; font-size: 32px; margin: 60px 0 30px; }
+.bloque-plantilla { 
+    display: flex; align-items: center; justify-content: center; gap: 50px; 
+    max-width: 900px; margin: 0 auto; text-align: left; 
 }
-
-.footer-ia-canva {
-    margin-top: 30px;
-    font-size: 13px;
-    color: #666;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+.imagen-muestra { width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.boton-negro { 
+    background: #000; color: #fff; padding: 12px 25px; border: none; 
+    border-radius: 8px; cursor: pointer; font-family: 'Lora', serif; font-size: 16px;
 }
-
 
-
-.consola-canva-real {
-    background: #fdfdfd;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    padding: 40px;
-    max-width: 600px;
-    margin: 0 auto;
+/* BUSCADOR */
+.barra-busqueda-admin { 
+    display: flex; align-items: center; background: #000; 
+    border-radius: 50px; padding: 10px 25px; max-width: 700px; margin: 0 auto; 
 }
+.entrada-admin { flex: 1; background: transparent; border: none; color: #fff; outline: none; font-size: 16px; }
+.boton-buscar-admin { background: #fff; color: #000; border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; }
 
-#imagen-resultado {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 25px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+/* IA Y CUADERNO */
+.contenedor-ia-flexible { display: flex; gap: 40px; margin-top: 40px; }
+.columna-escritura { flex: 1.5; text-align: left; }
+.campo-texto-lineas { position: relative; width: 100%; }
+#texto-publicacion { 
+    width: 100%; background: transparent; border: none; resize: none; 
+    font-family: 'Lora', serif; font-size: 18px; line-height: 2.2; outline: none; 
 }
-
-.canva-button {
-    margin: 0 auto;
-    display: inline-block;
+.lineas-decorativas { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+    background-image: linear-gradient(transparent 95%, #ccc 95%); background-size: 100% 40px; z-index: -1; 
 }
 
-
-
-
-/* RESPONSIVE PARA ESTA SECCIÓN */
-@media (max-width: 850px) {
-    .contenedor-ia-flexible {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .columna-escritura {
-        text-align: center;
-    }
-    
-    .columna-imagen-ia {
-        width: 80%;
-        margin: 0 auto;
-    }
+.boton-publicacion-ia { 
+    background: linear-gradient(135deg, #001a2c 0%, #0081c2 100%); color: #fff; 
+    padding: 15px 40px; border: none; border-radius: 12px; font-size: 18px; cursor: pointer; margin-top: 30px;
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
-    .malla-redes { grid-template-columns: repeat(2, 1fr); }
-    .bloque-plantilla { flex-direction: column; text-align: center; }
-}
+.campo-edicion-final { border: 2px solid #0081c2; border-radius: 15px; padding: 15px; margin: 20px auto; max-width: 800px; }
+#texto-ia-editable { width: 100%; border: none; outline: none; font-family: 'Lora', serif; font-size: 17px; }
+.boton-confirmar-publicacion { background: #25D366; color: #fff; padding: 15px 30px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
 
-@media (max-width: 600px) {
-    .malla-redes { grid-template-columns: 1fr; }
-    .titulo-principal { font-size: 32px; }
-}
+@media (max-width: 850px) { .contenedor-ia-flexible, .bloque-plantilla { flex-direction: column; } .malla-redes { grid-template-columns: repeat(2, 1fr); } }
