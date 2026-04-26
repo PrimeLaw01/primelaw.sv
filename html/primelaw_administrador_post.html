@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador de Publicaciones | Prime Law</title>
+    <link rel="stylesheet" href="../css/primelaw_administrador_post.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="encabezado-simple">
+        <div class="contenedor-logo">
+            <img src="../images/logo-sin-fondo.png" alt="Logo Prime Law" class="logo-admin">
+            <span class="nombre-firma">PRIME LAW</span>
+        </div>
+    </header>
+
+    <main class="contenedor-principal">
+        <section class="seccion-publicar">
+            <h1 class="titulo-principal">¿LISTO PARA PUBLICAR?</h1>
+            <p class="subtitulo-pregunta">¿En qué red social harás tu publicación?</p>
+            
+            <p class="instruccion">Elije 1 o más</p>
+            
+            <div class="malla-redes">
+                <div class="tarjeta-red-admin" onclick="toggleSeleccion(this)">
+                    <i class="fa-brands fa-whatsapp icono-whatsapp"></i>
+                    <h4>WhatsApp</h4>
+                    <p>Asesoría inmediata y consultas rápidas directamente con nuestros expertos.</p>
+                </div>
+                <div class="tarjeta-red-admin" onclick="toggleSeleccion(this)">
+                    <i class="fa-brands fa-linkedin-in icono-linkedin"></i>
+                    <h4>LinkedIn</h4>
+                    <p>Artículos jurídicos y actualidad corporativa para empresas líderes.</p>
+                </div>
+                <div class="tarjeta-red-admin" onclick="toggleSeleccion(this)">
+                    <i class="fa-brands fa-instagram icono-instagram"></i>
+                    <h4>Instagram</h4>
+                    <p>Cápsulas informativas sobre qué es el derecho y procesos legales.</p>
+                </div>
+                <div class="tarjeta-red-admin" onclick="toggleSeleccion(this)">
+                    <i class="fa-brands fa-facebook-f icono-facebook"></i>
+                    <h4>Facebook</h4>
+                    <p>Eventos legales, noticias de la firma y nuestra comunidad jurídica.</p>
+                </div>
+                <div class="tarjeta-red-admin" onclick="toggleSeleccion(this)">
+                    <i class="fa-brands fa-tiktok icono-tiktok"></i>
+                    <h4>TikTok</h4>
+                    <p>Cápsulas legales rápidas y consejos prácticos para su día a día.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="seccion-plantilla">
+            <h2 class="titulo-seccion">Diseño Profesional con Canva</h2>
+            
+            <div class="consola-canva-real">
+                <div id="contenedor-diseno-final">
+                    <img id="imagen-resultado" src="../images/ejemplo-plantilla.png" alt="Tu diseño aparecerá aquí">
+                </div>
+
+                <div class="canva-embed-control">
+                    <p>Haz clic para abrir el editor profesional y crear tu post:</p>
+                    <div class="canva-button" 
+                        data-type="social_media" 
+                        data-apiKey="TU_API_KEY_AQUI">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="seccion-busqueda-tema">
+            <h2 class="titulo-seccion">¿Sobre qué quieres hablar?</h2>
+            
+            <div class="barra-busqueda-admin">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Derecho Civil u otro tipo de Derecho" class="entrada-admin">
+                <span class="opcion-ver">Ver opciones</span>
+                <button class="boton-buscar-admin">Buscar</button>
+            </div>
+        </section>
+
+        <section class="seccion-ia-generacion">
+            <div class="contenedor-ia-flexible">
+                
+                <div class="columna-escritura">
+                    <p class="instruccion-ia">Escribe brevemente sobre lo que quieres hablar en el siguiente apartado:</p>
+                    
+                    <div class="campo-texto-lineas">
+                        <textarea id="texto-publicacion" rows="6" placeholder="Ej. Los beneficios del Derecho Administrativo en las empresas..."></textarea>
+                        <div class="lineas-decorativas"></div>
+                    </div>
+
+                    <p class="nota-ia">
+                        Esta parte se sumará a la plantilla gracias a inteligencia artificial con <strong>n8n</strong>. 
+                        La información ya incluída en la página web principal ayuda a que esto sea posible y no se necesite especificar tanto en el apartado anterior.
+                    </p>
+                </div>
+
+                <div class="columna-imagen-ia">
+                    <img src="../images/balanza-justicia-ia.png" alt="Justicia IA" class="imagen-ia-decorativa">
+                </div>
+
+            </div>
+
+            <button class="boton-publicacion-ia" onclick="verPosiblePublicacion()">
+                Ver posible publicación
+            </button>
+
+            <div id="contenedor-edicion-ia" style="display: none; margin-top: 50px;">
+                <h3 class="titulo-seccion">Propuesta de la IA</h3>
+                <p class="instruccion-ia">Puedes editar el texto final aquí antes de publicar:</p>
+                
+                <div class="campo-edicion-final">
+                    <textarea id="texto-ia-editable" rows="5"></textarea>
+                </div>
+
+                <button class="boton-confirmar-publicacion" onclick="confirmarEnvioFinal()">
+                    <i class="fa-solid fa-paper-plane"></i> Confirmar y Publicar ahora
+                </button>
+            </div>
+
+        </section>
+
+
+    </main>
+
+    
+
+    
+    <script src="../js/primelaw_administrador_post.js"></script>
+
+    <script>
+        function toggleSeleccion(elemento) {
+            elemento.classList.toggle('seleccionada');
+        }
+    </script>
+
+    <script>(function(async, s, script) { var js, fjs = s.getElementsByTagName(script)[0]; if (s.getElementById(async)) return; js = s.createElement(script); js.id = async; js.src = "https://sdk.canva.com/v1/embed.js"; fjs.parentNode.insertBefore(js, fjs); }("canva-sdk", document, "script"));</script>
+
+    <script>
+    window.onCanvaPublish = function (userDesign) {
+        // Esta función se ejecuta cuando le das a "Publicar" dentro de Canva
+        console.log("Diseño recibido de Canva:", userDesign.url);
+        
+        // Cambiamos la imagen de nuestra web por la que acabas de diseñar
+        const imgResultado = document.getElementById('imagen-resultado');
+        imgResultado.src = userDesign.url;
+        
+        alert("¡Diseño importado con éxito a Prime Law!");
+    };
+    </script>
+
+
+</body>
+</html>
