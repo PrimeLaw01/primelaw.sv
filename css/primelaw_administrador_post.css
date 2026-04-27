@@ -253,9 +253,27 @@ h1, h2, h3 {
     max-width: 90%;
 }
 
+#preview-lista-contenedor {
+    position: absolute;
+    top: 240px;
+    left: 40px;
+    min-width: 200px;
+    z-index: 10;
+    pointer-events: auto;
+    cursor: move;
+    display: block !important;
+}
+
+#preview-viñetas {
+    list-style-type: disc;
+    margin-left: 20px;
+    color: inherit;
+}
+
 #preview-titulo:hover, 
 #preview-subtitulo:hover, 
-#preview-info:hover {
+#preview-info:hover ,
+.seccion-lista:hover {
     border: 1px dashed var(--oro-prime);
     cursor: move;
 }

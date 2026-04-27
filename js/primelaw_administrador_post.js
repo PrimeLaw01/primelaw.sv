@@ -136,5 +136,6 @@ window.onload = function() {
     habilitarArrastre('preview-subtitulo');
     habilitarArrastre('preview-info');
     habilitarArrastre('preview-viñetas');
+    habilitarArrastre('preview-lista-contenedor');
     actualizarLienzo();
 };
