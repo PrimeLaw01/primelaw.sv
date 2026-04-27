@@ -1,4 +1,4 @@
-/* --- VARIABLES DE MARCA --- */
+/* --- VARIABLES Y BASES --- */
 :root {
     --oro-prime: #c5a059;
     --oro-dark: #a3813d;
@@ -6,328 +6,229 @@
     --azul-suave: #002a46;
     --gris-fondo: #f8f9fa;
     --blanco: #ffffff;
-    --sombra-premium: 0 10px 30px rgba(0, 0, 0, 0.15);
+    --sombra-premium: 0 12px 40px rgba(0, 0, 0, 0.2);
 }
 
-/* --- ESTILOS BASE --- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { 
     background-color: var(--blanco); 
     font-family: 'Montserrat', sans-serif; 
     color: var(--azul-prime); 
-    line-height: 1.6;
-}
-
-/* --- HEADER --- */
-.encabezado-simple { 
-    padding: 15px 5%; 
-    background: var(--azul-prime);
-    color: var(--blanco);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.contenedor-logo { display: flex; align-items: center; gap: 15px; }
-.logo-admin { width: 40px; filter: brightness(1.2); }
-.nombre-firma { 
-    font-family: 'Cinzel Decorative', serif; 
-    font-weight: bold; 
-    letter-spacing: 3px; 
-    font-size: 1.2rem;
-}
-
-/* --- CONTENEDOR PRINCIPAL --- */
-.contenedor-principal { 
-    max-width: 1200px; 
-    margin: 40px auto; 
-    padding: 0 20px; 
 }
 
 /* --- ESTRUCTURA DE PASOS --- */
+.contenedor-principal { max-width: 1300px; margin: 40px auto; padding: 0 20px; }
+
 .seccion-paso {
     position: relative;
     padding-left: 60px;
     margin-bottom: 80px;
     border-left: 2px solid #eee;
-    transition: 0.3s;
 }
 
 .indicador-etapa {
     position: absolute;
-    left: -21px;
-    top: 0;
-    width: 40px;
-    height: 40px;
+    left: -21px; top: 0;
+    width: 40px; height: 40px;
     background: var(--oro-prime);
     color: var(--azul-prime);
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-family: 'Cinzel Decorative', serif;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold; font-family: 'Cinzel Decorative', serif;
     box-shadow: 0 4px 10px rgba(197, 160, 89, 0.4);
 }
 
 .titulo-etapa {
     font-family: 'Cinzel Decorative', serif;
     color: var(--azul-prime);
-    font-size: 1.5rem;
     margin-bottom: 30px;
     letter-spacing: 1px;
 }
 
-/* --- PASO 1: EDICIÓN Y LIENZO --- */
+/* --- PANEL DE HERRAMIENTAS (PASO 1) --- */
 .malla-edicion-paso1 {
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
+    grid-template-columns: 400px 1fr;
     gap: 40px;
-    align-items: start;
 }
 
-/* Controles */
-.controles-flujo {
-    background: var(--gris-fondo);
-    padding: 25px;
-    border-radius: 15px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-.grupo-input.full { grid-column: span 2; }
-
-.grupo-input label {
-    display: block;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    color: #666;
-}
-
-.grupo-input input, .grupo-input textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-family: 'Lora', serif;
-    transition: 0.3s;
-}
-
-.grupo-input input:focus { border-color: var(--oro-prime); outline: none; }
-
-/* Visualizador de Imagen */
-.visualizador-premium {
-    background: #e9ecef;
-    padding: 40px;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: sticky;
-    top: 20px;
-}
-
-.selector-formato-flotante {
-    margin-bottom: 20px;
-    display: flex;
-    gap: 10px;
-}
-
-.btn-formato {
-    background: var(--blanco);
-    border: 1px solid #ddd;
-    padding: 8px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.btn-formato.activo {
-    background: var(--azul-prime);
-    color: var(--oro-prime);
-    border-color: var(--oro-prime);
-}
-
-/* --- ESTILOS DEL LIENZO (POST) --- */
-.lienzo-post { 
-    position: relative; 
-    overflow: hidden; 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
-    padding: 40px;
-    box-shadow: var(--sombra-premium);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Tamaños */
-.formato-cuadrado { width: 450px; height: 450px; }
-.formato-horizontal { width: 500px; height: 281px; }
-
-.contenido-post { position: relative; z-index: 2; text-align: left; }
-.capa-fondo { position: absolute; top:0; left:0; width:100%; height:100%; background-size: cover; background-position: center; z-index: 1; opacity: 0.4; }
-
-/* Plantillas */
-.prime-classic { background: var(--azul-prime); color: var(--blanco); border: 8px solid var(--oro-prime); }
-.prime-classic h1 { font-family: 'Cinzel Decorative', serif; color: var(--oro-prime); font-size: 2.2rem; }
-
-.marca-agua { position: absolute; bottom: 15px; right: 20px; font-size: 12px; font-weight: bold; opacity: 0.5; letter-spacing: 2px; }
-
-/* --- PASO 2: REDES SOCIALES --- */
-.malla-redes-pasos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
-}
-
-.tarjeta-red-admin {
-    background: var(--gris-fondo);
-    padding: 25px;
-    border-radius: 15px;
-    text-align: center;
-    cursor: pointer;
-    transition: 0.3s;
-    border: 2px solid transparent;
-}
-
-.tarjeta-red-admin i { font-size: 2rem; margin-bottom: 10px; color: var(--azul-prime); }
-
-.tarjeta-red-admin:hover { transform: translateY(-5px); background: #f0f0f0; }
-
-.tarjeta-red-admin.seleccionada {
-    border-color: var(--oro-prime);
-    background: rgba(197, 160, 89, 0.1);
-}
-
-.tarjeta-red-admin.seleccionada i { color: var(--oro-prime); }
-
-/* --- PASO 3: DESPLIEGUE FINAL --- */
-.panel-despliegue-final {
-    background: var(--azul-prime);
-    padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-    color: var(--blanco);
-}
-
-.instruccion-final {
-    margin-bottom: 25px;
-    font-style: italic;
-    opacity: 0.8;
-    font-size: 0.9rem;
-}
-
-.btn-ejecutar-final {
-    background: linear-gradient(135deg, var(--oro-prime) 0%, var(--oro-dark) 100%);
-    color: var(--azul-prime);
-    padding: 20px 60px;
-    border: none;
-    border-radius: 50px;
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.4s;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-}
-
-.btn-ejecutar-final:hover {
-    transform: scale(1.05) translateY(-3px);
-    box-shadow: 0 15px 30px rgba(197, 160, 89, 0.4);
-}
-
-.notificacion-oculta {
-    display: none;
-    margin-top: 25px;
-    color: var(--oro-prime);
-    font-weight: bold;
-    padding: 10px;
-    border: 1px solid var(--oro-prime);
-    border-radius: 8px;
-    animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-/* Responsivo */
-@media (max-width: 900px) {
-    .malla-edicion-paso1 { grid-template-columns: 1fr; }
-    .visualizador-premium { position: relative; top: 0; }
-    .formato-cuadrado { width: 100%; height: 350px; }
-}
-
-
-
-.caja-herramienta h3 {
-    font-size: 11px;
-    text-transform: uppercase;
-    color: var(--oro-dark);
-    margin-bottom: 10px;
-    letter-spacing: 1px;
-}
-
-.ventana-interna-mini {
-    width: 100%;
-    height: 450px; /* Aumentamos la altura significativamente */
-    border: none;
-    border-radius: 8px;
-    background: white;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
-    
-    transform: scale(0.9);
-    transform-origin: 0 0; 
-    width: 111.1%;
-}
-
-/* Mejoramos el contenedor para que respire */
 .caja-herramienta {
     background: var(--gris-fondo);
     padding: 20px;
     border-radius: 12px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     border: 1px solid #e1e1e1;
 }
 
-/* Galería de Plantillas */
-.galeria-plantillas {
-    display: flex;
-    gap: 15px;
+.caja-herramienta h3 {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--oro-dark);
+    margin-bottom: 12px;
 }
 
-.mini-prev {
-    width: 45px;
-    height: 30px;
-    border-radius: 4px;
-    cursor: pointer;
-    border: 2px solid #ddd;
-    transition: 0.3s;
+.ventana-interna-mini {
+    width: 100%;
+    height: 400px;
+    border-radius: 8px;
+    border: none;
+    background: white;
 }
 
-.opcion-plantilla.activa .mini-prev {
-    border-color: var(--oro-prime);
-    transform: scale(1.1);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
+/* Plantillas */
+.galeria-plantillas { display: flex; gap: 12px; margin-bottom: 10px; }
+.mini-prev { width: 50px; height: 35px; border-radius: 4px; cursor: pointer; border: 2px solid #ddd; }
+.opcion-plantilla.activa .mini-prev { border-color: var(--oro-prime); transform: scale(1.1); }
 .classic { background: var(--azul-prime); }
 .light { background: #fff; }
 .impact { background: var(--oro-prime); }
 
-/* Estilos de la Lista en el Lienzo */
-.seccion-lista {
-    margin-top: 15px;
+/* Formulario */
+.controles-flujo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grupo-input.full { grid-column: span 2; }
+.grupo-input label { display: block; font-size: 11px; font-weight: bold; margin-bottom: 5px; color: #666; }
+.grupo-input input, .grupo-input textarea {
+    width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: 'Lora', serif;
 }
 
-#preview-viñetas {
-    margin-top: 5px;
-    padding-left: 20px;
-    font-size: 0.9rem;
+/* --- VISUALIZADOR DEL LIENZO --- */
+.visualizador-premium {
+    background: #e9ecef;
+    padding: 50px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky; top: 20px;
 }
 
-#preview-viñetas li {
-    margin-bottom: 3px;
+.btn-formato {
+    background: white; border: 1px solid #ddd; padding: 8px 20px;
+    border-radius: 20px; cursor: pointer; margin: 0 5px 20px; font-weight: bold;
+}
+.btn-formato.activo { background: var(--azul-prime); color: var(--oro-prime); border-color: var(--oro-prime); }
+
+/* El Lienzo */
+.lienzo-post { 
+    position: relative; 
+    overflow: hidden; 
+    box-shadow: var(--sombra-premium);
+    transition: all 0.4s ease;
+    padding: 40px;
+}
+
+.formato-cuadrado { width: 500px; height: 500px; }
+.formato-horizontal { width: 600px; height: 337px; }
+
+/* Elementos Movibles */
+#preview-titulo, #preview-subtitulo, #preview-info, .seccion-lista {
+    position: absolute; /* Para libertad de movimiento */
+    cursor: move;
+    width: 80%;
+}
+
+#preview-titulo { top: 40px; left: 40px; font-family: 'Cinzel Decorative', serif; font-size: 2.2rem; }
+#preview-subtitulo { top: 110px; left: 40px; font-size: 1.2rem; }
+#preview-info { top: 160px; left: 40px; font-family: 'Lora', serif; }
+.seccion-lista { top: 240px; left: 40px; }
+
+/* Estilos de Plantilla */
+.prime-classic { background: var(--azul-prime); color: white; border: 8px solid var(--oro-prime); }
+.prime-light { background: white; color: var(--azul-prime); border: 1px solid #ddd; }
+.prime-impact { background: var(--oro-prime); color: var(--azul-prime); }
+
+.capa-fondo { position: absolute; top:0; left:0; width:100%; height:100%; background-size: cover; z-index: 0; opacity: 0.3; pointer-events: none; }
+.contenido-post { position: relative; z-index: 2; height: 100%; width: 100%; }
+.marca-agua { position: absolute; bottom: 15px; right: 20px; font-size: 12px; opacity: 0.5; }
+
+/* --- PASO 2 Y 3 --- */
+.malla-redes-pasos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.tarjeta-red-admin {
+    background: var(--gris-fondo); padding: 20px; border-radius: 12px;
+    text-align: center; cursor: pointer; border: 2px solid transparent; transition: 0.3s;
+}
+.tarjeta-red-admin.seleccionada { border-color: var(--oro-prime); background: rgba(197, 160, 89, 0.1); }
+
+.panel-despliegue-final {
+    background: #001a2c;
+    padding: 60px 40px; /* Aumentamos el padding vertical para dar más aire */
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    border: 1px solid rgba(197, 160, 89, 0.2); /* Borde sutil dorado */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; /* Espacio automático entre el texto y el botón */
+}
+
+.instruccion-final {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    max-width: 600px; /* Evita que el texto se estire demasiado a lo ancho */
+    line-height: 1.6;
+    opacity: 0.9;
+    margin: 0 auto;
+}
+
+
+.btn-ejecutar-final {
+    background: linear-gradient(135deg, #c5a059 0%, #a3813d 100%);
+    color: #001a2c;
+    padding: 22px 50px;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-ejecutar-final:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(197, 160, 89, 0.3);
+    filter: brightness(1.1);
+}
+
+.btn-ejecutar-final i {
+    font-size: 1.3rem;
+}
+
+
+.notificacion-oculta { display: none; margin-top: 20px; color: var(--oro-prime); font-weight: bold; }
+
+/* --- CORRECCIÓN DEL HEADER --- */
+.encabezado-simple { 
+    padding: 10px 5%; 
+    background: #001a2c; /* Fondo azul oscuro de la firma */
+    display: flex;
+    justify-content: flex-start; /* Alinea logo y nombre a la izquierda */
+    align-items: center;
+    border-bottom: 2px solid #c5a059; /* Línea dorada sutil */
+    height: 70px; /* Altura fija para control */
+}
+
+.contenedor-logo { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+}
+
+.logo-admin { 
+    height: 50px; /* Tamaño controlado del logo */
+    width: auto;
+}
+
+.nombre-firma { 
+    font-family: 'Cinzel Decorative', serif; 
+    font-weight: bold; 
+    letter-spacing: 3px; 
+    font-size: 1.4rem;
+    color: #c5a059; /* Nombre en dorado */
 }
