@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador de Publicaciones | Prime Law</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="../css/inicio.css">
     <link rel="stylesheet" href="../css/primelaw_administrador_post.css">
-
-    <script src="https://sdk.canva.com/v1/embed.js"></script>
-    <script src="https://sdk.canva.com/design-button.js"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-    
 </head>
 <body>
 
@@ -24,142 +21,128 @@
     </header>
 
     <main class="contenedor-principal">
-        <section class="seccion-publicar">
-            <h1 class="titulo-principal">¿LISTO PARA PUBLICAR?</h1>
-            <p class="subtitulo-pregunta">¿En qué red social harás tu publicación?</p>
-            <p class="instruccion">Elije 1 o más</p>
+        
+        <section class="seccion-paso" id="paso-diseno">
+            <div class="indicador-etapa">01</div>
+            <h2 class="titulo-etapa">CENTRAL DE DISEÑO LEGAL</h2>
             
-            <div class="malla-redes">
-                <div class="tarjeta-red-admin" onclick="toggleSeleccion(this)">
-                    <i class="fa-brands fa-whatsapp icono-whatsapp"></i>
-                    <h4>WhatsApp</h4>
-                    <p>Asesoría inmediata y consultas rápidas directamente.</p>
-                </div>
-                <div class="tarjeta-red-admin" onclick="toggleSeleccion(this)">
-                    <i class="fa-brands fa-linkedin-in icono-linkedin"></i>
-                    <h4>LinkedIn</h4>
-                    <p>Artículos jurídicos y actualidad corporativa.</p>
-                </div>
-                <div class="tarjeta-red-admin" onclick="toggleSeleccion(this)">
-                    <i class="fa-brands fa-instagram icono-instagram"></i>
-                    <h4>Instagram</h4>
-                    <p>Cápsulas informativas sobre qué es el derecho.</p>
-                </div>
-                <div class="tarjeta-red-admin" onclick="toggleSeleccion(this)">
-                    <i class="fa-brands fa-facebook-f icono-facebook"></i>
-                    <h4>Facebook</h4>
-                    <p>Eventos legales y nuestra comunidad jurídica.</p>
-                </div>
-                <div class="tarjeta-red-admin" onclick="toggleSeleccion(this)">
-                    <i class="fa-brands fa-tiktok icono-tiktok"></i>
-                    <h4>TikTok</h4>
-                    <p>Cápsulas legales rápidas y consejos prácticos.</p>
-                </div>
-            </div>
-        </section>
+            <div class="malla-edicion-paso1">
+                <div class="panel-herramientas">
+                    
+                    <div class="caja-herramienta">
+                        <h3><i class="fa-solid fa-magnifying-glass-chart"></i> Consulta de Contenidos Prime Law</h3>
+                        <p style="font-size: 11px; color: #888; margin-bottom: 10px;">Desliza para copiar textos de servicios existentes</p>
+                        <iframe src="https://primelawsv.vercel.app/html/areas.html" class="ventana-interna-mini"></iframe>
+                    </div>
 
-        <section class="seccion-plantilla">
-            <h2 class="titulo-seccion">Diseño Profesional</h2>
-            <div class="bloque-plantilla">
-                <div class="texto-plantilla">
-                    <h3>MAGIC STUDIO BY CANVA</h3>
-                    <p>Crea tu post visual con herramientas profesionales sin salir de Prime Law.</p>
-                    <button class="boton-negro" onclick="abrirEditorCanva()">
-                        <i class="fa-solid fa-palette"></i> Diseñar en Canva
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <section class="seccion-busqueda-tema">
-            <h2 class="titulo-seccion">¿Sobre qué quieres hablar?</h2>
-        </section>
-
-        <section class="seccion-herramientas-apoyo">
-            <h2 class="titulo-seccion">CONSULTA DE ÁREAS LEGALES</h2>
-            
-            <div class="contenedor-herramientas-mixtas">
-                <div class="bloque-consulta-web">
-                    <h3><i class="fa-solid fa-book-scale"></i> Portafolio de Servicios</h3>
-                    <iframe 
-                        src="https://primelawsv.vercel.app/html/areas.html" 
-                        class="ventana-interna"
-                        title="Áreas Legales Prime Law">
-                    </iframe>
-                </div>
-
-                <div class="bloque-editor-rapido">
-                    <h3><i class="fa-solid fa-pen-nib"></i> Redacción de Post</h3>
-                    <div class="controles-compactos">
-                        <input type="text" id="input-titulo" placeholder="Título" oninput="actualizarLienzo()">
-                        <textarea id="input-info" placeholder="Información del derecho..." oninput="actualizarLienzo()"></textarea>
+                    <div class="caja-herramienta">
+                        <h3><i class="fa-solid fa-palette"></i> Estilo de Plantilla</h3>
+                        <div class="galeria-plantillas">
+                            <div class="opcion-plantilla activa" onclick="cambiarPlantilla('prime-classic', this)">
+                                <div class="mini-prev classic"></div>
+                            </div>
+                            <div class="opcion-plantilla" onclick="cambiarPlantilla('prime-light', this)">
+                                <div class="mini-prev light"></div>
+                            </div>
+                            <div class="opcion-plantilla" onclick="cambiarPlantilla('prime-impact', this)">
+                                <div class="mini-prev impact"></div>
+                            </div>
                         </div>
-                </div>
-            </div>
-        </section>
+                    </div>
 
-        <section class="seccion-editor-plantilla">
-            <h2 class="titulo-seccion">Editor de Contenido Visual</h2>
-            
-            <div class="contenedor-editor">
-                <div class="columna-vista-previa">
-                    <div id="lienzo-publicacion" class="lienzo-post">
-                        <div class="capa-fondo" id="fondo-post"></div>
+                    <div class="controles-flujo">
+                        <div class="grupo-input full">
+                            <label>Título del Post</label>
+                            <input type="text" id="input-titulo" placeholder="Ej: Derecho Civil" oninput="actualizarLienzo()">
+                        </div>
+                        <div class="grupo-input full">
+                            <label>Subtítulo / Eslogan</label>
+                            <input type="text" id="input-subtitulo" placeholder="Ej: Asesoría Integral" oninput="actualizarLienzo()">
+                        </div>
+                        <div class="grupo-input full">
+                            <label>Cuerpo del Texto</label>
+                            <textarea id="input-info" rows="2" oninput="actualizarLienzo()"></textarea>
+                        </div>
+                        <div class="grupo-input">
+                            <label>Título de Lista</label>
+                            <input type="text" id="input-puntos" placeholder="Ej: Requisitos:" oninput="actualizarLienzo()">
+                        </div>
+                        <div class="grupo-input">
+                            <label>Viñetas (separa por comas)</label>
+                            <input type="text" id="input-viñetas" placeholder="Item 1, Item 2..." oninput="actualizarLienzo()">
+                        </div>
+                        <div class="grupo-input full">
+                            <label>Imagen de Fondo</label>
+                            <input type="file" id="subir-fondo" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="visualizador-premium">
+                    <div class="selector-formato-flotante">
+                        <button class="btn-formato activo" onclick="cambiarTamano('cuadrado', this)">Cuadrado</button>
+                        <button class="btn-formato" onclick="cambiarTamano('horizontal', this)">Horizontal</button>
+                    </div>
+
+                    <div id="lienzo-publicacion" class="lienzo-post prime-classic formato-cuadrado">
+                        <div id="fondo-post" class="capa-fondo"></div>
                         <div class="contenido-post">
-                            <h1 id="preview-titulo">Título de la Publicación</h1>
-                            <h2 id="preview-subtitulo">Subtítulo profesional</h2>
-                            <p id="preview-info">Aquí aparecerá la información sobre el derecho que elijas explicar.</p>
-                            
-                            <div id="preview-lista-puntos" class="seccion-lista">
+                            <h1 id="preview-titulo">Título</h1>
+                            <h2 id="preview-subtitulo">Subtítulo</h2>
+                            <p id="preview-info">Descripción...</p>
+                            <div class="seccion-lista">
                                 <strong id="preview-titulo-puntos"></strong>
                                 <ul id="preview-viñetas"></ul>
                             </div>
                         </div>
-                        <div class="marca-agua">PRIME LAW</div>
+                        <div class="marca-agua">PRIME LAW SV</div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="columna-controles">
-                    <div class="grupo-control">
-                        <label>Imagen de Fondo</label>
-                        <input type="file" id="subir-fondo" accept="image/*" class="input-archivo">
-                    </div>
+        <section class="seccion-paso" id="paso-redes">
+            <div class="indicador-etapa">02</div>
+            <h2 class="titulo-etapa">CANALES DE DIFUSIÓN</h2>
+            <div class="malla-redes-pasos">
+                <div class="tarjeta-red-admin" onclick="this.classList.toggle('seleccionada')">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <h4>WhatsApp</h4>
+                </div>
+                <div class="tarjeta-red-admin" onclick="this.classList.toggle('seleccionada')">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <h4>Facebook</h4>
+                </div>
+                <div class="tarjeta-red-admin" onclick="this.classList.toggle('seleccionada')">
+                    <i class="fa-brands fa-instagram"></i>
+                    <h4>Instagram</h4>
+                </div>
+                <div class="tarjeta-red-admin" onclick="this.classList.toggle('seleccionada')">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                    <h4>LinkedIn</h4>
+                </div>
+            </div>
+        </section>
 
-                    <div class="grupo-control">
-                        <label>Título Principal</label>
-                        <input type="text" id="input-titulo" placeholder="Ej: Derecho Administrativo" oninput="actualizarLienzo()">
-                    </div>
-
-                    <div class="grupo-control">
-                        <label>Subtítulo</label>
-                        <input type="text" id="input-subtitulo" placeholder="Ej: Guía rápida para ciudadanos" oninput="actualizarLienzo()">
-                    </div>
-
-                    <div class="grupo-control">
-                        <label>Información del Derecho</label>
-                        <textarea id="input-info" placeholder="Describe el concepto legal..." oninput="actualizarLienzo()"></textarea>
-                    </div>
-
-                    <div class="grupo-control">
-                        <label>Texto con dos puntos (Opcional)</label>
-                        <input type="text" id="input-puntos" placeholder="Ej: Requisitos:" oninput="actualizarLienzo()">
-                    </div>
-
-                    <div class="grupo-control">
-                        <label>Viñetas (separa con comas)</label>
-                        <textarea id="input-viñetas" placeholder="Punto 1, Punto 2, Punto 3..." oninput="actualizarLienzo()"></textarea>
-                    </div>
+        <section class="seccion-paso" id="paso-final">
+            <div class="indicador-etapa">03</div>
+            <h2 class="titulo-etapa">FINALIZAR Y PUBLICAR</h2>
+            <div class="panel-despliegue-final">
+                <p class="instruccion-final">Al procesar, se descargará la imagen y se copiará el texto legal automáticamente.</p>
+                <button class="btn-ejecutar-final" onclick="exportarYPublicar()">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> GENERAR Y ABRIR REDES
+                </button>
+                
+                <div id="notificacion-exito" class="notificacion-oculta">
+                    <i class="fa-solid fa-check-double"></i> 
+                    ¡Todo listo! Imagen en descargas y texto en portapapeles.
                 </div>
             </div>
         </section>
 
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/primelaw_administrador_post.js"></script>
-    <script>
-        function toggleSeleccion(elemento) {
-            elemento.classList.toggle('seleccionada');
-        }
-    </script>
 </body>
 </html>
