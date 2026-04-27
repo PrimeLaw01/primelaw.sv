@@ -101,7 +101,7 @@ function limpiarEntornoAdmin() {
 
             const estiloOcultar = document.createElement('style');
             estiloOcultar.innerHTML = `
-                header, .encabezado-simple, .encabezado-principal, .nav-container, #main-header { 
+                header, .encabezado-simple, .encabezado-principal, .nav-container, #main-header, .contenedor-regresar { 
                     display: none !important; 
                 }
                 body { 
