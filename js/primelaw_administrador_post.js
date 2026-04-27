@@ -45,7 +45,7 @@ function actualizarLienzo() {
     listaUl.innerHTML = "";
     
     if (viñetas) {
-        viñetas.split(',').forEach(p => {
+        viñetas.split(';').forEach(p => {
             const li = document.createElement('li');
             li.innerText = p.trim();
             listaUl.appendChild(li);
