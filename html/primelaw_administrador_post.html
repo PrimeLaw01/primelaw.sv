@@ -73,59 +73,83 @@
 
         <section class="seccion-busqueda-tema">
             <h2 class="titulo-seccion">¿Sobre qué quieres hablar?</h2>
-            <div class="barra-busqueda-admin">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Derecho Civil, Administrativo, etc." class="entrada-admin">
-                <button class="boton-buscar-admin">Buscar</button>
+        </section>
+
+        <section class="seccion-herramientas-apoyo">
+            <h2 class="titulo-seccion">CONSULTA DE ÁREAS LEGALES</h2>
+            
+            <div class="contenedor-herramientas-mixtas">
+                <div class="bloque-consulta-web">
+                    <h3><i class="fa-solid fa-book-scale"></i> Portafolio de Servicios</h3>
+                    <iframe 
+                        src="https://primelawsv.vercel.app/html/areas.html" 
+                        class="ventana-interna"
+                        title="Áreas Legales Prime Law">
+                    </iframe>
+                </div>
+
+                <div class="bloque-editor-rapido">
+                    <h3><i class="fa-solid fa-pen-nib"></i> Redacción de Post</h3>
+                    <div class="controles-compactos">
+                        <input type="text" id="input-titulo" placeholder="Título" oninput="actualizarLienzo()">
+                        <textarea id="input-info" placeholder="Información del derecho..." oninput="actualizarLienzo()"></textarea>
+                        </div>
+                </div>
             </div>
         </section>
 
-        <section class="seccion-ia-generacion">
-            <div class="contenedor-ia-flexible">
-                <div class="columna-escritura">
-                    <p class="instruccion-ia">Escribe tu idea base para el post:</p>
-                    <div class="campo-texto-lineas">
-                        <textarea id="texto-publicacion" rows="6" placeholder="Ej. Los beneficios del Derecho Administrativo..."></textarea>
-                        <div class="lineas-decorativas"></div>
+        <section class="seccion-editor-plantilla">
+            <h2 class="titulo-seccion">Editor de Contenido Visual</h2>
+            
+            <div class="contenedor-editor">
+                <div class="columna-vista-previa">
+                    <div id="lienzo-publicacion" class="lienzo-post">
+                        <div class="capa-fondo" id="fondo-post"></div>
+                        <div class="contenido-post">
+                            <h1 id="preview-titulo">Título de la Publicación</h1>
+                            <h2 id="preview-subtitulo">Subtítulo profesional</h2>
+                            <p id="preview-info">Aquí aparecerá la información sobre el derecho que elijas explicar.</p>
+                            
+                            <div id="preview-lista-puntos" class="seccion-lista">
+                                <strong id="preview-titulo-puntos"></strong>
+                                <ul id="preview-viñetas"></ul>
+                            </div>
+                        </div>
+                        <div class="marca-agua">PRIME LAW</div>
                     </div>
                 </div>
-            </div>
 
-            <button class="boton-publicacion-ia" onclick="verPosiblePublicacion()">
-                Ver posible publicación
-            </button>
+                <div class="columna-controles">
+                    <div class="grupo-control">
+                        <label>Imagen de Fondo</label>
+                        <input type="file" id="subir-fondo" accept="image/*" class="input-archivo">
+                    </div>
 
-            <div id="contenedor-edicion-ia" style="display: none; margin-top: 50px;">
-                <h3 class="titulo-seccion">Propuesta de la IA</h3>
-                <div class="campo-edicion-final">
-                    <textarea id="texto-ia-editable" rows="5"></textarea>
+                    <div class="grupo-control">
+                        <label>Título Principal</label>
+                        <input type="text" id="input-titulo" placeholder="Ej: Derecho Administrativo" oninput="actualizarLienzo()">
+                    </div>
+
+                    <div class="grupo-control">
+                        <label>Subtítulo</label>
+                        <input type="text" id="input-subtitulo" placeholder="Ej: Guía rápida para ciudadanos" oninput="actualizarLienzo()">
+                    </div>
+
+                    <div class="grupo-control">
+                        <label>Información del Derecho</label>
+                        <textarea id="input-info" placeholder="Describe el concepto legal..." oninput="actualizarLienzo()"></textarea>
+                    </div>
+
+                    <div class="grupo-control">
+                        <label>Texto con dos puntos (Opcional)</label>
+                        <input type="text" id="input-puntos" placeholder="Ej: Requisitos:" oninput="actualizarLienzo()">
+                    </div>
+
+                    <div class="grupo-control">
+                        <label>Viñetas (separa con comas)</label>
+                        <textarea id="input-viñetas" placeholder="Punto 1, Punto 2, Punto 3..." oninput="actualizarLienzo()"></textarea>
+                    </div>
                 </div>
-                <button class="boton-confirmar-publicacion" onclick="confirmarEnvioFinal()">
-                    <i class="fa-solid fa-paper-plane"></i> Confirmar y Publicar
-                </button>
-            </div>
-        </section>
-
-        <section class="seccion-herramientas-embebidas">
-            <h2 class="titulo-seccion">Herramientas de Apoyo</h2>
-            
-            <div class="bloque-iframe">
-                <h3><i class="fa-solid fa-palette"></i> Canva Studio (Diseño en vivo)</h3>
-                <div style="position: relative; width: 100%; height: 0; padding-top: 141.4286%;
-                padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
-                border-radius: 8px;意志-behavior: smooth;">
-                <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
-                    src="https://www.canva.com/design/DAHH6eQi2xE/HIHZJWPqcYgLTjnL1tNHPQ/view" allowfullscreen="allowfullscreen" allow="fullscreen">
-                </iframe>
-                </div>
-            </div>
-
-            <div class="bloque-iframe">
-                <h3><i class="fa-solid fa-robot"></i> Asistente Legal IA</h3>
-                <iframe 
-                    src="https://www.perplexity.ai/" 
-                    class="ventana-web">
-                </iframe>
             </div>
         </section>
 

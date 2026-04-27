@@ -36,6 +36,11 @@ function abrirEditorCanva() {
     }
 }
 
+function abrirVentana(url) {
+    // Abre la herramienta en una pestaña nueva para evitar bloqueos
+    window.open(url, '_blank');
+}
+
 // Sacamos la lógica a una función aparte para que sea más limpia
 function ejecutarCanva() {
     window.Canva.DesignButton.initialize({
@@ -146,3 +151,45 @@ async function enviarAPublicacion() {
         alert("¡Todo listo! Tu post y diseño han sido enviados para publicación.");
     }
 }
+
+
+
+
+
+
+// Función para actualizar la vista previa en tiempo real
+function actualizarLienzo() {
+    // Títulos e Info
+    document.getElementById('preview-titulo').innerText = document.getElementById('input-titulo').value || "Título de la Publicación";
+    document.getElementById('preview-subtitulo').innerText = document.getElementById('input-subtitulo').value || "Subtítulo profesional";
+    document.getElementById('preview-info').innerText = document.getElementById('input-info').value || "Información sobre el derecho...";
+    
+    // Lista con dos puntos
+    const tituloPuntos = document.getElementById('input-puntos').value;
+    document.getElementById('preview-titulo-puntos').innerText = tituloPuntos;
+
+    // Viñetas
+    const viñetasTexto = document.getElementById('input-viñetas').value;
+    const listaUl = document.getElementById('preview-viñetas');
+    listaUl.innerHTML = ""; // Limpiar lista
+    
+    if(viñetasTexto) {
+        const puntos = viñetasTexto.split(',');
+        puntos.forEach(punto => {
+            if(punto.trim() !== "") {
+                const li = document.createElement('li');
+                li.innerText = punto.trim();
+                listaUl.appendChild(li);
+            }
+        });
+    }
+}
+
+// Lógica para subir imagen de fondo
+document.getElementById('subir-fondo').addEventListener('change', function(e) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        document.getElementById('fondo-post').style.backgroundImage = `url('${event.target.result}')`;
+    };
+    reader.readAsDataURL(e.target.files[0]);
+});
