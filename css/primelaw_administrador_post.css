@@ -16,6 +16,12 @@ body {
     color: var(--azul-prime); 
 }
 
+h1, h2, h3 {
+    font-family: 'Lora', serif;
+    color: var(--azul-prime);
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
 /* --- ESTRUCTURA DE PASOS --- */
 .contenedor-principal { max-width: 1300px; margin: 40px auto; padding: 0 20px; }
 
@@ -39,7 +45,7 @@ body {
 }
 
 .titulo-etapa {
-    font-family: 'Cinzel Decorative', serif;
+    font-family: 'Lora', serif;
     color: var(--azul-prime);
     margin-bottom: 30px;
     letter-spacing: 1px;
@@ -178,7 +184,7 @@ body {
     padding: 22px 50px;
     border: none;
     border-radius: 50px;
-    font-family: 'Cinzel Decorative', serif;
+    font-family: 'Lora', serif;
     font-size: 1.1rem;
     font-weight: bold;
     letter-spacing: 1px;
@@ -231,4 +237,83 @@ body {
     letter-spacing: 3px; 
     font-size: 1.4rem;
     color: #c5a059; /* Nombre en dorado */
+}
+
+
+.malla-redes-pasos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 15px;
+}
+
+.tarjeta-red-admin {
+    background: #fdfdfd;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    /* Borde sutil y sombra de profundidad */
+    border: 1px solid #e0e0e0;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.05);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tarjeta-red-admin:hover {
+    transform: translateY(-3px);
+    border-color: #c5a059;
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+.tarjeta-red-admin i {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    color: #001a2c;
+    transition: color 0.3s;
+}
+
+.tarjeta-red-admin h4 {
+    font-size: 1rem;
+    color: #001a2c;
+    font-weight: 500;
+}
+
+/* --- ESTADO SELECCIONADO (CON RELIEVE DORADO) --- */
+.tarjeta-red-admin.seleccionada {
+    background: #fffdf9;
+    border: 2px solid #c5a059;
+    /* Sombra dorada suave */
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
+    transform: scale(1.03);
+}
+
+.tarjeta-red-admin.seleccionada i {
+    color: #c5a059; /* El icono se vuelve dorado */
+}
+
+.tarjeta-red-admin.seleccionada h4 {
+    color: #c5a059;
+    font-weight: 700;
+}
+
+
+.marco-recorte-iframe {
+    width: 100%;
+    height: 450px; 
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: white;
+}
+
+.ventana-interna-mini {
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin-top: 0;
 }

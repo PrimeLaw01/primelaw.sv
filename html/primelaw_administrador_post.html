@@ -37,7 +37,10 @@
                     <div class="caja-herramienta">
                         <h3><i class="fa-solid fa-magnifying-glass-chart"></i> Consulta de Contenidos Prime Law</h3>
                         <p style="font-size: 11px; color: #888; margin-bottom: 10px;">Desliza para copiar textos de servicios existentes</p>
-                        <iframe src="https://primelawsv.vercel.app/html/areas.html" class="ventana-interna-mini"></iframe>
+                        
+                        <div class="marco-recorte-iframe">
+                            <iframe src="https://primelawsv.vercel.app/html/areas.html" class="ventana-interna-mini"></iframe>
+                        </div>
                     </div>
 
                     <div class="caja-herramienta">
@@ -110,19 +113,19 @@
             <div class="indicador-etapa">02</div>
             <h2 class="titulo-etapa">CANALES DE DIFUSIÓN</h2>
             <div class="malla-redes-pasos">
-                <div class="tarjeta-red-admin" onclick="this.classList.toggle('seleccionada')">
+                <div class="tarjeta-red-admin" onclick="seleccionarUnaRed(this)">
                     <i class="fa-brands fa-whatsapp"></i>
                     <h4>WhatsApp</h4>
                 </div>
-                <div class="tarjeta-red-admin" onclick="this.classList.toggle('seleccionada')">
+                <div class="tarjeta-red-admin" onclick="seleccionarUnaRed(this)">
                     <i class="fa-brands fa-facebook-f"></i>
                     <h4>Facebook</h4>
                 </div>
-                <div class="tarjeta-red-admin" onclick="this.classList.toggle('seleccionada')">
+                <div class="tarjeta-red-admin" onclick="seleccionarUnaRed(this)">
                     <i class="fa-brands fa-instagram"></i>
                     <h4>Instagram</h4>
                 </div>
-                <div class="tarjeta-red-admin" onclick="this.classList.toggle('seleccionada')">
+                <div class="tarjeta-red-admin" onclick="seleccionarUnaRed(this)">
                     <i class="fa-brands fa-linkedin-in"></i>
                     <h4>LinkedIn</h4>
                 </div>
@@ -139,7 +142,7 @@
                 </p>
                 
                 <button class="btn-ejecutar-final" onclick="exportarYPublicar()">
-                    <i class="fa-solid fa-rocket"></i> GENERAR Y ABRIR REDES
+                    GENERAR Y ABRIR REDES
                 </button>
                 
                 <div id="notificacion-exito" class="notificacion-oculta">

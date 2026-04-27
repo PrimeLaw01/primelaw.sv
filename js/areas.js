@@ -76,7 +76,6 @@ function filtrarAreas() {
     });
 }
 
-// Ejecutar cuando la página termine de cargar
 window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const query = urlParams.get('buscar');
@@ -89,3 +88,45 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+
+function limpiarEntornoAdmin() {
+    if (window.self !== window.top) {
+        
+        const urlPadre = document.referrer;
+
+        if (urlPadre.includes('primelaw_administrador_post.html')) {
+            
+            console.log("Acceso desde Administrador Prime Law: Limpiando interfaz...");
+
+            const estiloOcultar = document.createElement('style');
+            estiloOcultar.innerHTML = `
+                header, .encabezado-simple, .encabezado-principal, .nav-container, #main-header { 
+                    display: none !important; 
+                }
+                body { 
+                    padding-top: 0 !important; 
+                    margin-top: 0 !important; 
+                }
+            `;
+            document.head.appendChild(estiloOcultar);
+
+            let intentos = 0;
+            const intervaloOcultar = setInterval(() => {
+                const encabezado = document.querySelector('header') || 
+                                   document.querySelector('.encabezado-simple') ||
+                                   document.querySelector('.encabezado-principal');
+                
+                if (encabezado) {
+                    encabezado.remove();
+                    clearInterval(intervaloOcultar);
+                }
+
+                intentos++;
+                if (intentos > 20) clearInterval(intervaloOcultar);
+            }, 100);
+        }
+    }
+}
+
+limpiarEntornoAdmin();
