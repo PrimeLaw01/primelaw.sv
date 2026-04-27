@@ -30,14 +30,20 @@ function seleccionarUnaRed(elemento) {
 }
 
 function actualizarLienzo() {
-    document.getElementById('preview-titulo').innerText = document.getElementById('input-titulo').value || "Título del Post";
-    document.getElementById('preview-subtitulo').innerText = document.getElementById('input-subtitulo').value || "Subtítulo";
-    document.getElementById('preview-info').innerText = document.getElementById('input-info').value || "Descripción...";
-    document.getElementById('preview-titulo-puntos').innerText = document.getElementById('input-puntos').value || "";
+    const titulo = document.getElementById('input-titulo').value || "Título del Post";
+    const subtitulo = document.getElementById('input-subtitulo').value || "Subtítulo";
+    const info = document.getElementById('input-info').value || "Descripción...";
+    const tituloLista = document.getElementById('input-puntos').value || "";
+
+    document.getElementById('preview-titulo').innerText = titulo;
+    document.getElementById('preview-subtitulo').innerText = subtitulo;
+    document.getElementById('preview-info').innerText = info;
+    document.getElementById('preview-titulo-puntos').innerText = tituloLista;
 
     const viñetas = document.getElementById('input-viñetas').value;
     const listaUl = document.getElementById('preview-viñetas');
     listaUl.innerHTML = "";
+    
     if (viñetas) {
         viñetas.split(',').forEach(p => {
             const li = document.createElement('li');

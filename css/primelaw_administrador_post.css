@@ -139,13 +139,23 @@ h1, h2, h3 {
 .seccion-lista { top: 240px; left: 40px; }
 
 /* Estilos de Plantilla */
-.prime-classic { background: var(--azul-prime); color: white; border: 8px solid var(--oro-prime); }
+.prime-classic {
+    background-color: #001a2c !important;
+    border: 8px solid #c5a059;
+}
 .prime-light { background: white; color: var(--azul-prime); border: 1px solid #ddd; }
 .prime-impact { background: var(--oro-prime); color: var(--azul-prime); }
 
 .capa-fondo { position: absolute; top:0; left:0; width:100%; height:100%; background-size: cover; z-index: 0; opacity: 0.3; pointer-events: none; }
 .contenido-post { position: relative; z-index: 2; height: 100%; width: 100%; }
-.marca-agua { position: absolute; bottom: 15px; right: 20px; font-size: 12px; opacity: 0.5; }
+.marca-agua {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.7rem;
+    z-index: 5;
+}
 
 /* --- PASO 2 Y 3 --- */
 .malla-redes-pasos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
@@ -316,4 +326,110 @@ h1, h2, h3 {
     height: 100%;
     border: none;
     margin-top: 0;
+}
+
+/* Aseguramos que el contenido tenga un área relativa para moverse */
+.contenido-post {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Permite que el clic pase al fondo si es necesario */
+}
+
+/* Forzamos posiciones iniciales para que no se amontonen */
+#preview-titulo, 
+#preview-subtitulo, 
+#preview-info, 
+.seccion-lista {
+    position: absolute;
+    pointer-events: auto; /* Reactiva el clic para poder arrastrarlos */
+    margin: 0;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05); /* Área sutil para ver dónde clickear */
+    border-radius: 5px;
+    max-width: 90%;
+}
+
+/* Coordenadas por defecto */
+#preview-titulo {
+    top: 50px;
+    left: 40px;
+    font-size: 2.5rem;
+    line-height: 1.2;
+}
+
+#preview-subtitulo {
+    top: 140px;
+    left: 40px;
+    font-size: 1.2rem;
+}
+
+#preview-info {
+    top: 200px;
+    left: 40px;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.seccion-lista {
+    top: 280px;
+    left: 40px;
+}
+
+
+/* --- LIMPIEZA DE TEXTOS EN EL LIENZO --- */
+
+#preview-titulo, 
+#preview-subtitulo, 
+#preview-info, 
+.seccion-lista {
+    position: absolute;
+    pointer-events: auto;
+    z-index: 10; /* Asegura que estén por encima del fondo */
+    color: #ffffff !important; /* Forzamos blanco para que resalte en el azul */
+    text-align: left;
+    background: transparent; /* Quitamos cualquier fondo gris */
+    border: 1px dashed rgba(197, 160, 89, 0); /* Borde invisible por defecto */
+    transition: border 0.2s;
+}
+
+/* Solo mostramos un borde cuando pasas el mouse para que sepas que se puede mover */
+#preview-titulo:hover, 
+#preview-subtitulo:hover, 
+#preview-info:hover {
+    border: 1px dashed var(--oro-prime);
+    cursor: move;
+}
+
+/* Posiciones específicas corregidas */
+#preview-titulo {
+    top: 60px;
+    left: 40px;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--oro-prime) !important; /* El título en Dorado Prime */
+    width: 80%;
+}
+
+#preview-subtitulo {
+    top: 150px;
+    left: 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#preview-info {
+    top: 200px;
+    left: 40px;
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    width: 85%;
+}
+
+.seccion-lista {
+    top: 280px;
+    left: 40px;
 }
