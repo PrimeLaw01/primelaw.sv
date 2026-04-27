@@ -101,6 +101,17 @@ function limpiarEntornoAdmin() {
 
             const estiloOcultar = document.createElement('style');
             estiloOcultar.innerHTML = `
+
+                body::-webkit-scrollbar {
+                    display: none !important;
+                }
+
+                /* Ocultar scrollbar para Firefox y IE/Edge */
+                body {
+                    -ms-overflow-style: none !important;  /* IE and Edge */
+                    scrollbar-width: none !important;  /* Firefox */
+                    overflow-y: scroll !important; /* Mantiene la capacidad de scroll */
+                }
                 header, .encabezado-simple, .encabezado-principal, .nav-container, #main-header, .contenedor-regresar { 
                     display: none !important; 
                 }

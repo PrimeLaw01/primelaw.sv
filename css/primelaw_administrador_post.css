@@ -1,4 +1,3 @@
-/* --- VARIABLES Y BASES --- */
 :root {
     --oro-prime: #c5a059;
     --oro-dark: #a3813d;
@@ -9,11 +8,16 @@
     --sombra-premium: 0 12px 40px rgba(0, 0, 0, 0.2);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { 
-    background-color: var(--blanco); 
-    font-family: 'Montserrat', sans-serif; 
-    color: var(--azul-prime); 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--blanco);
+    font-family: 'Montserrat', sans-serif;
+    color: var(--azul-prime);
 }
 
 h1, h2, h3 {
@@ -22,8 +26,41 @@ h1, h2, h3 {
     margin-bottom: 20px;
     letter-spacing: 1px;
 }
-/* --- ESTRUCTURA DE PASOS --- */
-.contenedor-principal { max-width: 1300px; margin: 40px auto; padding: 0 20px; }
+
+.contenedor-principal {
+    max-width: 1300px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.encabezado-simple {
+    padding: 10px 5%;
+    background: var(--azul-prime);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 2px solid var(--oro-prime);
+    height: 70px;
+}
+
+.contenedor-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-admin {
+    height: 50px;
+    width: auto;
+}
+
+.nombre-firma {
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: bold;
+    letter-spacing: 3px;
+    font-size: 1.4rem;
+    color: var(--oro-prime);
+}
 
 .seccion-paso {
     position: relative;
@@ -34,13 +71,18 @@ h1, h2, h3 {
 
 .indicador-etapa {
     position: absolute;
-    left: -21px; top: 0;
-    width: 40px; height: 40px;
+    left: -21px;
+    top: 0;
+    width: 40px;
+    height: 40px;
     background: var(--oro-prime);
     color: var(--azul-prime);
     border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: bold; font-family: 'Cinzel Decorative', serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-family: 'Cinzel Decorative', serif;
     box-shadow: 0 4px 10px rgba(197, 160, 89, 0.4);
 }
 
@@ -51,7 +93,6 @@ h1, h2, h3 {
     letter-spacing: 1px;
 }
 
-/* --- PANEL DE HERRAMIENTAS (PASO 1) --- */
 .malla-edicion-paso1 {
     display: grid;
     grid-template-columns: 400px 1fr;
@@ -73,31 +114,76 @@ h1, h2, h3 {
     margin-bottom: 12px;
 }
 
-.ventana-interna-mini {
+.marco-recorte-iframe {
     width: 100%;
-    height: 400px;
+    height: 450px; 
+    overflow: hidden;
     border-radius: 8px;
-    border: none;
+    border: 1px solid #ddd;
     background: white;
+    
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
-/* Plantillas */
-.galeria-plantillas { display: flex; gap: 12px; margin-bottom: 10px; }
-.mini-prev { width: 50px; height: 35px; border-radius: 4px; cursor: pointer; border: 2px solid #ddd; }
-.opcion-plantilla.activa .mini-prev { border-color: var(--oro-prime); transform: scale(1.1); }
+.ventana-interna-mini {
+    width: 380px; 
+    height: 100%;
+    border: none;
+    margin: 0;
+    display: block;
+}
+
+.galeria-plantillas {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.mini-prev {
+    width: 50px;
+    height: 35px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 2px solid #ddd;
+}
+
+.opcion-plantilla.activa .mini-prev {
+    border-color: var(--oro-prime);
+    transform: scale(1.1);
+}
+
 .classic { background: var(--azul-prime); }
 .light { background: #fff; }
 .impact { background: var(--oro-prime); }
 
-/* Formulario */
-.controles-flujo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.grupo-input.full { grid-column: span 2; }
-.grupo-input label { display: block; font-size: 11px; font-weight: bold; margin-bottom: 5px; color: #666; }
-.grupo-input input, .grupo-input textarea {
-    width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: 'Lora', serif;
+.controles-flujo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
 }
 
-/* --- VISUALIZADOR DEL LIENZO --- */
+.grupo-input.full {
+    grid-column: span 2;
+}
+
+.grupo-input label {
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.grupo-input input, .grupo-input textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Lora', serif;
+}
+
 .visualizador-premium {
     background: #e9ecef;
     padding: 50px;
@@ -105,19 +191,29 @@ h1, h2, h3 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: sticky; top: 20px;
+    position: sticky;
+    top: 20px;
 }
 
 .btn-formato {
-    background: white; border: 1px solid #ddd; padding: 8px 20px;
-    border-radius: 20px; cursor: pointer; margin: 0 5px 20px; font-weight: bold;
+    background: white;
+    border: 1px solid #ddd;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 0 5px 20px;
+    font-weight: bold;
 }
-.btn-formato.activo { background: var(--azul-prime); color: var(--oro-prime); border-color: var(--oro-prime); }
 
-/* El Lienzo */
-.lienzo-post { 
-    position: relative; 
-    overflow: hidden; 
+.btn-formato.activo {
+    background: var(--azul-prime);
+    color: var(--oro-prime);
+    border-color: var(--oro-prime);
+}
+
+.lienzo-post {
+    position: relative;
+    overflow: hidden;
     box-shadow: var(--sombra-premium);
     transition: all 0.4s ease;
     padding: 40px;
@@ -126,71 +222,200 @@ h1, h2, h3 {
 .formato-cuadrado { width: 500px; height: 500px; }
 .formato-horizontal { width: 600px; height: 337px; }
 
-/* Elementos Movibles */
-#preview-titulo, #preview-subtitulo, #preview-info, .seccion-lista {
-    position: absolute; /* Para libertad de movimiento */
+.capa-fondo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    z-index: 0;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.contenido-post {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+#preview-titulo, 
+#preview-subtitulo, 
+#preview-info, 
+.seccion-lista {
+    position: absolute;
+    pointer-events: auto;
+    z-index: 10;
+    text-align: left;
+    background: transparent;
+    border: 1px dashed rgba(197, 160, 89, 0);
+    transition: border 0.2s;
+    max-width: 90%;
+}
+
+#preview-titulo:hover, 
+#preview-subtitulo:hover, 
+#preview-info:hover {
+    border: 1px dashed var(--oro-prime);
     cursor: move;
+}
+
+#preview-titulo {
+    top: 60px;
+    left: 40px;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2.2rem;
+    font-weight: bold;
     width: 80%;
 }
 
-#preview-titulo { top: 40px; left: 40px; font-family: 'Cinzel Decorative', serif; font-size: 2.2rem; }
-#preview-subtitulo { top: 110px; left: 40px; font-size: 1.2rem; }
-#preview-info { top: 160px; left: 40px; font-family: 'Lora', serif; }
-.seccion-lista { top: 240px; left: 40px; }
-
-/* Estilos de Plantilla */
-.prime-classic {
-    background-color: #001a2c !important;
-    border: 8px solid #c5a059;
+#preview-subtitulo {
+    top: 150px;
+    left: 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
-.prime-light { background: white; color: var(--azul-prime); border: 1px solid #ddd; }
-.prime-impact { background: var(--oro-prime); color: var(--azul-prime); }
 
-.capa-fondo { position: absolute; top:0; left:0; width:100%; height:100%; background-size: cover; z-index: 0; opacity: 0.3; pointer-events: none; }
-.contenido-post { position: relative; z-index: 2; height: 100%; width: 100%; }
+#preview-info {
+    top: 200px;
+    left: 40px;
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    width: 85%;
+    line-height: 1.5;
+}
+
+.seccion-lista {
+    top: 280px;
+    left: 40px;
+}
+
+.prime-classic {
+    background-color: var(--azul-prime) !important;
+    border: 8px solid var(--oro-prime);
+}
+.prime-classic #preview-titulo { color: var(--oro-prime) !important; }
+.prime-classic #preview-subtitulo, 
+.prime-classic #preview-info, 
+.prime-classic .seccion-lista { color: var(--blanco) !important; }
+.prime-classic .marca-agua { color: var(--blanco) !important; }
+
+.prime-light {
+    background-color: var(--blanco) !important;
+    border: 8px solid var(--oro-prime) !important;
+}
+.prime-light #preview-titulo { color: var(--oro-prime) !important; }
+.prime-light #preview-subtitulo, 
+.prime-light #preview-info, 
+.prime-light .seccion-lista { color: var(--azul-prime) !important; }
+.prime-light .marca-agua { color: var(--azul-prime) !important; }
+
+.prime-impact {
+    background-color: var(--oro-prime) !important;
+    border: 8px solid var(--azul-prime) !important;
+}
+.prime-impact #preview-titulo,
+.prime-impact #preview-subtitulo, 
+.prime-impact #preview-info, 
+.prime-impact .seccion-lista { color: var(--azul-prime) !important; }
+.prime-impact .marca-agua { color: var(--azul-prime) !important; }
+
 .marca-agua {
     position: absolute;
     bottom: 20px;
     right: 20px;
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 0.7rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 2px;
     z-index: 5;
+    opacity: 0.5;
 }
 
-/* --- PASO 2 Y 3 --- */
-.malla-redes-pasos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.malla-redes-pasos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 15px;
+}
+
 .tarjeta-red-admin {
-    background: var(--gris-fondo); padding: 20px; border-radius: 12px;
-    text-align: center; cursor: pointer; border: 2px solid transparent; transition: 0.3s;
-}
-.tarjeta-red-admin.seleccionada { border-color: var(--oro-prime); background: rgba(197, 160, 89, 0.1); }
-
-.panel-despliegue-final {
-    background: #001a2c;
-    padding: 60px 40px; /* Aumentamos el padding vertical para dar más aire */
-    border-radius: 20px;
+    background: #fdfdfd;
+    padding: 25px;
+    border-radius: 15px;
     text-align: center;
-    color: white;
-    border: 1px solid rgba(197, 160, 89, 0.2); /* Borde sutil dorado */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px; /* Espacio automático entre el texto y el botón */
+}
+
+.tarjeta-red-admin:hover {
+    transform: translateY(-3px);
+    border-color: var(--oro-prime);
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+.tarjeta-red-admin i {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    color: var(--azul-prime);
+    transition: color 0.3s;
+}
+
+.tarjeta-red-admin h4 {
+    font-size: 1rem;
+    color: var(--azul-prime);
+    font-weight: 500;
+}
+
+.tarjeta-red-admin.seleccionada {
+    background: #fffdf9;
+    border: 2px solid var(--oro-prime);
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
+    transform: scale(1.03);
+}
+
+.tarjeta-red-admin.seleccionada i,
+.tarjeta-red-admin.seleccionada h4 {
+    color: var(--oro-prime);
+}
+
+.tarjeta-red-admin.seleccionada h4 {
+    font-weight: 700;
+}
+
+.panel-despliegue-final {
+    background: var(--azul-prime);
+    padding: 60px 40px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
 }
 
 .instruccion-final {
     font-family: 'Lora', serif;
     font-size: 1.1rem;
-    max-width: 600px; /* Evita que el texto se estire demasiado a lo ancho */
+    max-width: 600px;
     line-height: 1.6;
     opacity: 0.9;
     margin: 0 auto;
 }
 
-
 .btn-ejecutar-final {
-    background: linear-gradient(135deg, #c5a059 0%, #a3813d 100%);
-    color: #001a2c;
+    background: linear-gradient(135deg, var(--oro-prime) 0%, var(--oro-dark) 100%);
+    color: var(--azul-prime);
     padding: 22px 50px;
     border: none;
     border-radius: 50px;
@@ -216,220 +441,9 @@ h1, h2, h3 {
     font-size: 1.3rem;
 }
 
-
-.notificacion-oculta { display: none; margin-top: 20px; color: var(--oro-prime); font-weight: bold; }
-
-/* --- CORRECCIÓN DEL HEADER --- */
-.encabezado-simple { 
-    padding: 10px 5%; 
-    background: #001a2c; /* Fondo azul oscuro de la firma */
-    display: flex;
-    justify-content: flex-start; /* Alinea logo y nombre a la izquierda */
-    align-items: center;
-    border-bottom: 2px solid #c5a059; /* Línea dorada sutil */
-    height: 70px; /* Altura fija para control */
-}
-
-.contenedor-logo { 
-    display: flex; 
-    align-items: center; 
-    gap: 15px; 
-}
-
-.logo-admin { 
-    height: 50px; /* Tamaño controlado del logo */
-    width: auto;
-}
-
-.nombre-firma { 
-    font-family: 'Cinzel Decorative', serif; 
-    font-weight: bold; 
-    letter-spacing: 3px; 
-    font-size: 1.4rem;
-    color: #c5a059; /* Nombre en dorado */
-}
-
-
-.malla-redes-pasos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
-    padding: 15px;
-}
-
-.tarjeta-red-admin {
-    background: #fdfdfd;
-    padding: 25px;
-    border-radius: 15px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    
-    /* Borde sutil y sombra de profundidad */
-    border: 1px solid #e0e0e0;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.05);
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.tarjeta-red-admin:hover {
-    transform: translateY(-3px);
-    border-color: #c5a059;
-    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.08);
-}
-
-.tarjeta-red-admin i {
-    font-size: 2rem;
-    margin-bottom: 12px;
-    color: #001a2c;
-    transition: color 0.3s;
-}
-
-.tarjeta-red-admin h4 {
-    font-size: 1rem;
-    color: #001a2c;
-    font-weight: 500;
-}
-
-/* --- ESTADO SELECCIONADO (CON RELIEVE DORADO) --- */
-.tarjeta-red-admin.seleccionada {
-    background: #fffdf9;
-    border: 2px solid #c5a059;
-    /* Sombra dorada suave */
-    box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
-    transform: scale(1.03);
-}
-
-.tarjeta-red-admin.seleccionada i {
-    color: #c5a059; /* El icono se vuelve dorado */
-}
-
-.tarjeta-red-admin.seleccionada h4 {
-    color: #c5a059;
-    font-weight: 700;
-}
-
-
-.marco-recorte-iframe {
-    width: 100%;
-    height: 450px; 
-    overflow: hidden;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    background: white;
-}
-
-.ventana-interna-mini {
-    width: 100%;
-    height: 100%;
-    border: none;
-    margin-top: 0;
-}
-
-/* Aseguramos que el contenido tenga un área relativa para moverse */
-.contenido-post {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Permite que el clic pase al fondo si es necesario */
-}
-
-/* Forzamos posiciones iniciales para que no se amontonen */
-#preview-titulo, 
-#preview-subtitulo, 
-#preview-info, 
-.seccion-lista {
-    position: absolute;
-    pointer-events: auto; /* Reactiva el clic para poder arrastrarlos */
-    margin: 0;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.05); /* Área sutil para ver dónde clickear */
-    border-radius: 5px;
-    max-width: 90%;
-}
-
-/* Coordenadas por defecto */
-#preview-titulo {
-    top: 50px;
-    left: 40px;
-    font-size: 2.5rem;
-    line-height: 1.2;
-}
-
-#preview-subtitulo {
-    top: 140px;
-    left: 40px;
-    font-size: 1.2rem;
-}
-
-#preview-info {
-    top: 200px;
-    left: 40px;
-    font-size: 1rem;
-    line-height: 1.5;
-}
-
-.seccion-lista {
-    top: 280px;
-    left: 40px;
-}
-
-
-/* --- LIMPIEZA DE TEXTOS EN EL LIENZO --- */
-
-#preview-titulo, 
-#preview-subtitulo, 
-#preview-info, 
-.seccion-lista {
-    position: absolute;
-    pointer-events: auto;
-    z-index: 10; /* Asegura que estén por encima del fondo */
-    color: #ffffff !important; /* Forzamos blanco para que resalte en el azul */
-    text-align: left;
-    background: transparent; /* Quitamos cualquier fondo gris */
-    border: 1px dashed rgba(197, 160, 89, 0); /* Borde invisible por defecto */
-    transition: border 0.2s;
-}
-
-/* Solo mostramos un borde cuando pasas el mouse para que sepas que se puede mover */
-#preview-titulo:hover, 
-#preview-subtitulo:hover, 
-#preview-info:hover {
-    border: 1px dashed var(--oro-prime);
-    cursor: move;
-}
-
-/* Posiciones específicas corregidas */
-#preview-titulo {
-    top: 60px;
-    left: 40px;
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 2.2rem;
+.notificacion-oculta {
+    display: none;
+    margin-top: 20px;
+    color: var(--oro-prime);
     font-weight: bold;
-    color: var(--oro-prime) !important; /* El título en Dorado Prime */
-    width: 80%;
-}
-
-#preview-subtitulo {
-    top: 150px;
-    left: 40px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-#preview-info {
-    top: 200px;
-    left: 40px;
-    font-family: 'Lora', serif;
-    font-size: 1rem;
-    width: 85%;
-}
-
-.seccion-lista {
-    top: 280px;
-    left: 40px;
 }
