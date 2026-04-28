@@ -1,0 +1,204 @@
+:root {
+    --azul-prime: #001a2c;
+    --oro-prime: #c5a059;
+    --texto: #333;
+    --gris-claro: #f4f4f4;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lora', serif;
+    color: var(--texto);
+    line-height: 1.6;
+    background-color: #fff;
+    overflow-x: hidden;
+}
+
+.contenedor {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Cabecera */
+.cabecera-perfil {
+    background-color: var(--azul-prime);
+    padding: 80px 0;
+    border-bottom: 4px solid var(--oro-prime);
+    text-align: center;
+}
+
+.cabecera-perfil h1 {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--oro-prime);
+    margin: 0;
+    font-size: 2.6rem;
+    font-weight: 700;
+}
+
+.cargo {
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+/* Sección Biografía */
+.seccion-principal {
+    display: flex;
+    gap: 50px;
+    margin: 80px 0;
+    align-items: center;
+}
+
+.columna-foto {
+    flex: 0 0 320px;
+}
+
+.marco-imagen img {
+    width: 100%;
+    display: block;
+    border: 1px solid #ddd;
+    padding: 8px;
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.columna-bio {
+    flex: 1;
+}
+
+.bio-texto p {
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--azul-prime);
+}
+
+/* Estructura de Trayectoria y Timeline */
+.bloque-detalle {
+    margin-bottom: 70px;
+}
+
+.titulo-cinzel {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--azul-prime);
+    border-bottom: 2px solid var(--oro-prime);
+    padding-bottom: 10px;
+    margin-bottom: 45px;
+    font-size: 1.6rem;
+    display: inline-block;
+}
+
+.subtitulo-profesional {
+    font-family: 'Lora', serif;
+    font-size: 1.3rem;
+    color: var(--azul-prime);
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 40px;
+    border-left: 2px solid #eee;
+    padding-left: 35px;
+    margin-left: 160px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    background-color: var(--oro-prime);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px white, 0 0 0 5px var(--oro-prime);
+}
+
+.anio {
+    position: absolute;
+    left: -185px;
+    width: 140px;
+    text-align: right;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--oro-prime);
+    font-size: 0.95rem;
+}
+
+/* Detalles de contenido */
+.investigacion {
+    font-size: 0.95rem;
+    color: #666;
+    margin-top: 12px;
+    padding-left: 15px;
+    border-left: 2px solid var(--oro-prime);
+}
+
+.texto-enfasis {
+    font-style: italic;
+    border-left: 3px solid var(--oro-prime);
+    padding-left: 20px;
+    color: #444;
+}
+
+.lista-vinetas-premium {
+    list-style: none;
+    padding-left: 0;
+}
+
+.lista-vinetas-premium li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    text-align: justify;
+    font-family: 'Lora', serif;
+    color: var(--texto);
+}
+
+.lista-vinetas-premium li::before {
+    content: "▶";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--oro-prime);
+    font-size: 0.9rem;
+    font-weight: normal;
+}
+
+/* Footer y Redes */
+.redes-sociales a {
+    color: #fff;
+    font-size: 1.3rem;
+    margin-right: 20px;
+    transition: color 0.3s ease;
+}
+
+.redes-sociales a:hover {
+    color: var(--oro-prime);
+}
+
+.enlaces-footer a {
+    text-decoration: none;
+    color: #ccc;
+    transition: color 0.3s ease;
+}
+
+.enlaces-footer a:hover {
+    color: var(--oro-prime);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .seccion-principal { flex-direction: column; text-align: center; }
+    .columna-foto { width: 100%; max-width: 280px; }
+    .timeline-item { margin-left: 20px; }
+    .anio { position: static; text-align: left; display: block; margin-bottom: 10px; }
+    .cabecera-perfil h1 { font-size: 2rem; }
+}
