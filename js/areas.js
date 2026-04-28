@@ -119,7 +119,10 @@ function limpiarEntornoAdmin() {
                     padding-top: 0 !important; 
                     margin-top: 0 !important; 
                 }
-                .pie-de-pagina, .footer, .footer-container {
+                .pie-depagina, .contenedor-footer, .columna-footer, .enlaces-footer, .redes-sociales, footer, .barra-copyright {
+                    display: none !important;
+                }
+                .barra-copyright {
                     display: none !important;
                 }
             `;
