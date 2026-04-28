@@ -119,6 +119,9 @@ function limpiarEntornoAdmin() {
                     padding-top: 0 !important; 
                     margin-top: 0 !important; 
                 }
+                .pie-de-pagina, .footer, .footer-container {
+                    display: none !important;
+                }
             `;
             document.head.appendChild(estiloOcultar);
 
