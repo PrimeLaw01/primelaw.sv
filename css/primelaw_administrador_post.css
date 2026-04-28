@@ -270,6 +270,15 @@ h1, h2, h3 {
     color: inherit;
 }
 
+
+#preview-titulo, #preview-subtitulo, #preview-info, #preview-lista-contenedor {
+    position: absolute;
+    cursor: move;
+    user-select: none;
+}
+
+
+
 #preview-titulo:hover, 
 #preview-subtitulo:hover, 
 #preview-info:hover ,
