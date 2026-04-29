@@ -103,6 +103,7 @@ function limpiarEntornoAdmin() {
         if (esAdmin) {
             const estiloOcultar = document.createElement('style');
             estiloOcultar.innerHTML = `
+                /* Reset de scroll para el iframe */
                 html, body {
                     background: #ffffff !important;
                     margin: 0 !important;
@@ -114,31 +115,34 @@ function limpiarEntornoAdmin() {
                 }
                 body::-webkit-scrollbar { display: none; }
 
+                /* MANTENER LA SECCIÓN DE RUTA LEGAL VISIBLE PARA LA BARRA */
+                main.seccion-ruta-legal {
+                    padding-top: 10px !important;
+                    display: block !important;
+                    opacity: 1 !important;
+                }
+
+                /* POSICIONAMIENTO DE LA BARRA ORIGINAL */
                 .contenedor-busqueda {
                     display: flex !important;
-                    padding: 10px !important;
-                    margin: 0 !important;
-                    background: #f8f9fa !important;
+                    justify-content: center !important;
+                    margin-bottom: 20px !important;
                     position: sticky !important;
                     top: 0 !important;
                     z-index: 100 !important;
-                }
-                .barra-busqueda {
-                    width: 100% !important;
-                    height: 35px !important;
-                    border-radius: 5px !important;
-                    display: flex !important;
-                    align-items: center !important;
+                    padding: 10px 0 !important;
                 }
 
-                main.seccion-ruta-legal, .contenedor-cards-areas {
+                /* GRID DE TARJETAS */
+                .contenedor-cards-areas {
                     display: block !important;
                     opacity: 1 !important;
                     visibility: visible !important;
                     padding: 5px !important;
                     transform: none !important;
                 }
-                .tarjeta-area-vertical, article.revelar {
+
+                .tarjeta-area-vertical {
                     display: flex !important;
                     opacity: 1 !important;
                     visibility: visible !important;
@@ -155,10 +159,12 @@ function limpiarEntornoAdmin() {
                     display: block !important;
                 }
 
+                /* OCULTAR SOLO ELEMENTOS AJENOS AL CONTENIDO */
                 header, footer, .contenedor-regresar, .nav-container, .barra-copyright, .encabezado-principal { 
                     display: none !important; 
                 }
 
+                /* TEXTOS PEQUEÑOS PARA EL PANEL */
                 .contenido-tarjeta-v { padding: 10px !important; }
                 .contenido-tarjeta-v h3 { font-size: 15px !important; margin-bottom: 2px !important; }
                 .contenido-tarjeta-v p { font-size: 12px !important; line-height: 1.2 !important; }
@@ -166,17 +172,21 @@ function limpiarEntornoAdmin() {
             document.head.appendChild(estiloOcultar);
 
             const ejecutarLimpieza = () => {
-                const estorbos = document.querySelectorAll('header, footer, .contenedor-regresar');
-                estorbos.forEach(el => el.remove());
+                // Solo eliminamos lo que está fuera de <main>
+                const estorbosExternos = document.querySelectorAll('header, footer, .contenedor-regresar');
+                estorbosExternos.forEach(el => el.remove());
 
-                document.querySelectorAll('.revelar, .tarjeta-area-vertical').forEach(card => {
-                    card.classList.add('activo');
+                // Forzamos visibilidad de tarjetas sin romper el filtro de búsqueda
+                document.querySelectorAll('.tarjeta-area-vertical').forEach(card => {
+                    // Solo forzamos opacidad, el display lo maneja filtrarAreas()
                     card.style.setProperty('opacity', '1', 'important');
                     card.style.setProperty('transform', 'none', 'important');
+                    card.classList.add('activo');
                 });
             };
 
             ejecutarLimpieza();
+            // Reintentos ligeros para asegurar carga de DOM
             setTimeout(ejecutarLimpieza, 500);
             setTimeout(ejecutarLimpieza, 1500);
         }
