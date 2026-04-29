@@ -105,70 +105,78 @@ function limpiarEntornoAdmin() {
             estiloOcultar.innerHTML = `
                 html, body {
                     background: #ffffff !important;
-                    height: auto !important;
-                    min-height: 100vh !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    overflow-x: hidden !important;
+                    overflow-y: auto !important;
                 }
                 body::-webkit-scrollbar { display: none; }
 
-                .modal-overlay {
-                    padding: 10px !important;
-                    z-index: 999999 !important;
+                /* REAJUSTE DE LA BARRA ORIGINAL PARA EL PANEL */
+                .seccion-ruta-legal {
+                    padding: 0 !important; /* Quitamos el padding gigante de arriba */
                 }
-                .modal-contenido {
-                    width: 95% !important;
-                    max-width: 450px !important;
-                    padding: 20px !important; /* Reducido de 40px */
-                    max-height: 85vh !important;
-                }
-                #modal-titulo {
-                    font-size: 18px !important; /* Título principal */
-                    margin-bottom: 10px !important;
-                    padding-bottom: 5px !important;
-                }
-                .descripcion-legal {
-                    font-size: 13px !important; /* El texto de la imagen */
-                    line-height: 1.4 !important;
-                    text-align: left !important;
-                }
-                .modal-body h3 {
-                    font-size: 14px !important;
-                    margin-top: 10px !important;
-                }
-                .lista-servicios li {
-                    font-size: 12px !important;
-                    margin-bottom: 5px !important;
-                }
-                .cerrar-modal {
-                    font-size: 22px !important;
-                    top: 10px !important;
-                    right: 15px !important;
-                }
-                .boton-cerrar {
-                    padding: 8px 20px !important;
-                    font-size: 12px !important;
-                }
-
-                /* Mantener barra de búsqueda y tarjetas */
                 .contenedor-busqueda {
                     display: flex !important;
+                    justify-content: center !important;
+                    padding: 10px !important;
+                    margin: 0 !important;
                     position: sticky !important;
                     top: 0 !important;
                     z-index: 1000 !important;
                     background: white !important;
+                    border-bottom: 1px solid #f0f0f0;
                 }
+                .barra-busqueda {
+                    margin: 0 !important;
+                    width: 100% !important;
+                    max-width: 100% !important;
+                }
+
+                /* GRID DE TARJETAS OPTIMIZADO */
+                .contenedor-cards-areas {
+                    display: block !important;
+                    padding: 10px !important;
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                }
+
                 .tarjeta-area-vertical {
                     display: flex !important;
                     opacity: 1 !important;
                     transform: none !important;
                     margin-bottom: 15px !important;
+                    border: 1px solid #eee !important;
                 }
-                header, footer, .contenedor-regresar { display: none !important; }
+
+                .imagen-tarjeta-v {
+                    height: 110px !important;
+                    object-fit: cover !important;
+                }
+
+                /* MODAL COMPACTO (MANTENIENDO TU LETRA PEQUEÑA) */
+                .modal-contenido {
+                    width: 95% !important;
+                    padding: 20px !important;
+                    max-height: 85vh !important;
+                }
+                #modal-titulo { font-size: 18px !important; margin-bottom: 10px !important; }
+                .descripcion-legal { font-size: 13px !important; line-height: 1.4 !important; }
+                .lista-servicios li { font-size: 12px !important; }
+
+                /* OCULTAR ELEMENTOS PÚBLICOS */
+                header, footer, .contenedor-regresar, .nav-container, .barra-copyright { 
+                    display: none !important; 
+                }
             `;
             document.head.appendChild(estiloOcultar);
 
             const ejecutarLimpieza = () => {
                 const buscador = document.getElementById('input-busqueda');
                 if (buscador) buscador.addEventListener('input', filtrarAreas);
+
+                const estorbos = document.querySelectorAll('header, footer, .contenedor-regresar');
+                estorbos.forEach(el => el.remove());
 
                 document.querySelectorAll('.revelar, .tarjeta-area-vertical').forEach(card => {
                     card.classList.add('activo');
@@ -183,6 +191,7 @@ function limpiarEntornoAdmin() {
     }
 }
 
+// Lógica de filtrado robusta
 if (typeof filtrarAreas !== 'undefined') {
     const originalFiltrar = filtrarAreas;
     filtrarAreas = function() {
@@ -190,8 +199,10 @@ if (typeof filtrarAreas !== 'undefined') {
         if (!input) return;
         const texto = input.value.toLowerCase().trim();
         document.querySelectorAll('.tarjeta-area-vertical').forEach(t => {
-            const contenido = t.innerText.toLowerCase();
-            t.style.setProperty('display', contenido.includes(texto) ? 'flex' : 'none', 'important');
+            const titulo = t.querySelector('h3').innerText.toLowerCase();
+            const desc = t.querySelector('p').innerText.toLowerCase();
+            const coincide = titulo.includes(texto) || desc.includes(texto);
+            t.style.setProperty('display', coincide ? 'flex' : 'none', 'important');
         });
     };
 }
