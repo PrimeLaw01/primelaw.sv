@@ -84,6 +84,25 @@ function irA(plataforma) {
     window.open(urls[plataforma], '_blank');
 }
 
+
+function borrarBorrador() {
+    const areaNotas = document.getElementById('bloc-notas');
+    
+    if (!areaNotas) {
+        console.error("No se encontró el elemento 'bloc-notas'");
+        return;
+    }
+
+    if (areaNotas.value.trim() !== "") {
+        if (confirm("¿Seguro que quieres borrar tus notas?")) {
+            areaNotas.value = "";
+            console.log("Borrador limpiado con éxito");
+        }
+    } else {
+        areaNotas.value = "";
+    }
+}
+
 function abrirBiblioteca() {
     const modal = document.getElementById('modal-biblioteca');
     const lista = document.getElementById('lista-recursos');
@@ -120,7 +139,6 @@ async function exportarYPublicar() {
     ids.forEach(id => {
         const el = document.getElementById(id);
         const txt = el.innerText.trim().toLowerCase();
-        // Corrección inteligente para el borrado de placeholders
         if (txt === textosPorDefecto[id].toLowerCase() || txt === 'subtítulo' || txt === 'subtitulo') {
             el.style.visibility = 'hidden';
             ocultados.push(el);
