@@ -153,3 +153,77 @@ window.onload = function() {
         habilitarArrastre(id);
     });
 };
+
+const dropZone = document.getElementById('drop-zone');
+const inputFondo = document.getElementById('subir-fondo');
+let bibliotecaImagenes = []; // Solo almacenaremos imágenes
+
+// Trigger del input
+dropZone.onclick = () => inputFondo.click();
+
+// Manejo de archivos arrastrados
+dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+});
+
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    const archivo = e.dataTransfer.files[0];
+    validarYProcesarImagen(archivo);
+});
+
+inputFondo.onchange = (e) => validarYProcesarImagen(e.target.files[0]);
+
+function validarYProcesarImagen(archivo) {
+    // Validación estricta de tipo de imagen
+    if (archivo && archivo.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const urlImagen = event.target.result;
+            // Aplicar al lienzo
+            document.getElementById('fondo-post').style.backgroundImage = `url('${urlImagen}')`;
+            // Guardar en galería
+            if (!bibliotecaImagenes.find(img => img.nombre === archivo.name)) {
+                bibliotecaImagenes.push({ url: urlImagen, nombre: archivo.name });
+            }
+        };
+        reader.readAsDataURL(archivo);
+    } else {
+        alert("Por favor, selecciona únicamente archivos de imagen (JPG, PNG, WebP).");
+    }
+}
+
+function abrirBiblioteca() {
+    const modal = document.getElementById('modal-biblioteca');
+    const contenedor = document.getElementById('lista-recursos');
+    
+    modal.style.display = 'block';
+    contenedor.innerHTML = "";
+
+    if (bibliotecaImagenes.length === 0) {
+        contenedor.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #888; padding: 20px;'>No hay imágenes subidas aún.</p>";
+        return;
+    }
+
+    bibliotecaImagenes.forEach(img => {
+        const div = document.createElement('div');
+        div.className = 'item-recurso';
+        div.onclick = () => {
+            document.getElementById('fondo-post').style.backgroundImage = `url('${img.url}')`;
+            cerrarBiblioteca();
+        };
+        div.innerHTML = `
+            <img src="${img.url}" alt="${img.nombre}">
+            <p title="${img.nombre}">${img.nombre}</p>
+        `;
+        contenedor.appendChild(div);
+    });
+}
+
+function cerrarBiblioteca() {
+    document.getElementById('modal-biblioteca').style.display = 'none';
+}

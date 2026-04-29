@@ -472,3 +472,92 @@ h1, h2, h3 {
     color: var(--oro-prime);
     font-weight: bold;
 }
+
+.zona-drop {
+    border: 2px dashed var(--oro-prime);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.zona-drop.dragover {
+    background: rgba(197, 160, 89, 0.1);
+    transform: scale(1.02);
+}
+
+.zona-drop i {
+    font-size: 2rem;
+    color: var(--oro-prime);
+    margin-bottom: 10px;
+}
+
+.btn-biblioteca {
+    width: 100%;
+    background: var(--azul-prime);
+    color: var(--oro-prime);
+    border: 1px solid var(--oro-prime);
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-biblioteca:hover {
+    background: var(--oro-prime);
+    color: var(--azul-prime);
+}
+
+/* Modal de Biblioteca */
+.modal-biblioteca {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 26, 44, 0.9);
+    backdrop-filter: blur(5px);
+}
+
+.contenido-modal {
+    background: white;
+    width: 80%;
+    max-width: 900px;
+    margin: 5% auto;
+    border-radius: 15px;
+    padding: 25px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.malla-recursos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.item-recurso {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.item-recurso:hover {
+    border-color: var(--oro-prime);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.item-recurso img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}

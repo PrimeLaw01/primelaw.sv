@@ -82,7 +82,25 @@
                         </div>
                         <div class="grupo-input full">
                             <label>Imagen de Fondo</label>
-                            <input type="file" id="subir-fondo" accept="image/*">
+                            <div id="drop-zone" class="zona-drop">
+                                <i class="fa-solid fa-image"></i>
+                                <p>Arrastra una imagen o haz clic para subir</p>
+                                <input type="file" id="subir-fondo" accept="image/png, image/jpeg, image/webp" hidden>
+                            </div>
+                            <button type="button" class="btn-biblioteca" onclick="abrirBiblioteca()">
+                                <i class="fa-solid fa-photo-film"></i> Ver Galería de Imágenes
+                            </button>
+                        </div>
+
+                        <div id="modal-biblioteca" class="modal-biblioteca">
+                            <div class="contenido-modal">
+                                <div class="cabecera-modal">
+                                    <h3>GALERÍA DE RECURSOS VISUALES</h3>
+                                    <span class="cerrar-modal" onclick="cerrarBiblioteca()">&times;</span>
+                                </div>
+                                <div id="lista-recursos" class="malla-recursos">
+                                    </div>
+                            </div>
                         </div>
                     </div>
                 </div>
