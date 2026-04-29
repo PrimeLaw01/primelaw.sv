@@ -94,85 +94,71 @@ function limpiarEntornoAdmin() {
     if (window.self !== window.top) {
         const urlPadre = document.referrer;
         if (urlPadre.includes('primelaw_administrador_post.html') || window.location.search.includes('admin=true')) {
+            
             const estiloOcultar = document.createElement('style');
             estiloOcultar.innerHTML = `
+                /* 1. Reset de scroll y fondo */
                 html, body {
                     pointer-events: auto !important;
-                    background: #f4f7f9 !important;
+                    background: #ffffff !important;
                 }
                 body::-webkit-scrollbar { display: none !important; }
                 body {
                     scrollbar-width: none !important;
-                    overflow-x: hidden !important;
                     overflow-y: auto !important;
                     padding: 0 !important;
                     margin: 0 !important;
                 }
 
-                /* Forzar visibilidad de tarjetas (anula la animación de scroll) */
-                .tarjeta-area-vertical {
-                    opacity: 1 !important;
-                    transform: none !important;
-                    margin-bottom: 15px !important;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
-                }
-
-                /* AJUSTE DE IMAGEN GIGANTE */
-                .imagen-tarjeta-v {
-                    height: 120px !important; /* Altura reducida para el admin */
-                    width: 100% !important;
-                    object-fit: cover !important;
-                }
-
-                /* REDUCCIÓN DE TEXTOS Y ESPACIOS */
-                .contenido-tarjeta-v {
-                    padding: 15px !important;
-                }
-                .contenido-tarjeta-v h3 {
-                    font-size: 16px !important;
-                    margin-bottom: 5px !important;
-                }
-                .contenido-tarjeta-v p {
-                    font-size: 13px !important;
-                    line-height: 1.3 !important;
-                    margin-bottom: 10px !important;
-                }
-                .enlace-incluye {
-                    font-size: 12px !important;
-                }
-
-                /* AJUSTE DEL MODAL */
-                .modal-contenido {
-                    width: 95% !important;
-                    padding: 20px !important;
-                    max-height: 90vh !important;
-                }
-                #modal-titulo { font-size: 18px !important; margin-bottom: 10px !important; }
-                .descripcion-legal { font-size: 13px !important; line-height: 1.4 !important; }
-                .lista-servicios li { font-size: 12px !important; margin-bottom: 5px !important; }
-
-                /* OCULTAR ELEMENTOS SOBRANTES */
-                header, footer, .seccion-ruta-legal, .encabezado-simple, .nav-container, .barra-copyright { 
-                    display: none !important; 
-                }
-                
-                /* Ajuste del grid para que se vea en una sola columna en el mini panel */
-                .contenedor-cards-areas {
+                /* 2. FORZAR VISIBILIDAD DEL CONTENIDO PRINCIPAL */
+                main, .contenedor-cards-areas {
                     display: block !important;
+                    opacity: 1 !important;
+                    visibility: visible !important;
                     padding: 10px !important;
                 }
+
+                /* 3. Ocultar el botón "Regresar" y otros estorbos */
+                .contenedor-regresar, .regresar-btn, header, footer, 
+                .seccion-ruta-legal, .nav-container, .barra-copyright { 
+                    display: none !important; 
+                }
+
+                /* 4. Ajuste de tarjetas para que no se vean vacías */
+                .tarjeta-area-vertical {
+                    display: flex !important;
+                    opacity: 1 !important;
+                    transform: none !important;
+                    margin-bottom: 20px !important;
+                    border: 1px solid #eee !important;
+                }
+
+                .imagen-tarjeta-v {
+                    height: 120px !important;
+                    display: block !important;
+                }
+
+                /* 5. Ajustes de texto */
+                .contenido-tarjeta-v h3 { font-size: 16px !important; }
+                .contenido-tarjeta-v p { font-size: 13px !important; line-height: 1.3 !important; }
             `;
             document.head.appendChild(estiloOcultar);
 
             const limpiarDOM = () => {
-                const estorbos = ['header', 'footer', '.seccion-ruta-legal', '.nav-container'];
-                estorbos.forEach(s => {
+                const selectoresAEliminar = [
+                    'header', 'footer', '.seccion-ruta-legal', 
+                    '.contenedor-regresar', '.nav-container', '.barra-copyright'
+                ];
+                selectoresAEliminar.forEach(s => {
                     const el = document.querySelector(s);
                     if (el) el.remove();
                 });
             };
+
+            // Ejecución inmediata y reintentos para asegurar que las cards carguen
             limpiarDOM();
-            setTimeout(limpiarDOM, 600);
+            setTimeout(limpiarDOM, 500);
+            setTimeout(limpiarDOM, 1500);
         }
     }
 }
