@@ -10,10 +10,12 @@
 
     <link rel="stylesheet" href="css/inicio.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
 
-    <link rel="icon" type="image/png" href="../images/logo-sin-fondo.png">
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js" defer></script>
 
     <link rel="icon" type="image/png" href="../images/logo-sin-fondo.png">
     <link rel="shortcut icon" href="../images/logo-sin-fondo.png">
@@ -43,7 +45,7 @@
             <div class="contenedor-flexible">
                 <aside class="columna-imagen">
                     <div class="contenedor-resplandor">
-                        <img src="../images/contrato.png" alt="Acuerdo legal" class="imagen-decorativa">
+                        <img src="../images/contrato.png" alt="Acuerdo legal" class="imagen-decorativa" fetchpriority="high">
                     </div>
                 </aside>
 
@@ -140,7 +142,7 @@
             <div class="contenedor-mision-vision">
                 
                 <div class="tarjeta-mision revelar-izq">
-                    <img src="../images/mision.png" alt="Misión Prime Law" class="icono-mision">
+                    <img src="../images/mision.png" alt="Misión" class="icono-mision" loading="lazy">
                     <div class="texto-mision-col">
                         <h3>MISIÓN</h3>
                         <p>Ofrecer soluciones legales confiables y estratégicas que permitan a las empresas desarrollarse con seguridad, respaldadas por un equipo comprometido con la excelencia y la integridad profesional.</p>
