@@ -110,12 +110,11 @@ function limpiarEntornoAdmin() {
                 }
                 body::-webkit-scrollbar { display: none; }
 
-                /* 1. BARRA DE BÚSQUEDA COMPACTA */
+                /* BUSCADOR */
                 .seccion-ruta-legal { padding: 0 !important; }
                 .contenedor-busqueda {
                     display: flex !important;
                     padding: 8px !important;
-                    margin: 0 !important;
                     position: sticky !important;
                     top: 0 !important;
                     z-index: 1000 !important;
@@ -123,29 +122,27 @@ function limpiarEntornoAdmin() {
                     border-bottom: 1px solid #eee;
                 }
 
-                /* 2. TARJETAS VERSIÓN MINI */
-                .contenedor-cards-areas {
-                    display: block !important;
-                    padding: 8px !important;
-                }
-
+                /* TARJETAS MINI */
+                .contenedor-cards-areas { display: block !important; padding: 8px !important; }
+                
                 .tarjeta-area-vertical {
                     display: flex !important;
-                    flex-direction: row !important; /* Asegura que imagen y texto estén alineados */
-                    height: 90px !important;       /* Altura fija pequeña */
-                    margin-bottom: 8px !important;  /* Menos espacio entre tarjetas */
+                    flex-direction: row !important;
+                    height: 85px !important;
+                    margin-bottom: 8px !important;
                     padding: 5px !important;
                     border: 1px solid #ddd !important;
                     border-radius: 8px !important;
                     overflow: hidden !important;
                     opacity: 1 !important;
                     transform: none !important;
+                    background: white !important;
                 }
 
                 .imagen-tarjeta-v {
-                    width: 80px !important;        /* Imagen más estrecha */
-                    height: 100% !important;       /* Que ocupe el alto de la tarjeta */
-                    min-width: 80px !important;
+                    width: 75px !important;
+                    height: 100% !important;
+                    min-width: 75px !important;
                     border-radius: 5px !important;
                     object-fit: cover !important;
                 }
@@ -155,54 +152,72 @@ function limpiarEntornoAdmin() {
                     display: flex !important;
                     flex-direction: column !important;
                     justify-content: center !important;
-                    width: calc(100% - 80px) !important;
+                    width: calc(100% - 75px) !important;
                 }
 
-                .contenido-tarjeta-v h3 {
-                    font-size: 13px !important;    /* Título más pequeño */
-                    margin: 0 !important;
-                    line-height: 1.1 !important;
-                    color: #003f63 !important;
-                }
-
-                .contenido-tarjeta-v p {
-                    font-size: 11px !important;    /* Texto de descripción pequeño */
-                    margin: 2px 0 !important;
-                    line-height: 1.2 !important;
+                .contenido-tarjeta-v h3 { font-size: 13px !important; margin: 0 !important; color: #003f63 !important; }
+                .contenido-tarjeta-v p { 
+                    font-size: 11px !important; 
+                    margin: 2px 0 !important; 
                     display: -webkit-box !important;
-                    -webkit-line-clamp: 2 !important; /* Máximo 2 líneas de texto */
+                    -webkit-line-clamp: 2 !important;
                     -webkit-box-orient: vertical !important;
                     overflow: hidden !important;
                 }
+                .enlace-incluye { font-size: 10px !important; margin-top: 2px !important; }
 
-                .contenido-tarjeta-v a {
-                    font-size: 10px !important;    /* Enlace "¿Qué incluye?" */
-                    margin-top: 2px !important;
-                    text-decoration: underline !important;
-                }
+                /* OCULTAR INTERFAZ PÚBLICA */
+                header, footer, .contenedor-regresar, .nav-container, .barra-copyright { display: none !important; }
 
+                /* MODAL */
                 .modal-contenido { width: 95% !important; padding: 15px !important; }
-                #modal-titulo { font-size: 16px !important; }
-                .descripcion-legal { font-size: 12px !important; }
-                
-                header, footer, .contenedor-regresar { display: none !important; }
+                #modal-titulo { font-size: 17px !important; }
+                .descripcion-legal { font-size: 12.5px !important; }
             `;
             document.head.appendChild(estiloOcultar);
 
-            const ejecutarLimpieza = () => {
-                const buscador = document.getElementById('input-busqueda');
-                if (buscador) buscador.addEventListener('input', filtrarAreas);
+            // RE-VINCULACIÓN DEL BUSCADOR
+            const buscador = document.getElementById('input-busqueda');
+            if (buscador) {
+                buscador.addEventListener('input', filtrarAreas);
+            }
 
+            const forzarCards = () => {
                 document.querySelectorAll('.tarjeta-area-vertical').forEach(card => {
                     card.classList.add('activo');
-                    card.style.setProperty('display', 'flex', 'important');
+                    if (!card.dataset.filtrado) {
+                        card.style.setProperty('display', 'flex', 'important');
+                    }
                 });
             };
 
-            ejecutarLimpieza();
-            setTimeout(ejecutarLimpieza, 500);
+            forzarCards();
+            setTimeout(forzarCards, 500);
         }
     }
+}
+
+// NUEVA FUNCIÓN DE FILTRADO (MÁS POTENTE)
+function filtrarAreas() {
+    const input = document.getElementById('input-busqueda');
+    if (!input) return;
+    
+    const texto = input.value.toLowerCase().trim();
+    const tarjetas = document.querySelectorAll('.tarjeta-area-vertical');
+
+    tarjetas.forEach(tarjeta => {
+        const titulo = tarjeta.querySelector('h3').innerText.toLowerCase();
+        const desc = tarjeta.querySelector('p').innerText.toLowerCase();
+        
+        if (titulo.includes(texto) || desc.includes(texto)) {
+            tarjeta.style.setProperty('display', 'flex', 'important');
+            tarjeta.style.setProperty('opacity', '1', 'important');
+            tarjeta.dataset.filtrado = "";
+        } else {
+            tarjeta.style.setProperty('display', 'none', 'important');
+            tarjeta.dataset.filtrado = "true";
+        }
+    });
 }
 
 limpiarEntornoAdmin();
