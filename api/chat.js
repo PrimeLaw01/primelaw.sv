@@ -6,27 +6,19 @@ export default async function handler(req, res) {
         const token = process.env.HF_TOKEN;
 
         const response = await fetch(
-            "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3",
+            "https://api-inference.huggingface.co/models/distilbert/distilgpt2",
             {
                 headers: { 
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json" 
                 },
                 method: "POST",
-                body: JSON.stringify({ 
-                    inputs: `<s>[INST] ${prompt} [/INST]`,
-                    parameters: { max_new_tokens: 300 }
-                }),
+                body: JSON.stringify({ inputs: prompt }),
             }
         );
 
         const data = await response.json();
-        
-        if (response.status === 503 || response.status === 500) {
-            return res.status(response.status).json(data);
-        }
-
-        return res.status(200).json(data);
+        return res.status(response.status).json(data);
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
