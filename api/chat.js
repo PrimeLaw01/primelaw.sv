@@ -5,29 +5,31 @@ export default async function handler(req, res) {
         const { prompt } = req.body;
         const token = process.env.HF_TOKEN;
 
-        const hfResponse = await fetch(
-            "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2",
+        const response = await fetch(
+            "https://api-inference.huggingface.co/models/Qwen/Qwen2.5-72B-Instruct",
             {
                 headers: { 
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json" 
                 },
                 method: "POST",
-                body: JSON.stringify({ inputs: `Responde como abogado: ${prompt}` }),
+                body: JSON.stringify({ 
+                    inputs: `Responde como experto legal de Prime Law El Salvador de forma breve: ${prompt}`,
+                    parameters: { max_new_tokens: 300 }
+                }),
             }
         );
 
-        // Si la respuesta no es OK, capturamos el texto para ver qué es
-        if (!hfResponse.ok) {
-            const errorText = await hfResponse.text();
-            console.error("Respuesta de error de Hugging Face:", errorText);
-            return res.status(hfResponse.status).json({ error: "Hugging Face respondió con error", detalles: errorText });
+        const result = await response.json();
+
+        if (!response.ok) {
+            console.error("Error de HF:", result);
+            return res.status(response.status).json(result);
         }
 
-        const data = await hfResponse.json();
-        return res.status(200).json(data);
+        return res.status(200).json(result);
     } catch (error) {
-        console.error("Error crítico en la función:", error.message);
+        console.error("Error crítico:", error.message);
         return res.status(500).json({ error: error.message });
     }
 }
