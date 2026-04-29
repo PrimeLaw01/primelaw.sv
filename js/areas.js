@@ -98,68 +98,81 @@ function limpiarEntornoAdmin() {
             estiloOcultar.innerHTML = `
                 html, body {
                     pointer-events: auto !important;
-                    height: auto !important;
-                    min-height: 100% !important;
+                    background: #f4f7f9 !important;
                 }
                 body::-webkit-scrollbar { display: none !important; }
                 body {
-                    -ms-overflow-style: none !important;
                     scrollbar-width: none !important;
                     overflow-x: hidden !important;
                     overflow-y: auto !important;
                     padding: 0 !important;
                     margin: 0 !important;
-                    background: #f8f9fa !important;
                 }
-                h1, h2 { font-size: 1.1rem !important; margin-bottom: 5px !important; }
-                h3 { font-size: 0.9rem !important; }
-                p, span, li, div { font-size: 0.75rem !important; line-height: 1.3 !important; }
-                .modal-overlay {
-                    display: none;
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0,0,0,0.7);
-                    z-index: 999999 !important;
-                    justify-content: center;
-                    align-items: center;
-                    pointer-events: auto !important;
+
+                /* Forzar visibilidad de tarjetas (anula la animación de scroll) */
+                .tarjeta-area-vertical {
+                    opacity: 1 !important;
+                    transform: none !important;
+                    margin-bottom: 15px !important;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
                 }
-                .modal-contenido { 
-                    width: 90% !important; 
-                    max-width: 400px !important;
+
+                /* AJUSTE DE IMAGEN GIGANTE */
+                .imagen-tarjeta-v {
+                    height: 120px !important; /* Altura reducida para el admin */
+                    width: 100% !important;
+                    object-fit: cover !important;
+                }
+
+                /* REDUCCIÓN DE TEXTOS Y ESPACIOS */
+                .contenido-tarjeta-v {
                     padding: 15px !important;
-                    pointer-events: auto !important; 
-                    background: white !important;
-                    border-radius: 8px !important;
                 }
-                .descripcion-legal { font-size: 0.75rem !important; }
-                .lista-servicios li { font-size: 0.7rem !important; margin-left: 15px !important; }
-                button, .boton, .tarjeta-area-vertical, .cerrar-modal, .boton-cerrar {
-                    cursor: pointer !important;
-                    pointer-events: auto !important;
-                    display: inline-block !important;
+                .contenido-tarjeta-v h3 {
+                    font-size: 16px !important;
+                    margin-bottom: 5px !important;
                 }
-                header, footer, .encabezado-simple, .nav-container, .barra-copyright, .contenedor-regresar { 
+                .contenido-tarjeta-v p {
+                    font-size: 13px !important;
+                    line-height: 1.3 !important;
+                    margin-bottom: 10px !important;
+                }
+                .enlace-incluye {
+                    font-size: 12px !important;
+                }
+
+                /* AJUSTE DEL MODAL */
+                .modal-contenido {
+                    width: 95% !important;
+                    padding: 20px !important;
+                    max-height: 90vh !important;
+                }
+                #modal-titulo { font-size: 18px !important; margin-bottom: 10px !important; }
+                .descripcion-legal { font-size: 13px !important; line-height: 1.4 !important; }
+                .lista-servicios li { font-size: 12px !important; margin-bottom: 5px !important; }
+
+                /* OCULTAR ELEMENTOS SOBRANTES */
+                header, footer, .seccion-ruta-legal, .encabezado-simple, .nav-container, .barra-copyright { 
                     display: none !important; 
-                    pointer-events: none !important; 
+                }
+                
+                /* Ajuste del grid para que se vea en una sola columna en el mini panel */
+                .contenedor-cards-areas {
+                    display: block !important;
+                    padding: 10px !important;
                 }
             `;
             document.head.appendChild(estiloOcultar);
 
             const limpiarDOM = () => {
-                const estorbos = ['header', 'footer', '.nav-container', '.barra-copyright', '.contenedor-regresar'];
-                estorbos.forEach(selector => {
-                    const el = document.querySelector(selector);
+                const estorbos = ['header', 'footer', '.seccion-ruta-legal', '.nav-container'];
+                estorbos.forEach(s => {
+                    const el = document.querySelector(s);
                     if (el) el.remove();
                 });
             };
-
             limpiarDOM();
-            setTimeout(limpiarDOM, 500);
-            setTimeout(limpiarDOM, 1500);
+            setTimeout(limpiarDOM, 600);
         }
     }
 }
