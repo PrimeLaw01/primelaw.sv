@@ -97,6 +97,7 @@ h1, h2, h3 {
     display: grid;
     grid-template-columns: 400px 1fr;
     gap: 40px;
+    align-items: start;
 }
 
 .caja-herramienta {
@@ -189,8 +190,11 @@ h1, h2, h3 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: sticky;
+    
+    position: sticky; 
     top: 20px;
+    height: fit-content;
+    z-index: 100;
 }
 
 .btn-formato {
