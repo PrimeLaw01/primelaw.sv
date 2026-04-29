@@ -2,10 +2,6 @@ const SUPABASE_URL = 'https://geopgruedclsmwdfuebi.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb3BncnVlZGNsc213ZGZ1ZWJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5ODc1MjIsImV4cCI6MjA5MjU2MzUyMn0.xwcFE6zs4FYIicIXVqQljHNAPxPAWBcDXl1jbCL3mdo';
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const parte1 = "hf_"; 
-const parte2 = "qtKXCZLKFpltrWOCkQuoczjKcQlJQimaUx";
-const HF_TOKEN = parte1 + parte2;
-
 const imagenesGaleria = [
     '../images/derAdministrativo.png', '../images/derCorporativo.png',
     '../images/derCivil.png', '../images/derMercantil.png',
@@ -89,27 +85,12 @@ async function consultarIA() {
     btn.disabled = true;
 
     try {
-        const response = await fetch(
-            "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3",
-            {
-                method: "POST",
-                headers: { 
-                    "Authorization": `Bearer ${HF_TOKEN}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    inputs: `<s>[INST] Eres el experto legal de Prime Law El Salvador. Responde breve: ${promptUser} [/INST]`,
-                    parameters: { max_new_tokens: 250, temperature: 0.7 }
-                })
-            }
-        );
-
-        if (response.status === 503) {
-            const data = await response.json();
-            return alert(`La IA se está despertando. Reintenta en ${Math.round(data.estimated_time || 20)} segundos.`);
-        }
-
-        if (!response.ok) throw new Error("Error en la conexión");
+        // Llamamos a nuestra propia API interna
+        const response = await fetch("/api/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt: promptUser })
+        });
 
         const result = await response.json();
         let resIA = result[0].generated_text;
@@ -120,8 +101,7 @@ async function consultarIA() {
         textoRespuesta.innerText = resIA;
 
     } catch (error) {
-        console.error("Error completo:", error);
-        alert("El navegador bloqueó la conexión (CORS). Sube los cambios a Vercel para que funcione en tu página oficial, ya que los servidores locales (127.0.0.1) suelen tener estas restricciones.");
+        alert("Error al conectar con el servidor de Prime Law.");
     } finally {
         btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Consultar IA';
         btn.disabled = false;
