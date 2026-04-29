@@ -107,67 +107,85 @@ function limpiarEntornoAdmin() {
                     background: #ffffff !important;
                     margin: 0 !important;
                     padding: 0 !important;
-                    overflow-x: hidden !important;
-                    overflow-y: auto !important;
                 }
                 body::-webkit-scrollbar { display: none; }
 
-                /* REAJUSTE DE LA BARRA ORIGINAL PARA EL PANEL */
-                .seccion-ruta-legal {
-                    padding: 0 !important; /* Quitamos el padding gigante de arriba */
-                }
+                /* 1. BARRA DE BÚSQUEDA COMPACTA */
+                .seccion-ruta-legal { padding: 0 !important; }
                 .contenedor-busqueda {
                     display: flex !important;
-                    justify-content: center !important;
-                    padding: 10px !important;
+                    padding: 8px !important;
                     margin: 0 !important;
                     position: sticky !important;
                     top: 0 !important;
                     z-index: 1000 !important;
                     background: white !important;
-                    border-bottom: 1px solid #f0f0f0;
-                }
-                .barra-busqueda {
-                    margin: 0 !important;
-                    width: 100% !important;
-                    max-width: 100% !important;
+                    border-bottom: 1px solid #eee;
                 }
 
-                /* GRID DE TARJETAS OPTIMIZADO */
+                /* 2. TARJETAS VERSIÓN MINI */
                 .contenedor-cards-areas {
                     display: block !important;
-                    padding: 10px !important;
-                    opacity: 1 !important;
-                    visibility: visible !important;
+                    padding: 8px !important;
                 }
 
                 .tarjeta-area-vertical {
                     display: flex !important;
+                    flex-direction: row !important; /* Asegura que imagen y texto estén alineados */
+                    height: 90px !important;       /* Altura fija pequeña */
+                    margin-bottom: 8px !important;  /* Menos espacio entre tarjetas */
+                    padding: 5px !important;
+                    border: 1px solid #ddd !important;
+                    border-radius: 8px !important;
+                    overflow: hidden !important;
                     opacity: 1 !important;
                     transform: none !important;
-                    margin-bottom: 15px !important;
-                    border: 1px solid #eee !important;
                 }
 
                 .imagen-tarjeta-v {
-                    height: 110px !important;
+                    width: 80px !important;        /* Imagen más estrecha */
+                    height: 100% !important;       /* Que ocupe el alto de la tarjeta */
+                    min-width: 80px !important;
+                    border-radius: 5px !important;
                     object-fit: cover !important;
                 }
 
-                /* MODAL COMPACTO (MANTENIENDO TU LETRA PEQUEÑA) */
-                .modal-contenido {
-                    width: 95% !important;
-                    padding: 20px !important;
-                    max-height: 85vh !important;
+                .contenido-tarjeta-v {
+                    padding: 0 10px !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    justify-content: center !important;
+                    width: calc(100% - 80px) !important;
                 }
-                #modal-titulo { font-size: 18px !important; margin-bottom: 10px !important; }
-                .descripcion-legal { font-size: 13px !important; line-height: 1.4 !important; }
-                .lista-servicios li { font-size: 12px !important; }
 
-                /* OCULTAR ELEMENTOS PÚBLICOS */
-                header, footer, .contenedor-regresar, .nav-container, .barra-copyright { 
-                    display: none !important; 
+                .contenido-tarjeta-v h3 {
+                    font-size: 13px !important;    /* Título más pequeño */
+                    margin: 0 !important;
+                    line-height: 1.1 !important;
+                    color: #003f63 !important;
                 }
+
+                .contenido-tarjeta-v p {
+                    font-size: 11px !important;    /* Texto de descripción pequeño */
+                    margin: 2px 0 !important;
+                    line-height: 1.2 !important;
+                    display: -webkit-box !important;
+                    -webkit-line-clamp: 2 !important; /* Máximo 2 líneas de texto */
+                    -webkit-box-orient: vertical !important;
+                    overflow: hidden !important;
+                }
+
+                .contenido-tarjeta-v a {
+                    font-size: 10px !important;    /* Enlace "¿Qué incluye?" */
+                    margin-top: 2px !important;
+                    text-decoration: underline !important;
+                }
+
+                .modal-contenido { width: 95% !important; padding: 15px !important; }
+                #modal-titulo { font-size: 16px !important; }
+                .descripcion-legal { font-size: 12px !important; }
+                
+                header, footer, .contenedor-regresar { display: none !important; }
             `;
             document.head.appendChild(estiloOcultar);
 
@@ -175,13 +193,9 @@ function limpiarEntornoAdmin() {
                 const buscador = document.getElementById('input-busqueda');
                 if (buscador) buscador.addEventListener('input', filtrarAreas);
 
-                const estorbos = document.querySelectorAll('header, footer, .contenedor-regresar');
-                estorbos.forEach(el => el.remove());
-
-                document.querySelectorAll('.revelar, .tarjeta-area-vertical').forEach(card => {
+                document.querySelectorAll('.tarjeta-area-vertical').forEach(card => {
                     card.classList.add('activo');
-                    card.style.setProperty('opacity', '1', 'important');
-                    card.style.setProperty('transform', 'none', 'important');
+                    card.style.setProperty('display', 'flex', 'important');
                 });
             };
 
@@ -189,22 +203,6 @@ function limpiarEntornoAdmin() {
             setTimeout(ejecutarLimpieza, 500);
         }
     }
-}
-
-// Lógica de filtrado robusta
-if (typeof filtrarAreas !== 'undefined') {
-    const originalFiltrar = filtrarAreas;
-    filtrarAreas = function() {
-        const input = document.getElementById('input-busqueda');
-        if (!input) return;
-        const texto = input.value.toLowerCase().trim();
-        document.querySelectorAll('.tarjeta-area-vertical').forEach(t => {
-            const titulo = t.querySelector('h3').innerText.toLowerCase();
-            const desc = t.querySelector('p').innerText.toLowerCase();
-            const coincide = titulo.includes(texto) || desc.includes(texto);
-            t.style.setProperty('display', coincide ? 'flex' : 'none', 'important');
-        });
-    };
 }
 
 limpiarEntornoAdmin();
