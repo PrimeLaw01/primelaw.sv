@@ -92,56 +92,74 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function limpiarEntornoAdmin() {
     if (window.self !== window.top) {
-        
         const urlPadre = document.referrer;
-
-        if (urlPadre.includes('primelaw_administrador_post.html')) {
-            
-            console.log("Acceso desde Administrador Prime Law: Limpiando interfaz...");
-
+        if (urlPadre.includes('primelaw_administrador_post.html') || window.location.search.includes('admin=true')) {
             const estiloOcultar = document.createElement('style');
             estiloOcultar.innerHTML = `
-
-                body::-webkit-scrollbar {
-                    display: none !important;
+                html, body {
+                    pointer-events: auto !important;
+                    height: auto !important;
+                    min-height: 100% !important;
                 }
-
-                /* Ocultar scrollbar para Firefox y IE/Edge */
+                body::-webkit-scrollbar { display: none !important; }
                 body {
-                    -ms-overflow-style: none !important;  /* IE and Edge */
-                    scrollbar-width: none !important;  /* Firefox */
-                    overflow-y: scroll !important; /* Mantiene la capacidad de scroll */
+                    -ms-overflow-style: none !important;
+                    scrollbar-width: none !important;
+                    overflow-x: hidden !important;
+                    overflow-y: auto !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                    background: #f8f9fa !important;
                 }
-                header, .encabezado-simple, .encabezado-principal, .nav-container, #main-header, .contenedor-regresar { 
+                h1, h2 { font-size: 1.1rem !important; margin-bottom: 5px !important; }
+                h3 { font-size: 0.9rem !important; }
+                p, span, li, div { font-size: 0.75rem !important; line-height: 1.3 !important; }
+                .modal-overlay {
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.7);
+                    z-index: 999999 !important;
+                    justify-content: center;
+                    align-items: center;
+                    pointer-events: auto !important;
+                }
+                .modal-contenido { 
+                    width: 90% !important; 
+                    max-width: 400px !important;
+                    padding: 15px !important;
+                    pointer-events: auto !important; 
+                    background: white !important;
+                    border-radius: 8px !important;
+                }
+                .descripcion-legal { font-size: 0.75rem !important; }
+                .lista-servicios li { font-size: 0.7rem !important; margin-left: 15px !important; }
+                button, .boton, .tarjeta-area-vertical, .cerrar-modal, .boton-cerrar {
+                    cursor: pointer !important;
+                    pointer-events: auto !important;
+                    display: inline-block !important;
+                }
+                header, footer, .encabezado-simple, .nav-container, .barra-copyright, .contenedor-regresar { 
                     display: none !important; 
-                }
-                body { 
-                    padding-top: 0 !important; 
-                    margin-top: 0 !important; 
-                }
-                .pie-depagina, .contenedor-footer, .columna-footer, .enlaces-footer, .redes-sociales, footer, .barra-copyright {
-                    display: none !important;
-                }
-                .barra-copyright {
-                    display: none !important;
+                    pointer-events: none !important; 
                 }
             `;
             document.head.appendChild(estiloOcultar);
 
-            let intentos = 0;
-            const intervaloOcultar = setInterval(() => {
-                const encabezado = document.querySelector('header') || 
-                                   document.querySelector('.encabezado-simple') ||
-                                   document.querySelector('.encabezado-principal');
-                
-                if (encabezado) {
-                    encabezado.remove();
-                    clearInterval(intervaloOcultar);
-                }
+            const limpiarDOM = () => {
+                const estorbos = ['header', 'footer', '.nav-container', '.barra-copyright', '.contenedor-regresar'];
+                estorbos.forEach(selector => {
+                    const el = document.querySelector(selector);
+                    if (el) el.remove();
+                });
+            };
 
-                intentos++;
-                if (intentos > 20) clearInterval(intervaloOcultar);
-            }, 100);
+            limpiarDOM();
+            setTimeout(limpiarDOM, 500);
+            setTimeout(limpiarDOM, 1500);
         }
     }
 }
