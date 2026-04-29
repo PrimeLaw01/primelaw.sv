@@ -2,7 +2,7 @@ const SUPABASE_URL = 'https://geopgruedclsmwdfuebi.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb3BncnVlZGNsc213ZGZ1ZWJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5ODc1MjIsImV4cCI6MjA5MjU2MzUyMn0.xwcFE6zs4FYIicIXVqQljHNAPxPAWBcDXl1jbCL3mdo';
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const HF_TOKEN = "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";
+const HF_TOKEN = "hf_VALOR_TEMPORAL"; // Deja esto así para probar local
 
 const imagenesGaleria = [
     '../images/derAdministrativo.png', '../images/derCorporativo.png',
