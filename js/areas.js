@@ -105,104 +105,95 @@ function limpiarEntornoAdmin() {
             estiloOcultar.innerHTML = `
                 html, body {
                     background: #ffffff !important;
-                    margin: 0 !important;
-                    padding: 0 !important;
                     height: auto !important;
                     min-height: 100vh !important;
-                    overflow-x: hidden !important;
-                    overflow-y: auto !important;
-                    -webkit-overflow-scrolling: touch;
                 }
                 body::-webkit-scrollbar { display: none; }
 
-                /* Asegurar que el contenedor de búsqueda sea visible y funcional */
+                .modal-overlay {
+                    padding: 10px !important;
+                    z-index: 999999 !important;
+                }
+                .modal-contenido {
+                    width: 95% !important;
+                    max-width: 450px !important;
+                    padding: 20px !important; /* Reducido de 40px */
+                    max-height: 85vh !important;
+                }
+                #modal-titulo {
+                    font-size: 18px !important; /* Título principal */
+                    margin-bottom: 10px !important;
+                    padding-bottom: 5px !important;
+                }
+                .descripcion-legal {
+                    font-size: 13px !important; /* El texto de la imagen */
+                    line-height: 1.4 !important;
+                    text-align: left !important;
+                }
+                .modal-body h3 {
+                    font-size: 14px !important;
+                    margin-top: 10px !important;
+                }
+                .lista-servicios li {
+                    font-size: 12px !important;
+                    margin-bottom: 5px !important;
+                }
+                .cerrar-modal {
+                    font-size: 22px !important;
+                    top: 10px !important;
+                    right: 15px !important;
+                }
+                .boton-cerrar {
+                    padding: 8px 20px !important;
+                    font-size: 12px !important;
+                }
+
+                /* Mantener barra de búsqueda y tarjetas */
                 .contenedor-busqueda {
                     display: flex !important;
-                    justify-content: center !important;
-                    padding: 15px 10px !important;
-                    margin: 0 !important;
                     position: sticky !important;
                     top: 0 !important;
                     z-index: 1000 !important;
                     background: white !important;
-                    border-bottom: 1px solid #eee !important;
                 }
-
-                main.seccion-ruta-legal {
-                    padding-top: 0 !important;
-                    display: block !important;
-                    opacity: 1 !important;
-                }
-
-                /* Grid de tarjetas optimizado */
-                .contenedor-cards-areas {
-                    display: block !important;
-                    opacity: 1 !important;
-                    padding: 10px !important;
-                }
-
                 .tarjeta-area-vertical {
                     display: flex !important;
                     opacity: 1 !important;
                     transform: none !important;
                     margin-bottom: 15px !important;
-                    border: 1px solid #eee !important;
                 }
-
-                /* Ocultar elementos innecesarios */
-                header, footer, .contenedor-regresar, .nav-container, .barra-copyright, .encabezado-principal { 
-                    display: none !important; 
-                }
-
-                /* Ajustes de tamaño para móvil */
-                .imagen-tarjeta-v { height: 110px !important; object-fit: cover !important; }
-                .contenido-tarjeta-v h3 { font-size: 15px !important; }
-                .contenido-tarjeta-v p { font-size: 12px !important; line-height: 1.2 !important; }
+                header, footer, .contenedor-regresar { display: none !important; }
             `;
             document.head.appendChild(estiloOcultar);
 
             const ejecutarLimpieza = () => {
                 const buscador = document.getElementById('input-busqueda');
-                if (buscador) {
-                    buscador.addEventListener('input', filtrarAreas);
-                }
+                if (buscador) buscador.addEventListener('input', filtrarAreas);
 
-                const estorbos = document.querySelectorAll('header, footer, .contenedor-regresar');
-                estorbos.forEach(el => el.remove());
-
-                document.querySelectorAll('.tarjeta-area-vertical').forEach(card => {
+                document.querySelectorAll('.revelar, .tarjeta-area-vertical').forEach(card => {
                     card.classList.add('activo');
-                    card.style.opacity = "1";
-                    card.style.transform = "none";
+                    card.style.setProperty('opacity', '1', 'important');
+                    card.style.setProperty('transform', 'none', 'important');
                 });
             };
 
             ejecutarLimpieza();
             setTimeout(ejecutarLimpieza, 500);
-            setTimeout(ejecutarLimpieza, 1500);
         }
     }
 }
 
-const originalFiltrarAreas = filtrarAreas;
-filtrarAreas = function() {
-    const input = document.getElementById('input-busqueda');
-    if (!input) return;
-    
-    const textoBusqueda = input.value.toLowerCase().trim();
-    const tarjetas = document.querySelectorAll('.tarjeta-area-vertical');
-
-    tarjetas.forEach(tarjeta => {
-        const titulo = tarjeta.querySelector('h3').innerText.toLowerCase();
-        const descripcion = tarjeta.querySelector('p').innerText.toLowerCase();
-        
-        if (titulo.includes(textoBusqueda) || descripcion.includes(textoBusqueda)) {
-            tarjeta.style.setProperty('display', 'flex', 'important');
-            tarjeta.style.setProperty('opacity', '1', 'important');
-        } else {
-            tarjeta.style.setProperty('display', 'none', 'important');
-        }
-    });
-};
+if (typeof filtrarAreas !== 'undefined') {
+    const originalFiltrar = filtrarAreas;
+    filtrarAreas = function() {
+        const input = document.getElementById('input-busqueda');
+        if (!input) return;
+        const texto = input.value.toLowerCase().trim();
+        document.querySelectorAll('.tarjeta-area-vertical').forEach(t => {
+            const contenido = t.innerText.toLowerCase();
+            t.style.setProperty('display', contenido.includes(texto) ? 'flex' : 'none', 'important');
+        });
+    };
+}
 
 limpiarEntornoAdmin();
