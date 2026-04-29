@@ -566,7 +566,8 @@ h1, h2, h3 {
     object-fit: cover;
 }
 
-@media (max-width: 1200px) {
+
+@media (max-width: 1100px) {
     .malla-edicion-paso1 {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -578,6 +579,9 @@ h1, h2, h3 {
         padding: 20px;
         order: -1;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .formato-cuadrado {
@@ -595,14 +599,16 @@ h1, h2, h3 {
     }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 768px) {
     .contenedor-principal {
-        margin: 20px auto;
+        margin: 10px auto;
+        padding: 0 10px;
     }
 
     .seccion-paso {
         padding-left: 0;
         border-left: none;
+        margin-bottom: 40px;
     }
 
     .indicador-etapa {
@@ -615,60 +621,29 @@ h1, h2, h3 {
         grid-template-columns: 1fr;
     }
 
-    .visualizador-premium {
-        padding: 10px;
-    }
-
-    .lienzo-post {
-        padding: 20px;
-    }
-
     #preview-titulo, 
     #preview-subtitulo, 
     #preview-info, 
     #preview-lista-contenedor {
-        touch-action: none;
-        max-width: 90%;
+        position: absolute;
+        top: 50px;
+        left: 20px;
+        margin: 0;
+        touch-action: none !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        cursor: move;
+        z-index: 1000;
+        will-change: transform; 
     }
 
-    #preview-titulo {
-        font-size: 1.4rem !important;
-        top: 20px !important;
-        left: 20px !important;
-    }
+    .formato-horizontal #preview-titulo { font-size: 1.2rem !important; top: 10% !important; left: 5% !important; }
+    .formato-horizontal #preview-subtitulo { font-size: 0.8rem !important; top: 35% !important; left: 5% !important; }
+    .formato-horizontal #preview-info { font-size: 0.8rem !important; top: 50% !important; left: 5% !important; width: 90%; }
+    .formato-horizontal #preview-lista-contenedor { top: 65% !important; left: 5% !important; }
 
-    #preview-subtitulo {
-        font-size: 0.8rem !important;
-        top: 70px !important;
-        left: 20px !important;
-    }
-
-    #preview-info {
-        font-size: 0.85rem !important;
-        top: 110px !important;
-        left: 20px !important;
-    }
-
-    #preview-lista-contenedor {
-        top: 170px !important;
-        left: 20px !important;
-    }
-    
-    .panel-despliegue-final {
-        padding: 30px 20px;
-    }
-
-    .marca-agua {
-        font-size: 0.6rem;
-        bottom: 10px;
-        right: 10px;
-    }
-}
-
-#preview-titulo, #preview-subtitulo, #preview-info, #preview-lista-contenedor {
-    touch-action: none !important;
-    user-select: none !important;
-    -webkit-user-select: none !important;
-    -webkit-touch-callout: none !important;
-    cursor: move;
+    .formato-cuadrado #preview-titulo { font-size: 1.4rem !important; top: 10% !important; }
+    .formato-cuadrado #preview-subtitulo { top: 30% !important; }
+    .formato-cuadrado #preview-info { top: 40% !important; }
+    .formato-cuadrado #preview-lista-contenedor { top: 55% !important; }
 }
