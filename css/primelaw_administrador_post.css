@@ -565,3 +565,110 @@ h1, h2, h3 {
     height: 120px;
     object-fit: cover;
 }
+
+@media (max-width: 1100px) {
+    .malla-edicion-paso1 {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .visualizador-premium {
+        position: relative;
+        top: 0;
+        padding: 20px;
+        order: -1;
+        width: 100%;
+    }
+
+    .formato-cuadrado {
+        width: 100%;
+        max-width: 450px;
+        height: auto;
+        aspect-ratio: 1 / 1;
+    }
+
+    .formato-horizontal {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        aspect-ratio: 16 / 9;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor-principal {
+        margin: 20px auto;
+    }
+
+    .seccion-paso {
+        padding-left: 0;
+        border-left: none;
+    }
+
+    .indicador-etapa {
+        position: relative;
+        left: 0;
+        margin-bottom: 10px;
+    }
+
+    .controles-flujo {
+        grid-template-columns: 1fr;
+    }
+
+    .visualizador-premium {
+        padding: 10px;
+    }
+
+    .lienzo-post {
+        padding: 20px;
+    }
+
+    #preview-titulo, 
+    #preview-subtitulo, 
+    #preview-info, 
+    #preview-lista-contenedor {
+        touch-action: none;
+        max-width: 90%;
+    }
+
+    #preview-titulo {
+        font-size: 1.4rem !important;
+        top: 20px !important;
+        left: 20px !important;
+    }
+
+    #preview-subtitulo {
+        font-size: 0.8rem !important;
+        top: 70px !important;
+        left: 20px !important;
+    }
+
+    #preview-info {
+        font-size: 0.85rem !important;
+        top: 110px !important;
+        left: 20px !important;
+    }
+
+    #preview-lista-contenedor {
+        top: 170px !important;
+        left: 20px !important;
+    }
+    
+    .panel-despliegue-final {
+        padding: 30px 20px;
+    }
+
+    .marca-agua {
+        font-size: 0.6rem;
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+#preview-titulo, #preview-subtitulo, #preview-info, #preview-lista-contenedor {
+    touch-action: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-touch-callout: none !important;
+    cursor: move;
+}

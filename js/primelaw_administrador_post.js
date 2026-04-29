@@ -4,30 +4,66 @@ function habilitarArrastre(idElemento) {
 
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
-    el.onmousedown = function(e) {
-        e = e || window.event;
-        e.preventDefault();
-        pos3 = e.clientX;
-        pos4 = e.clientY;
+    // Mouse
+    el.addEventListener('mousedown', iniciarArrastre, false);
+    // Touch
+    el.addEventListener('touchstart', iniciarArrastre, { passive: false });
 
-        document.onmouseup = function() {
-            document.onmouseup = null;
-            document.onmousemove = null;
-        };
-
-        document.onmousemove = function(e) {
-            e = e || window.event;
+    function iniciarArrastre(e) {
+        // Detener el scroll de la página mientras movemos el texto
+        if (e.type === 'touchstart') {
+            pos3 = e.touches[0].clientX;
+            pos4 = e.touches[0].clientY;
+        } else {
             e.preventDefault();
-            
-            pos1 = pos3 - e.clientX;
-            pos2 = pos4 - e.clientY;
             pos3 = e.clientX;
             pos4 = e.clientY;
+        }
 
-            el.style.top = (el.offsetTop - pos2) + "px";
-            el.style.left = (el.offsetLeft - pos1) + "px";
-        };
-    };
+        document.addEventListener('mousemove', moverElemento, false);
+        document.addEventListener('mouseup', detenerArrastre, false);
+        
+        document.addEventListener('touchmove', moverElemento, { passive: false });
+        document.addEventListener('touchend', detenerArrastre, false);
+    }
+
+    function moverElemento(e) {
+        // Bloquear el scroll del navegador
+        if (e.cancelable) e.preventDefault();
+
+        let clienteX, clienteY;
+        if (e.type === 'touchmove') {
+            clienteX = e.touches[0].clientX;
+            clienteY = e.touches[0].clientY;
+        } else {
+            clienteX = e.clientX;
+            clienteY = e.clientY;
+        }
+
+        pos1 = pos3 - clienteX;
+        pos2 = pos4 - clienteY;
+        pos3 = clienteX;
+        pos4 = clienteY;
+
+        const lienzo = document.getElementById('lienzo-publicacion');
+        let nuevoTop = el.offsetTop - pos2;
+        let nuevoLeft = el.offsetLeft - pos1;
+
+        // Validar límites
+        if (nuevoTop >= 0 && nuevoTop <= (lienzo.offsetHeight - el.offsetHeight)) {
+            el.style.top = nuevoTop + "px";
+        }
+        if (nuevoLeft >= 0 && nuevoLeft <= (lienzo.offsetWidth - el.offsetWidth)) {
+            el.style.left = nuevoLeft + "px";
+        }
+    }
+
+    function detenerArrastre() {
+        document.removeEventListener('mousemove', moverElemento);
+        document.removeEventListener('mouseup', detenerArrastre);
+        document.removeEventListener('touchmove', moverElemento);
+        document.removeEventListener('touchend', detenerArrastre);
+    }
 }
 
 function seleccionarUnaRed(elemento) {
@@ -89,7 +125,10 @@ async function exportarYPublicar() {
     const btn = document.querySelector('.btn-ejecutar-final');
     const redSeleccionada = document.querySelector('.tarjeta-red-admin.seleccionada h4');
 
-    if (!redSeleccionada) return alert("Por favor, selecciona una red social en el Paso 02.");
+    if (!redSeleccionada) {
+        alert("Por favor, selecciona una red social en el Paso 02.");
+        return;
+    }
 
     const nombreRed = redSeleccionada.innerText.toLowerCase();
     btn.innerText = "PROCESANDO...";
@@ -104,7 +143,11 @@ async function exportarYPublicar() {
             scale: 3,
             backgroundColor: colorFondo,
             useCORS: true,
-            logging: false
+            logging: false,
+            scrollX: 0,
+            scrollY: -window.scrollY,
+            windowWidth: lienzo.scrollWidth,
+            windowHeight: lienzo.scrollHeight
         });
 
         const link = document.createElement('a');
@@ -115,6 +158,7 @@ async function exportarYPublicar() {
         const titulo = document.getElementById('preview-titulo').innerText;
         const info = document.getElementById('preview-info').innerText;
         const textoPost = `${titulo.toUpperCase()}\n\n${info}\n\n⚖️ Prime Law El Salvador`;
+        
         await navigator.clipboard.writeText(textoPost);
 
         const urls = {
@@ -145,7 +189,6 @@ window.onload = function() {
         'preview-titulo', 
         'preview-subtitulo', 
         'preview-info', 
-        'preview-viñetas', 
         'preview-lista-contenedor'
     ];
 
