@@ -3,45 +3,48 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// LÓGICA DEL MODAL
-async function abrirModal(slugParaBuscar) {
+let datosAreas = [];
+
+async function precargarDatos() {
+    console.log("Precargando base de datos...");
+    const { data, error } = await _supabase
+        .from('informacion_derechos')
+        .select('*');
+
+    if (error) {
+        console.error("Error precargando datos:", error.message);
+        return;
+    }
+    datosAreas = data;
+    console.log("Datos listos para usar.");
+}
+
+window.addEventListener('DOMContentLoaded', precargarDatos);
+
+function abrirModal(slugParaBuscar) {
     if (!slugParaBuscar) return;
 
-    console.log("Consultando base de datos para:", slugParaBuscar);
     const modal = document.getElementById('modal-derecho');
     
-    try {
-        const { data, error } = await _supabase
-            .from('informacion_derechos')
-            .select('*')
-            .eq('slug', slugParaBuscar);
+    const registro = datosAreas.find(a => a.slug === slugParaBuscar);
 
-        if (error) throw error;
+    if (registro) {
+        document.getElementById('modal-titulo').innerText = registro.titulo;
+        document.getElementById('modal-descripcion').innerText = registro.contenido_detallado;
+        
+        const listaUl = document.getElementById('modal-lista');
+        listaUl.innerHTML = ''; 
+        
+        registro.lista_items.forEach(item => {
+            const li = document.createElement('li');
+            li.innerText = item;
+            listaUl.appendChild(li);
+        });
 
-        if (data && data.length > 0) {
-            const registro = data[0];
-
-            document.getElementById('modal-titulo').innerText = registro.titulo;
-            document.getElementById('modal-descripcion').innerText = registro.contenido_detallado;
-            
-            const listaUl = document.getElementById('modal-lista');
-            listaUl.innerHTML = ''; 
-            
-            registro.lista_items.forEach(item => {
-                const li = document.createElement('li');
-                li.innerText = item;
-                listaUl.appendChild(li);
-            });
-
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        } else {
-            console.warn("No se encontró el registro:", slugParaBuscar);
-            alert("La información detallada no está disponible en este momento.");
-        }
-    } catch (err) {
-        console.error("Error al conectar con Supabase:", err.message);
-        alert("Hubo un error al cargar la información.");
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    } else {
+        console.warn("No se encontró el área en los datos precargados:", slugParaBuscar);
     }
 }
 
@@ -57,7 +60,6 @@ window.onclick = function(event) {
     }
 }
 
-// LÓGICA DEL BUSCADOR
 function filtrarAreas() {
     const input = document.getElementById('input-busqueda');
     const textoBusqueda = input.value.toLowerCase().trim();
@@ -209,7 +211,6 @@ function limpiarEntornoAdmin() {
     }
 }
 
-// Mantén tu función de filtrarAreas como la definimos antes
 function filtrarAreas() {
     const input = document.getElementById('input-busqueda');
     if (!input) return;
