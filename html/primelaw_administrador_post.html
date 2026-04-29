@@ -44,23 +44,20 @@
                         </div>
                     </div>
 
-                    <div class="caja-herramienta">
-                        <h3><i class="fa-solid fa-robot"></i> Asistente Creativo IA</h3>
-                        <p style="font-size: 11px; color: #888; margin-bottom: 10px;">Genera ideas, copies o resúmenes legales al instante</p>
+                    <div class="ia-tool-panel">
+                        <h3 class="serif-font">Seleccionar IA para redacciones aparte</h3>
+                        <p>Selecciona una IA (este paso es opcional)</p>
                         
-                        <div class="contenedor-ia">
-                            <textarea id="prompt-ia" placeholder="Ej: Redacta un copy de Instagram sobre los beneficios del Derecho Corporativo..." rows="3"></textarea>
-                            <button id="btn-preguntar-ia" class="btn-ia" onclick="consultarIA()">
-                                <i class="fa-solid fa-paper-plane"></i> Consultar IA
+                        <div class="ia-options">
+                            <button onclick="irA('chatgpt')" class="ia-btn btn-gpt">
+                                <i class="fa-solid fa-bolt"></i> ChatGPT (General)
                             </button>
-                        </div>
-                        
-                        <div id="respuesta-ia" class="respuesta-ia-box" style="display: none;">
-                            <div class="header-respuesta">
-                                <span>Sugerencia de la IA:</span>
-                                <i class="fa-regular fa-copy" onclick="copiarTextoIA()" title="Copiar al portapapeles"></i>
-                            </div>
-                            <p id="texto-ia"></p>
+                            <button onclick="irA('claude')" class="ia-btn btn-claude">
+                                <i class="fa-solid fa-feather"></i> Claude (Análisis Legal)
+                            </button>
+                            <button onclick="irA('gemini')" class="ia-btn btn-gemini">
+                                <i class="fa-brands fa-google"></i> Google Gemini
+                            </button>
                         </div>
                     </div>
 
