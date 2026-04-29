@@ -94,13 +94,12 @@ function limpiarEntornoAdmin() {
     if (window.self !== window.top) {
         const urlPadre = document.referrer;
         if (urlPadre.includes('primelaw_administrador_post.html') || window.location.search.includes('admin=true')) {
-            
             const estiloOcultar = document.createElement('style');
             estiloOcultar.innerHTML = `
-                /* 1. Reset de scroll y fondo */
                 html, body {
                     pointer-events: auto !important;
                     background: #ffffff !important;
+                    height: auto !important;
                 }
                 body::-webkit-scrollbar { display: none !important; }
                 body {
@@ -110,52 +109,64 @@ function limpiarEntornoAdmin() {
                     margin: 0 !important;
                 }
 
-                /* 2. FORZAR VISIBILIDAD DEL CONTENIDO PRINCIPAL */
-                main, .contenedor-cards-areas {
+                /* FORZAR VISIBILIDAD DE CONTENEDORES */
+                main, 
+                .contenedor-cards-areas, 
+                #contenedor-areas,
+                section {
                     display: block !important;
                     opacity: 1 !important;
                     visibility: visible !important;
+                    height: auto !important;
+                    min-height: 100px !important;
                     padding: 10px !important;
+                    transform: none !important;
                 }
 
-                /* 3. Ocultar el botón "Regresar" y otros estorbos */
-                .contenedor-regresar, .regresar-btn, header, footer, 
-                .seccion-ruta-legal, .nav-container, .barra-copyright { 
-                    display: none !important; 
-                }
-
-                /* 4. Ajuste de tarjetas para que no se vean vacías */
+                /* FORZAR VISIBILIDAD DE TARJETAS */
                 .tarjeta-area-vertical {
                     display: flex !important;
                     opacity: 1 !important;
+                    visibility: visible !important;
                     transform: none !important;
                     margin-bottom: 20px !important;
-                    border: 1px solid #eee !important;
+                    border: 1px solid #f0f0f0 !important;
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important;
                 }
 
                 .imagen-tarjeta-v {
                     height: 120px !important;
                     display: block !important;
+                    opacity: 1 !important;
                 }
 
-                /* 5. Ajustes de texto */
-                .contenido-tarjeta-v h3 { font-size: 16px !important; }
+                /* OCULTAR ESTORBOS */
+                header, footer, .seccion-ruta-legal, .contenedor-regresar, 
+                .nav-container, .barra-copyright, #main-header { 
+                    display: none !important; 
+                }
+
+                /* AJUSTE DE TEXTOS */
+                .contenido-tarjeta-v h3 { font-size: 16px !important; color: #003f63 !important; }
                 .contenido-tarjeta-v p { font-size: 13px !important; line-height: 1.3 !important; }
             `;
             document.head.appendChild(estiloOcultar);
 
             const limpiarDOM = () => {
-                const selectoresAEliminar = [
-                    'header', 'footer', '.seccion-ruta-legal', 
-                    '.contenedor-regresar', '.nav-container', '.barra-copyright'
-                ];
-                selectoresAEliminar.forEach(s => {
+                const estorbos = ['header', 'footer', '.seccion-ruta-legal', '.contenedor-regresar', '#main-header'];
+                estorbos.forEach(s => {
                     const el = document.querySelector(s);
                     if (el) el.remove();
                 });
+
+                // Asegurar que las tarjetas no tengan opacity 0 por JS
+                document.querySelectorAll('.tarjeta-area-vertical').forEach(t => {
+                    t.classList.add('activo');
+                    t.style.opacity = "1";
+                    t.style.transform = "none";
+                });
             };
 
-            // Ejecución inmediata y reintentos para asegurar que las cards carguen
             limpiarDOM();
             setTimeout(limpiarDOM, 500);
             setTimeout(limpiarDOM, 1500);
