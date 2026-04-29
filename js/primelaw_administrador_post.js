@@ -80,33 +80,49 @@ async function consultarIA() {
     const cajaRespuesta = document.getElementById('respuesta-ia');
     const textoRespuesta = document.getElementById('texto-ia');
 
-    if (!promptUser.trim()) return alert("Escribe algo para la IA.");
+    if (!promptUser.trim()) return alert("Por favor, escribe una consulta para la IA.");
 
     btn.innerText = "PENSANDO...";
     btn.disabled = true;
+    cajaRespuesta.style.display = 'none';
 
     try {
         const response = await fetch("/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ prompt: `Eres el experto legal de Prime Law El Salvador. Responde de forma profesional y breve en español a lo siguiente: ${promptUser}` })
+            body: JSON.stringify({ 
+                prompt: `Eres el experto legal de Prime Law El Salvador. Responde de forma profesional, formal y breve en español a lo siguiente: ${promptUser}` 
+            })
         });
 
         const result = await response.json();
-        
-        if (result.error) {
-            if(result.estimated_time) return alert("La IA se está cargando, intenta en unos segundos.");
-            throw new Error(result.error);
+
+        if (!response.ok) {
+            if (result.estimated_time) {
+                alert(`La IA se está preparando (estimado: ${Math.round(result.estimated_time)} seg). Intenta de nuevo en un momento.`);
+            } else {
+                throw new Error(result.error || "Error desconocido en la API");
+            }
+            return;
         }
 
-        const resIA = result[0]?.generated_text || result.generated_text || "No se obtuvo respuesta.";
+        let resIA = "";
+        if (Array.isArray(result) && result.length > 0 && result[0].generated_text) {
+            resIA = result[0].generated_text;
+        } else if (result.generated_text) {
+            resIA = result.generated_text;
+        } else if (typeof result === 'string') {
+            resIA = result;
+        } else {
+            resIA = "No se pudo procesar la respuesta. Intenta con un prompt diferente.";
+        }
 
         cajaRespuesta.style.display = 'block';
-        textoRespuesta.innerText = resIA.trim();
+        textoRespuesta.innerText = resIA.replace(/<\|.*?\|>/g, "").trim();
 
     } catch (error) {
-        console.error("Error:", error);
-        alert("Error al conectar con el servidor de Prime Law.");
+        console.error("Error en la consulta:", error);
+        alert("Hubo un problema al conectar con el servidor de Prime Law. Revisa la consola para más detalles.");
     } finally {
         btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Consultar IA';
         btn.disabled = false;
