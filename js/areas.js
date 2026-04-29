@@ -164,58 +164,65 @@ function limpiarEntornoAdmin() {
                     -webkit-box-orient: vertical !important;
                     overflow: hidden !important;
                 }
-                .enlace-incluye { font-size: 10px !important; margin-top: 2px !important; }
+
+                /* --- AJUSTES DEL MODAL (LETRA PEQUEÑA) --- */
+                .modal-contenido { width: 95% !important; padding: 15px !important; max-height: 85vh !important; }
+                #modal-titulo { font-size: 17px !important; margin-bottom: 10px !important; }
+                .descripcion-legal { font-size: 12px !important; line-height: 1.4 !important; }
+                
+                /* Título de servicios específicos */
+                .modal-body h3 { 
+                    font-size: 13px !important; 
+                    margin: 10px 0 5px 0 !important; 
+                }
+
+                /* Lista de servicios específicos */
+                .lista-servicios { padding-top: 5px !important; }
+                .lista-servicios li { 
+                    font-size: 11.5px !important; /* Ajuste para el administrador */
+                    line-height: 1.3 !important;
+                    margin-bottom: 4px !important;
+                    padding-left: 20px !important;
+                }
+                .lista-servicios li::before { 
+                    font-size: 14px !important; 
+                    top: -1px !important; 
+                }
 
                 /* OCULTAR INTERFAZ PÚBLICA */
                 header, footer, .contenedor-regresar, .nav-container, .barra-copyright { display: none !important; }
-
-                /* MODAL */
-                .modal-contenido { width: 95% !important; padding: 15px !important; }
-                #modal-titulo { font-size: 17px !important; }
-                .descripcion-legal { font-size: 12.5px !important; }
             `;
             document.head.appendChild(estiloOcultar);
 
-            // RE-VINCULACIÓN DEL BUSCADOR
-            const buscador = document.getElementById('input-busqueda');
-            if (buscador) {
-                buscador.addEventListener('input', filtrarAreas);
-            }
+            const ejecutarLimpieza = () => {
+                const buscador = document.getElementById('input-busqueda');
+                if (buscador) buscador.addEventListener('input', filtrarAreas);
 
-            const forzarCards = () => {
                 document.querySelectorAll('.tarjeta-area-vertical').forEach(card => {
                     card.classList.add('activo');
-                    if (!card.dataset.filtrado) {
-                        card.style.setProperty('display', 'flex', 'important');
-                    }
                 });
             };
 
-            forzarCards();
-            setTimeout(forzarCards, 500);
+            ejecutarLimpieza();
+            setTimeout(ejecutarLimpieza, 500);
         }
     }
 }
 
-// NUEVA FUNCIÓN DE FILTRADO (MÁS POTENTE)
+// Mantén tu función de filtrarAreas como la definimos antes
 function filtrarAreas() {
     const input = document.getElementById('input-busqueda');
     if (!input) return;
-    
     const texto = input.value.toLowerCase().trim();
-    const tarjetas = document.querySelectorAll('.tarjeta-area-vertical');
-
-    tarjetas.forEach(tarjeta => {
-        const titulo = tarjeta.querySelector('h3').innerText.toLowerCase();
-        const desc = tarjeta.querySelector('p').innerText.toLowerCase();
-        
-        if (titulo.includes(texto) || desc.includes(texto)) {
-            tarjeta.style.setProperty('display', 'flex', 'important');
-            tarjeta.style.setProperty('opacity', '1', 'important');
-            tarjeta.dataset.filtrado = "";
+    document.querySelectorAll('.tarjeta-area-vertical').forEach(t => {
+        const contenido = t.innerText.toLowerCase();
+        if (contenido.includes(texto)) {
+            t.style.setProperty('display', 'flex', 'important');
+            t.style.setProperty('opacity', '1', 'important');
+            t.dataset.filtrado = "";
         } else {
-            tarjeta.style.setProperty('display', 'none', 'important');
-            tarjeta.dataset.filtrado = "true";
+            t.style.setProperty('display', 'none', 'important');
+            t.dataset.filtrado = "true";
         }
     });
 }
