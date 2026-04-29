@@ -119,22 +119,16 @@ function limpiarEntornoAdmin() {
                     padding: 10px !important;
                     margin: 0 !important;
                     background: #f8f9fa !important;
-                    position: sticky;
-                    top: 0;
-                    z-index: 100;
+                    position: sticky !important;
+                    top: 0 !important;
+                    z-index: 100 !important;
                 }
                 .barra-busqueda {
                     width: 100% !important;
                     height: 35px !important;
-                    background: #003f63 !important;
                     border-radius: 5px !important;
                     display: flex !important;
                     align-items: center !important;
-                }
-                .entrada-busqueda {
-                    font-size: 13px !important;
-                    color: white !important;
-                    padding: 5px !important;
                 }
 
                 main.seccion-ruta-legal, .contenedor-cards-areas {
@@ -166,7 +160,7 @@ function limpiarEntornoAdmin() {
                 }
 
                 .contenido-tarjeta-v { padding: 10px !important; }
-                .contenido-tarjeta-v h3 { font-size: 15px !important; color: #003f63 !important; margin-bottom: 2px !important; }
+                .contenido-tarjeta-v h3 { font-size: 15px !important; margin-bottom: 2px !important; }
                 .contenido-tarjeta-v p { font-size: 12px !important; line-height: 1.2 !important; }
             `;
             document.head.appendChild(estiloOcultar);
