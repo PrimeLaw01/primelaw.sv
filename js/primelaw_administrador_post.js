@@ -3,7 +3,7 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const parte1 = "hf_"; 
-const parte2 = "OKCkWTMBNMYjyIYBFZWLqFAcPcQVQZNbPS";
+const parte2 = "qtKXCZLKFpltrWOCkQuoczjKcQlJQimaUx";
 const HF_TOKEN = parte1 + parte2;
 
 const imagenesGaleria = [
