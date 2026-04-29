@@ -6,7 +6,7 @@ export default async function handler(req, res) {
         const token = process.env.HF_TOKEN;
 
         const response = await fetch(
-            "https://api-inference.huggingface.co/models/google/gemma-2-2b-it",
+            "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",
             {
                 headers: { 
                     "Authorization": `Bearer ${token}`,
@@ -15,21 +15,23 @@ export default async function handler(req, res) {
                 method: "POST",
                 body: JSON.stringify({ 
                     inputs: prompt,
-                    parameters: { max_new_tokens: 300, return_full_text: false }
+                    parameters: { max_new_tokens: 300 }
                 }),
             }
         );
 
-        const result = await response.json();
-
-        if (!response.ok) {
-            console.error("Detalle del error en HF:", result);
-            return res.status(response.status).json(result);
+        const contentType = response.headers.get("content-type");
+        
+        if (!contentType || !contentType.includes("application/json")) {
+            const textoError = await response.text();
+            console.error("Hugging Face no envió JSON. Envió:", textoError);
+            return res.status(500).json({ error: "La IA envió un formato incorrecto", detalle: textoError.substring(0, 100) });
         }
 
+        const result = await response.json();
         return res.status(200).json(result);
+        
     } catch (error) {
-        console.error("Error crítico en servidor:", error.message);
         return res.status(500).json({ error: error.message });
     }
 }
