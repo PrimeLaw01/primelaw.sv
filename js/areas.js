@@ -93,82 +93,103 @@ window.addEventListener('DOMContentLoaded', () => {
 function limpiarEntornoAdmin() {
     if (window.self !== window.top) {
         const urlPadre = document.referrer;
-        const urlLocal = window.location.href;
+        const hostname = window.location.hostname;
         
-        // Valida si viene del administrador (Vercel o Local) o si tiene el parámetro admin
         const esAdmin = urlPadre.includes('primelaw_administrador_post.html') || 
-                        urlPadre.includes('127.0.0.1') || 
-                        urlLocal.includes('admin=true');
+                        hostname === "127.0.0.1" || 
+                        hostname === "localhost" || 
+                        window.location.search.includes('admin=true');
 
         if (esAdmin) {
             const estiloOcultar = document.createElement('style');
             estiloOcultar.innerHTML = `
+                /* 1. Reset total del lienzo del iframe */
                 html, body {
-                    pointer-events: auto !important;
                     background: #ffffff !important;
-                    height: auto !important;
-                }
-                body::-webkit-scrollbar { display: none !important; }
-                body {
-                    scrollbar-width: none !important;
-                    overflow-y: auto !important;
-                    padding: 0 !important;
                     margin: 0 !important;
+                    padding: 0 !important;
+                    height: auto !important;
+                    min-height: 100vh !important;
+                    overflow-x: hidden !important;
+                    overflow-y: auto !important;
+                }
+                body::-webkit-scrollbar { display: none; }
+
+                /* 2. Forzar que el contenedor principal sea visible y ocupe espacio */
+                main.seccion-ruta-legal, 
+                .contenedor-cards-areas {
+                    display: block !important;
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    padding: 10px !important;
+                    margin: 0 !important;
+                    transform: none !important;
                 }
 
-                /* FORZAR VISIBILIDAD DE TARJETAS Y CONTENEDORES */
-                main, section, .contenedor-cards-areas, #contenedor-areas, .tarjeta-area-vertical {
+                /* 3. Forzar que TODAS las tarjetas aparezcan (Anula .revelar) */
+                .tarjeta-area-vertical, 
+                article.revelar,
+                .tarjeta-area-vertical.revelar {
                     display: flex !important;
                     flex-direction: column !important;
                     opacity: 1 !important;
                     visibility: visible !important;
-                    height: auto !important;
-                    min-height: 50px !important;
                     transform: none !important;
-                    padding: 5px !important;
+                    margin-bottom: 20px !important;
+                    border: 1px solid #eee !important;
+                    background: #fff !important;
+                    transition: none !important;
                 }
 
+                /* 4. Ajuste de imágenes para que no se rompan */
+                .tarjeta-area-vertical img, 
                 .imagen-tarjeta-v {
-                    height: 110px !important;
+                    height: 120px !important;
                     width: 100% !important;
                     display: block !important;
-                    opacity: 1 !important;
                     object-fit: cover !important;
+                    opacity: 1 !important;
                 }
 
-                /* OCULTAR ELEMENTOS QUE NO SIRVEN EN EL ADMIN */
-                header, footer, .seccion-ruta-legal, .contenedor-regresar, 
-                .nav-container, .barra-copyright, #main-header, .encabezado-simple { 
+                /* 5. Ocultar el resto de la web */
+                header, footer, .contenedor-busqueda, .contenedor-regresar, 
+                .nav-container, .barra-copyright, .encabezado-principal { 
                     display: none !important; 
-                    height: 0 !important;
                 }
 
-                /* TEXTOS PEQUEÑOS */
-                .contenido-tarjeta-v { padding: 10px !important; }
-                .contenido-tarjeta-v h3 { font-size: 15px !important; margin-bottom: 5px !important; }
-                .contenido-tarjeta-v p { font-size: 12px !important; line-height: 1.2 !important; }
+                /* 6. Optimizar textos */
+                .contenido-tarjeta-v { padding: 15px !important; }
+                .contenido-tarjeta-v h3 { font-size: 16px !important; color: #003f63 !important; }
+                .contenido-tarjeta-v p { font-size: 13px !important; line-height: 1.3 !important; }
             `;
             document.head.appendChild(estiloOcultar);
 
-            const forzarLimpieza = () => {
-                const estorbos = ['header', 'footer', '.seccion-ruta-legal', '.contenedor-regresar', '.encabezado-simple'];
-                estorbos.forEach(s => {
-                    const el = document.querySelector(s);
-                    if (el) el.remove();
-                });
+            const ejecutarLimpieza = () => {
+                // Borramos físicamente los elementos que estorban
+                const estorbos = document.querySelectorAll('header, footer, .contenedor-busqueda, .contenedor-regresar');
+                estorbos.forEach(el => el.remove());
 
-                document.querySelectorAll('.tarjeta-area-vertical').forEach(t => {
-                    t.classList.add('activo'); // Activa tu clase de CSS original
-                    t.style.opacity = "1";
-                    t.style.transform = "none";
+                // Forzamos manualmente que cada tarjeta ignore el IntersectionObserver
+                const cards = document.querySelectorAll('.tarjeta-area-vertical');
+                cards.forEach(card => {
+                    card.classList.remove('revelar'); // Quitamos la clase que la oculta
+                    card.classList.add('activo');    // Ponemos la que la muestra
+                    card.style.setProperty('opacity', '1', 'important');
+                    card.style.setProperty('transform', 'none', 'important');
+                    card.style.setProperty('visibility', 'visible', 'important');
                 });
             };
 
-            // Ejecuciones en cadena para asegurar el render local
-            forzarLimpieza();
-            window.addEventListener('load', forzarLimpieza);
-            setTimeout(forzarLimpieza, 500);
-            setTimeout(forzarLimpieza, 1500);
+            // Ejecución inmediata y repetitiva para "ganarle" a los otros scripts
+            ejecutarLimpieza();
+            window.onload = ejecutarLimpieza;
+            
+            let i = 0;
+            const loop = setInterval(() => {
+                ejecutarLimpieza();
+                i++;
+                if (i > 10) clearInterval(loop); // Insiste por 5 segundos
+            }, 500);
         }
     }
 }
