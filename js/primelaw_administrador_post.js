@@ -73,6 +73,7 @@ function actualizarLienzo() {
     }
 }
 
+
 async function consultarIA() {
     const promptUser = document.getElementById('prompt-ia').value;
     const btn = document.getElementById('btn-preguntar-ia');
@@ -85,7 +86,6 @@ async function consultarIA() {
     btn.disabled = true;
 
     try {
-        // Llamamos a nuestra propia API interna
         const response = await fetch("/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -93,20 +93,29 @@ async function consultarIA() {
         });
 
         const result = await response.json();
+        
+        if (result.error) {
+            throw new Error(result.error);
+        }
+
         let resIA = result[0].generated_text;
 
-        if (resIA.includes('[/INST]')) resIA = resIA.split('[/INST]')[1].trim();
+        if (resIA.includes('[/INST]')) {
+            resIA = resIA.split('[/INST]')[1].trim();
+        }
 
         cajaRespuesta.style.display = 'block';
         textoRespuesta.innerText = resIA;
 
     } catch (error) {
+        console.error("Error:", error);
         alert("Error al conectar con el servidor de Prime Law.");
     } finally {
         btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Consultar IA';
         btn.disabled = false;
     }
 }
+
 
 function copiarTextoIA() {
     const texto = document.getElementById('texto-ia').innerText;
