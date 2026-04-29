@@ -103,7 +103,6 @@ function limpiarEntornoAdmin() {
         if (esAdmin) {
             const estiloOcultar = document.createElement('style');
             estiloOcultar.innerHTML = `
-                /* 1. Reset total del lienzo del iframe */
                 html, body {
                     background: #ffffff !important;
                     margin: 0 !important;
@@ -115,81 +114,77 @@ function limpiarEntornoAdmin() {
                 }
                 body::-webkit-scrollbar { display: none; }
 
-                /* 2. Forzar que el contenedor principal sea visible y ocupe espacio */
-                main.seccion-ruta-legal, 
-                .contenedor-cards-areas {
-                    display: block !important;
-                    opacity: 1 !important;
-                    visibility: visible !important;
+                .contenedor-busqueda {
+                    display: flex !important;
                     padding: 10px !important;
                     margin: 0 !important;
-                    transform: none !important;
+                    background: #f8f9fa !important;
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
+                }
+                .barra-busqueda {
+                    width: 100% !important;
+                    height: 35px !important;
+                    background: #003f63 !important;
+                    border-radius: 5px !important;
+                    display: flex !important;
+                    align-items: center !important;
+                }
+                .entrada-busqueda {
+                    font-size: 13px !important;
+                    color: white !important;
+                    padding: 5px !important;
                 }
 
-                /* 3. Forzar que TODAS las tarjetas aparezcan (Anula .revelar) */
-                .tarjeta-area-vertical, 
-                article.revelar,
-                .tarjeta-area-vertical.revelar {
+                main.seccion-ruta-legal, .contenedor-cards-areas {
+                    display: block !important;
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    padding: 5px !important;
+                    transform: none !important;
+                }
+                .tarjeta-area-vertical, article.revelar {
                     display: flex !important;
-                    flex-direction: column !important;
                     opacity: 1 !important;
                     visibility: visible !important;
                     transform: none !important;
-                    margin-bottom: 20px !important;
-                    border: 1px solid #eee !important;
-                    background: #fff !important;
+                    margin-bottom: 15px !important;
                     transition: none !important;
+                    border: 1px solid #eee !important;
                 }
 
-                /* 4. Ajuste de imágenes para que no se rompan */
-                .tarjeta-area-vertical img, 
                 .imagen-tarjeta-v {
-                    height: 120px !important;
+                    height: 110px !important;
                     width: 100% !important;
-                    display: block !important;
                     object-fit: cover !important;
-                    opacity: 1 !important;
+                    display: block !important;
                 }
 
-                /* 5. Ocultar el resto de la web */
-                header, footer, .contenedor-busqueda, .contenedor-regresar, 
-                .nav-container, .barra-copyright, .encabezado-principal { 
+                header, footer, .contenedor-regresar, .nav-container, .barra-copyright, .encabezado-principal { 
                     display: none !important; 
                 }
 
-                /* 6. Optimizar textos */
-                .contenido-tarjeta-v { padding: 15px !important; }
-                .contenido-tarjeta-v h3 { font-size: 16px !important; color: #003f63 !important; }
-                .contenido-tarjeta-v p { font-size: 13px !important; line-height: 1.3 !important; }
+                .contenido-tarjeta-v { padding: 10px !important; }
+                .contenido-tarjeta-v h3 { font-size: 15px !important; color: #003f63 !important; margin-bottom: 2px !important; }
+                .contenido-tarjeta-v p { font-size: 12px !important; line-height: 1.2 !important; }
             `;
             document.head.appendChild(estiloOcultar);
 
             const ejecutarLimpieza = () => {
-                // Borramos físicamente los elementos que estorban
-                const estorbos = document.querySelectorAll('header, footer, .contenedor-busqueda, .contenedor-regresar');
+                const estorbos = document.querySelectorAll('header, footer, .contenedor-regresar');
                 estorbos.forEach(el => el.remove());
 
-                // Forzamos manualmente que cada tarjeta ignore el IntersectionObserver
-                const cards = document.querySelectorAll('.tarjeta-area-vertical');
-                cards.forEach(card => {
-                    card.classList.remove('revelar'); // Quitamos la clase que la oculta
-                    card.classList.add('activo');    // Ponemos la que la muestra
+                document.querySelectorAll('.revelar, .tarjeta-area-vertical').forEach(card => {
+                    card.classList.add('activo');
                     card.style.setProperty('opacity', '1', 'important');
                     card.style.setProperty('transform', 'none', 'important');
-                    card.style.setProperty('visibility', 'visible', 'important');
                 });
             };
 
-            // Ejecución inmediata y repetitiva para "ganarle" a los otros scripts
             ejecutarLimpieza();
-            window.onload = ejecutarLimpieza;
-            
-            let i = 0;
-            const loop = setInterval(() => {
-                ejecutarLimpieza();
-                i++;
-                if (i > 10) clearInterval(loop); // Insiste por 5 segundos
-            }, 500);
+            setTimeout(ejecutarLimpieza, 500);
+            setTimeout(ejecutarLimpieza, 1500);
         }
     }
 }
