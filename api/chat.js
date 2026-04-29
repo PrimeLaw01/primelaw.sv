@@ -6,7 +6,7 @@ export default async function handler(req, res) {
         const token = process.env.HF_TOKEN;
 
         const response = await fetch(
-            "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",
+            "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3",
             {
                 headers: { 
                     "Authorization": `Bearer ${token}`,
