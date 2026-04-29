@@ -1,17 +1,29 @@
+const SUPABASE_URL = 'https://geopgruedclsmwdfuebi.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb3BncnVlZGNsc213ZGZ1ZWJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5ODc1MjIsImV4cCI6MjA5MjU2MzUyMn0.xwcFE6zs4FYIicIXVqQljHNAPxPAWBcDXl1jbCL3mdo';
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const imagenesGaleria = [
+    '../images/derAdministrativo.png', '../images/derCorporativo.png',
+    '../images/derCivil.png', '../images/derMercantil.png',
+    '../images/derTributario.png', '../images/derAduanero.png',
+    '../images/derLaboral.png', '../images/derConsumo.png',
+    '../images/derPropiedadIntelectual.png', '../images/derAmbiental.png',
+    '../images/derNotarial.png'
+];
+
+const textosPorDefecto = {
+    'preview-titulo': 'Título',
+    'preview-subtitulo': 'Subtítulo',
+    'preview-info': 'Descripción...'
+};
+
 function habilitarArrastre(idElemento) {
     const el = document.getElementById(idElemento);
-    const lienzo = document.getElementById('lienzo-publicacion');
-    if (!el || !lienzo) return;
-
+    if (!el) return;
     let activo = false;
-    let currentX;
-    let currentY;
-    let initialX;
-    let initialY;
-    let xOffset = 0;
-    let yOffset = 0;
-
-    function arrastreInicio(e) {
+    let currentX = 0, currentY = 0, initialX, initialY, xOffset = 0, yOffset = 0;
+    
+    function inicio(e) {
         if (e.type === "touchstart") {
             initialX = e.touches[0].clientX - xOffset;
             initialY = e.touches[0].clientY - yOffset;
@@ -19,74 +31,39 @@ function habilitarArrastre(idElemento) {
             initialX = e.clientX - xOffset;
             initialY = e.clientY - yOffset;
         }
-
-        if (e.target === el || el.contains(e.target)) {
-            activo = true;
-        }
+        if (e.target === el || el.contains(e.target)) activo = true;
     }
-
-    function arrastrando(e) {
+    function moviendo(e) {
         if (activo) {
             if (e.cancelable) e.preventDefault();
-
-            if (e.type === "touchmove") {
-                currentX = e.touches[0].clientX - initialX;
-                currentY = e.touches[0].clientY - initialY;
-            } else {
-                currentX = e.clientX - initialX;
-                currentY = e.clientY - initialY;
-            }
-
-            xOffset = currentX;
-            yOffset = currentY;
-
-            setTranslate(currentX, currentY, el);
+            currentX = (e.type === "touchmove" ? e.touches[0].clientX : e.clientX) - initialX;
+            currentY = (e.type === "touchmove" ? e.touches[0].clientY : e.clientY) - initialY;
+            xOffset = currentX; yOffset = currentY;
+            el.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
         }
     }
-
-    function setTranslate(xPos, yPos, el) {
-        const rectLienzo = lienzo.getBoundingClientRect();
-        const rectEl = el.getBoundingClientRect();
-
-        el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
-    }
-
-    function arrastreFin() {
-        initialX = currentX;
-        initialY = currentY;
-        activo = false;
-    }
-
-    el.addEventListener("touchstart", arrastreInicio, { passive: false });
-    window.addEventListener("touchend", arrastreFin, { passive: false });
-    window.addEventListener("touchmove", arrastrando, { passive: false });
-
-    el.addEventListener("mousedown", arrastreInicio, false);
-    window.addEventListener("mouseup", arrastreFin, false);
-    window.addEventListener("mousemove", arrastrando, false);
-}
-
-function seleccionarUnaRed(elemento) {
-    const todasLasRedes = document.querySelectorAll('.tarjeta-red-admin');
-    todasLasRedes.forEach(red => red.classList.remove('seleccionada'));
-    elemento.classList.add('seleccionada');
+    function fin() { initialX = currentX; initialY = currentY; activo = false; }
+    el.addEventListener("touchstart", inicio, { passive: false });
+    window.addEventListener("touchend", fin, { passive: false });
+    window.addEventListener("touchmove", moviendo, { passive: false });
+    el.addEventListener("mousedown", inicio, false);
+    window.addEventListener("mouseup", fin, false);
+    window.addEventListener("mousemove", moviendo, false);
 }
 
 function actualizarLienzo() {
-    const titulo = document.getElementById('input-titulo').value || "Título del Post";
-    const subtitulo = document.getElementById('input-subtitulo').value || "Subtítulo";
-    const info = document.getElementById('input-info').value || "Descripción...";
-    const tituloLista = document.getElementById('input-puntos').value || "";
-
-    document.getElementById('preview-titulo').innerText = titulo;
-    document.getElementById('preview-subtitulo').innerText = subtitulo;
-    document.getElementById('preview-info').innerText = info;
-    document.getElementById('preview-titulo-puntos').innerText = tituloLista;
-
+    const tVal = document.getElementById('input-titulo').value;
+    const sVal = document.getElementById('input-subtitulo').value;
+    const iVal = document.getElementById('input-info').value;
+    
+    document.getElementById('preview-titulo').innerText = tVal || textosPorDefecto['preview-titulo'];
+    document.getElementById('preview-subtitulo').innerText = sVal || textosPorDefecto['preview-subtitulo'];
+    document.getElementById('preview-info').innerText = iVal || textosPorDefecto['preview-info'];
+    
+    document.getElementById('preview-titulo-puntos').innerText = document.getElementById('input-puntos').value || "";
     const viñetas = document.getElementById('input-viñetas').value;
     const listaUl = document.getElementById('preview-viñetas');
     listaUl.innerHTML = "";
-    
     if (viñetas) {
         viñetas.split(';').forEach(p => {
             const li = document.createElement('li');
@@ -98,8 +75,8 @@ function actualizarLienzo() {
 
 function cambiarPlantilla(clase, elemento) {
     const lienzo = document.getElementById('lienzo-publicacion');
-    const clasesActuales = Array.from(lienzo.classList).filter(c => c.startsWith('formato-'));
-    lienzo.className = `lienzo-post ${clase} ${clasesActuales.join(' ')}`;
+    const clasesF = Array.from(lienzo.classList).filter(c => c.startsWith('formato-'));
+    lienzo.className = `lienzo-post ${clase} ${clasesF.join(' ')}`;
     document.querySelectorAll('.opcion-plantilla').forEach(op => op.classList.remove('activa'));
     elemento.classList.add('activa');
 }
@@ -108,88 +85,133 @@ function cambiarTamano(formato, elemento) {
     const lienzo = document.getElementById('lienzo-publicacion');
     lienzo.classList.remove('formato-cuadrado', 'formato-horizontal');
     lienzo.classList.add(formato === 'cuadrado' ? 'formato-cuadrado' : 'formato-horizontal');
-    
-    if (window.innerWidth < 768) {
-        document.getElementById('preview-lista-contenedor').style.top = "60%";
-        document.getElementById('preview-lista-contenedor').style.left = "5%";
-    }
-
     document.querySelectorAll('.btn-formato').forEach(btn => btn.classList.remove('activo'));
     elemento.classList.add('activo');
 }
 
-document.getElementById('subir-fondo').addEventListener('change', function(e) {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-        document.getElementById('fondo-post').style.backgroundImage = `url('${event.target.result}')`;
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('subir-fondo');
+if (dropZone && fileInput) {
+    dropZone.onclick = () => fileInput.click();
+    dropZone.ondragover = (e) => { e.preventDefault(); dropZone.style.borderColor = "#c5a059"; };
+    dropZone.ondragleave = () => dropZone.style.borderColor = "#ddd";
+    dropZone.ondrop = (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = "#ddd";
+        if (e.dataTransfer.files.length) { fileInput.files = e.dataTransfer.files; procesarImagen(e.dataTransfer.files[0]); }
     };
-    reader.readAsDataURL(e.target.files[0]);
-});
+    fileInput.onchange = function() { if (this.files[0]) procesarImagen(this.files[0]); };
+}
+
+function procesarImagen(archivo) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const fondo = document.getElementById('fondo-post');
+        fondo.style.backgroundImage = `url('${e.target.result}')`;
+        fondo.style.backgroundSize = "cover";
+        fondo.style.backgroundPosition = "center";
+        dropZone.innerHTML = `<i class="fa-solid fa-check" style="color: #c5a059;"></i> <p>Imagen cargada</p>`;
+    };
+    reader.readAsDataURL(archivo);
+}
+
+function abrirBiblioteca() {
+    const modal = document.getElementById('modal-biblioteca');
+    const lista = document.getElementById('lista-recursos');
+    lista.innerHTML = '';
+    imagenesGaleria.forEach(url => {
+        const img = document.createElement('img');
+        img.src = url;
+        img.className = 'recurso-galeria';
+        img.onclick = () => {
+            const fondo = document.getElementById('fondo-post');
+            fondo.style.backgroundImage = `url('${url}')`;
+            fondo.style.backgroundSize = "cover";
+            dropZone.innerHTML = `<i class="fa-solid fa-check" style="color: #c5a059;"></i> <p>Galería cargada</p>`;
+            cerrarBiblioteca();
+        };
+        lista.appendChild(img);
+    });
+    modal.style.display = 'flex';
+}
+
+function cerrarBiblioteca() { document.getElementById('modal-biblioteca').style.display = 'none'; }
+
+function seleccionarUnaRed(elemento) {
+    document.querySelectorAll('.tarjeta-red-admin').forEach(red => red.classList.remove('seleccionada'));
+    elemento.classList.add('seleccionada');
+}
 
 async function exportarYPublicar() {
     const lienzo = document.getElementById('lienzo-publicacion');
     const btn = document.querySelector('.btn-ejecutar-final');
-    const redSeleccionada = document.querySelector('.tarjeta-red-admin.seleccionada h4');
-
-    if (!redSeleccionada) return alert("Por favor, selecciona una red social en el Paso 02.");
-
-    const nombreRed = redSeleccionada.innerText.toLowerCase();
+    const red = document.querySelector('.tarjeta-red-admin.seleccionada h4');
+    if (!red) return alert("Selecciona una red social.");
+    
     btn.innerText = "PROCESANDO...";
     btn.disabled = true;
 
-    try {
-        let colorFondo = "#001a2c";
-        if(lienzo.classList.contains('prime-light')) colorFondo = "#ffffff";
-        if(lienzo.classList.contains('prime-impact')) colorFondo = "#c5a059";
+    const ids = ['preview-titulo', 'preview-subtitulo', 'preview-info'];
+    const ocultados = [];
 
-        const canvas = await html2canvas(lienzo, {
-            scale: 3,
-            backgroundColor: colorFondo,
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        const textoActual = el.innerText.trim().toLowerCase();
+        const textoGuia = textosPorDefecto[id].toLowerCase();
+        
+        // Compara ignorando mayúsculas/minúsculas y tildes básicas
+        if (textoActual === textoGuia || textoActual === 'subtítulo' || textoActual === 'subtitulo') {
+            el.style.visibility = 'hidden';
+            ocultados.push(el);
+        }
+    });
+
+    try {
+        let bg = "#001a2c";
+        if(lienzo.classList.contains('prime-light')) bg = "#ffffff";
+        if(lienzo.classList.contains('prime-impact')) bg = "#c5a059";
+        
+        const canvas = await html2canvas(lienzo, { 
+            scale: 3, 
+            backgroundColor: bg, 
             useCORS: true,
-            logging: false,
-            scrollX: 0,
-            scrollY: -window.scrollY,
-            windowWidth: lienzo.scrollWidth,
-            windowHeight: lienzo.scrollHeight
+            logging: false
         });
+        
+        ocultados.forEach(el => el.style.visibility = 'visible');
 
         const link = document.createElement('a');
         link.download = `Post_PrimeLaw_${Date.now()}.png`;
         link.href = canvas.toDataURL("image/png");
         link.click();
 
-        const titulo = document.getElementById('preview-titulo').innerText;
-        const info = document.getElementById('preview-info').innerText;
-        const textoPost = `${titulo.toUpperCase()}\n\n${info}\n\n⚖️ Prime Law El Salvador`;
-        await navigator.clipboard.writeText(textoPost);
+        const t = document.getElementById('preview-titulo').innerText;
+        const i = document.getElementById('preview-info').innerText;
+        
+        const esPlaceholderT = (t.toLowerCase() === textosPorDefecto['preview-titulo'].toLowerCase());
+        const esPlaceholderI = (i.toLowerCase() === textosPorDefecto['preview-info'].toLowerCase());
 
-        const urls = {
-            'facebook': 'https://www.facebook.com',
-            'instagram': 'https://www.instagram.com',
-            'whatsapp': 'https://web.whatsapp.com',
-            'linkedin': 'https://www.linkedin.com'
-        };
+        const txtTit = esPlaceholderT ? '' : t.toUpperCase();
+        const txtInfo = esPlaceholderI ? '' : i;
+        const finalTxt = `${txtTit}\n\n${txtInfo}\n\n⚖️ Prime Law El Salvador`.trim();
 
-        if (urls[nombreRed]) window.open(urls[nombreRed], '_blank');
-
+        await navigator.clipboard.writeText(finalTxt);
+        const urls = { 'facebook': 'https://www.facebook.com', 'instagram': 'https://www.instagram.com', 'whatsapp': 'https://web.whatsapp.com', 'linkedin': 'https://www.linkedin.com' };
+        if (urls[red.innerText.toLowerCase()]) window.open(urls[red.innerText.toLowerCase()], '_blank');
         document.getElementById('notificacion-exito').style.display = 'block';
-    } catch (err) {
-        console.error(err);
-        alert("Error al procesar la imagen.");
-    } finally {
-        btn.innerText = "GENERAR Y ABRIR REDES";
-        btn.disabled = false;
+    } catch (err) { 
+        ocultados.forEach(el => el.style.visibility = 'visible');
+        alert("Error al exportar."); 
+    } finally { 
+        btn.innerText = "GENERAR Y ABRIR REDES"; 
+        btn.disabled = false; 
     }
 }
 
 function iniciarApp() {
     actualizarLienzo();
-    const ids = ['preview-titulo', 'preview-subtitulo', 'preview-info', 'preview-lista-contenedor'];
-    ids.forEach(id => habilitarArrastre(id));
+    ['preview-titulo', 'preview-subtitulo', 'preview-info', 'preview-lista-contenedor'].forEach(id => habilitarArrastre(id));
 }
 
-if (document.readyState === "complete" || document.readyState === "interactive") {
-    iniciarApp();
-} else {
-    document.addEventListener("DOMContentLoaded", iniciarApp);
-}
+document.addEventListener("DOMContentLoaded", iniciarApp);
+window.onclick = (e) => { if (e.target == document.getElementById('modal-biblioteca')) cerrarBiblioteca(); };
