@@ -93,7 +93,14 @@ window.addEventListener('DOMContentLoaded', () => {
 function limpiarEntornoAdmin() {
     if (window.self !== window.top) {
         const urlPadre = document.referrer;
-        if (urlPadre.includes('primelaw_administrador_post.html') || window.location.search.includes('admin=true')) {
+        const urlLocal = window.location.href;
+        
+        // Valida si viene del administrador (Vercel o Local) o si tiene el parámetro admin
+        const esAdmin = urlPadre.includes('primelaw_administrador_post.html') || 
+                        urlPadre.includes('127.0.0.1') || 
+                        urlLocal.includes('admin=true');
+
+        if (esAdmin) {
             const estiloOcultar = document.createElement('style');
             estiloOcultar.innerHTML = `
                 html, body {
@@ -109,67 +116,59 @@ function limpiarEntornoAdmin() {
                     margin: 0 !important;
                 }
 
-                /* FORZAR VISIBILIDAD DE CONTENEDORES */
-                main, 
-                .contenedor-cards-areas, 
-                #contenedor-areas,
-                section {
-                    display: block !important;
+                /* FORZAR VISIBILIDAD DE TARJETAS Y CONTENEDORES */
+                main, section, .contenedor-cards-areas, #contenedor-areas, .tarjeta-area-vertical {
+                    display: flex !important;
+                    flex-direction: column !important;
                     opacity: 1 !important;
                     visibility: visible !important;
                     height: auto !important;
-                    min-height: 100px !important;
-                    padding: 10px !important;
+                    min-height: 50px !important;
                     transform: none !important;
-                }
-
-                /* FORZAR VISIBILIDAD DE TARJETAS */
-                .tarjeta-area-vertical {
-                    display: flex !important;
-                    opacity: 1 !important;
-                    visibility: visible !important;
-                    transform: none !important;
-                    margin-bottom: 20px !important;
-                    border: 1px solid #f0f0f0 !important;
-                    box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important;
+                    padding: 5px !important;
                 }
 
                 .imagen-tarjeta-v {
-                    height: 120px !important;
+                    height: 110px !important;
+                    width: 100% !important;
                     display: block !important;
                     opacity: 1 !important;
+                    object-fit: cover !important;
                 }
 
-                /* OCULTAR ESTORBOS */
+                /* OCULTAR ELEMENTOS QUE NO SIRVEN EN EL ADMIN */
                 header, footer, .seccion-ruta-legal, .contenedor-regresar, 
-                .nav-container, .barra-copyright, #main-header { 
+                .nav-container, .barra-copyright, #main-header, .encabezado-simple { 
                     display: none !important; 
+                    height: 0 !important;
                 }
 
-                /* AJUSTE DE TEXTOS */
-                .contenido-tarjeta-v h3 { font-size: 16px !important; color: #003f63 !important; }
-                .contenido-tarjeta-v p { font-size: 13px !important; line-height: 1.3 !important; }
+                /* TEXTOS PEQUEÑOS */
+                .contenido-tarjeta-v { padding: 10px !important; }
+                .contenido-tarjeta-v h3 { font-size: 15px !important; margin-bottom: 5px !important; }
+                .contenido-tarjeta-v p { font-size: 12px !important; line-height: 1.2 !important; }
             `;
             document.head.appendChild(estiloOcultar);
 
-            const limpiarDOM = () => {
-                const estorbos = ['header', 'footer', '.seccion-ruta-legal', '.contenedor-regresar', '#main-header'];
+            const forzarLimpieza = () => {
+                const estorbos = ['header', 'footer', '.seccion-ruta-legal', '.contenedor-regresar', '.encabezado-simple'];
                 estorbos.forEach(s => {
                     const el = document.querySelector(s);
                     if (el) el.remove();
                 });
 
-                // Asegurar que las tarjetas no tengan opacity 0 por JS
                 document.querySelectorAll('.tarjeta-area-vertical').forEach(t => {
-                    t.classList.add('activo');
+                    t.classList.add('activo'); // Activa tu clase de CSS original
                     t.style.opacity = "1";
                     t.style.transform = "none";
                 });
             };
 
-            limpiarDOM();
-            setTimeout(limpiarDOM, 500);
-            setTimeout(limpiarDOM, 1500);
+            // Ejecuciones en cadena para asegurar el render local
+            forzarLimpieza();
+            window.addEventListener('load', forzarLimpieza);
+            setTimeout(forzarLimpieza, 500);
+            setTimeout(forzarLimpieza, 1500);
         }
     }
 }
