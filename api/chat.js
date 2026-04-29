@@ -1,43 +1,32 @@
 export default async function handler(req, res) {
-    // Configuración de CORS
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-    if (req.method === 'OPTIONS') {
-        return res.status(200).end();
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: "Método no permitido" });
     }
 
     try {
         const { prompt } = req.body;
-        const HF_TOKEN = process.env.HF_TOKEN;
+        const token = process.env.HF_TOKEN;
 
-        if (!HF_TOKEN) {
-            return res.status(500).json({ error: "Token no configurado en Vercel" });
+        if (!token) {
+            throw new Error("Variable HF_TOKEN no encontrada en Vercel");
         }
 
-        const response = await fetch(
+        const hfResponse = await fetch(
             "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2",
             {
                 headers: { 
-                    "Authorization": `Bearer ${HF_TOKEN}`, 
+                    "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json" 
                 },
                 method: "POST",
-                body: JSON.stringify({
-                    inputs: `<s>[INST] Eres el experto legal de Prime Law en El Salvador. Responde breve y profesional: ${prompt} [/INST]`,
-                }),
+                body: JSON.stringify({ inputs: prompt }),
             }
         );
 
-        const result = await response.json();
-        
-        if (!response.ok) {
-            return res.status(response.status).json(result);
-        }
-
-        return res.status(200).json(result);
+        const data = await hfResponse.json();
+        return res.status(200).json(data);
     } catch (error) {
+        console.error("Error en la función:", error.message);
         return res.status(500).json({ error: error.message });
     }
 }
