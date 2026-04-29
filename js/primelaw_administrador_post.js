@@ -90,35 +90,38 @@ async function consultarIA() {
 
     try {
         const response = await fetch(
-            "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2",
+            "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3",
             {
+                method: "POST",
                 headers: { 
                     "Authorization": `Bearer ${HF_TOKEN}`,
                     "Content-Type": "application/json"
                 },
-                method: "POST",
-                mode: "cors",
                 body: JSON.stringify({
-                    inputs: `<s>[INST] Eres el asistente creativo de Prime Law, una firma de abogados en El Salvador. Eres formal y experto. Instrucción: ${promptUser} [/INST]`,
-                    parameters: { max_new_tokens: 500, temperature: 0.7 }
-                }),
+                    inputs: `<s>[INST] Eres el experto legal de Prime Law El Salvador. Responde breve: ${promptUser} [/INST]`,
+                    parameters: { max_new_tokens: 250, temperature: 0.7 }
+                })
             }
         );
 
-        if (!response.ok) {
-            const errData = await response.json();
-            throw new Error(errData.error || "Error en la API");
+        if (response.status === 503) {
+            const data = await response.json();
+            return alert(`La IA se está despertando. Reintenta en ${Math.round(data.estimated_time || 20)} segundos.`);
         }
 
+        if (!response.ok) throw new Error("Error en la conexión");
+
         const result = await response.json();
-        let res = result[0].generated_text;
-        if (res.includes('[/INST]')) res = res.split('[/INST]')[1].trim();
+        let resIA = result[0].generated_text;
+
+        if (resIA.includes('[/INST]')) resIA = resIA.split('[/INST]')[1].trim();
 
         cajaRespuesta.style.display = 'block';
-        textoRespuesta.innerText = res;
+        textoRespuesta.innerText = resIA;
+
     } catch (error) {
-        console.error("Detalle del error:", error);
-        alert("Error al conectar con la IA. Verifica que el Token sea correcto.");
+        console.error("Error completo:", error);
+        alert("El navegador bloqueó la conexión (CORS). Sube los cambios a Vercel para que funcione en tu página oficial, ya que los servidores locales (127.0.0.1) suelen tener estas restricciones.");
     } finally {
         btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Consultar IA';
         btn.disabled = false;
