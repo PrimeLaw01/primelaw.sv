@@ -667,3 +667,55 @@ h1, h2, h3 {
     transform: scale(1.05);
     border: 2px solid #c5a059;
 }
+
+
+.contenedor-ia {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#prompt-ia {
+    width: 100%;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    resize: none;
+}
+
+.btn-ia {
+    background: #001a2c;
+    color: #c5a059;
+    border: 1px solid #c5a059;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-ia:hover {
+    background: #c5a059;
+    color: #001a2c;
+}
+
+.respuesta-ia-box {
+    margin-top: 15px;
+    background: #fffdf5;
+    border-left: 4px solid #c5a059;
+    padding: 12px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.header-respuesta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: bold;
+    color: #c5a059;
+    margin-bottom: 5px;
+}

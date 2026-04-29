@@ -2,6 +2,8 @@ const SUPABASE_URL = 'https://geopgruedclsmwdfuebi.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb3BncnVlZGNsc213ZGZ1ZWJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5ODc1MjIsImV4cCI6MjA5MjU2MzUyMn0.xwcFE6zs4FYIicIXVqQljHNAPxPAWBcDXl1jbCL3mdo';
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+const HF_TOKEN = "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";
+
 const imagenesGaleria = [
     '../images/derAdministrativo.png', '../images/derCorporativo.png',
     '../images/derCivil.png', '../images/derMercantil.png',
@@ -73,20 +75,124 @@ function actualizarLienzo() {
     }
 }
 
-function cambiarPlantilla(clase, elemento) {
-    const lienzo = document.getElementById('lienzo-publicacion');
-    const clasesF = Array.from(lienzo.classList).filter(c => c.startsWith('formato-'));
-    lienzo.className = `lienzo-post ${clase} ${clasesF.join(' ')}`;
-    document.querySelectorAll('.opcion-plantilla').forEach(op => op.classList.remove('activa'));
-    elemento.classList.add('activa');
+async function consultarIA() {
+    const promptUser = document.getElementById('prompt-ia').value;
+    const btn = document.getElementById('btn-preguntar-ia');
+    const cajaRespuesta = document.getElementById('respuesta-ia');
+    const textoRespuesta = document.getElementById('texto-ia');
+
+    if (!promptUser.trim()) return alert("Escribe algo para la IA.");
+
+    btn.innerText = "PENSANDO...";
+    btn.disabled = true;
+
+    try {
+        const response = await fetch(
+            "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2",
+            {
+                headers: { 
+                    "Authorization": `Bearer ${HF_TOKEN}`,
+                    "Content-Type": "application/json"
+                },
+                method: "POST",
+                mode: "cors",
+                body: JSON.stringify({
+                    inputs: `<s>[INST] Eres el asistente creativo de Prime Law, una firma de abogados en El Salvador. Eres formal y experto. Instrucción: ${promptUser} [/INST]`,
+                    parameters: { max_new_tokens: 500, temperature: 0.7 }
+                }),
+            }
+        );
+
+        if (!response.ok) {
+            const errData = await response.json();
+            throw new Error(errData.error || "Error en la API");
+        }
+
+        const result = await response.json();
+        let res = result[0].generated_text;
+        if (res.includes('[/INST]')) res = res.split('[/INST]')[1].trim();
+
+        cajaRespuesta.style.display = 'block';
+        textoRespuesta.innerText = res;
+    } catch (error) {
+        console.error("Detalle del error:", error);
+        alert("Error al conectar con la IA. Verifica que el Token sea correcto.");
+    } finally {
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Consultar IA';
+        btn.disabled = false;
+    }
 }
 
-function cambiarTamano(formato, elemento) {
+function copiarTextoIA() {
+    const texto = document.getElementById('texto-ia').innerText;
+    navigator.clipboard.writeText(texto);
+    alert("¡Texto copiado!");
+}
+
+function abrirBiblioteca() {
+    const modal = document.getElementById('modal-biblioteca');
+    const lista = document.getElementById('lista-recursos');
+    lista.innerHTML = '';
+    imagenesGaleria.forEach(url => {
+        const img = document.createElement('img');
+        img.src = url;
+        img.className = 'recurso-galeria';
+        img.onclick = () => {
+            const fondo = document.getElementById('fondo-post');
+            fondo.style.backgroundImage = `url('${url}')`;
+            fondo.style.backgroundSize = "cover";
+            document.getElementById('drop-zone').innerHTML = `<i class="fa-solid fa-check" style="color: #c5a059;"></i> <p>Imagen cargada</p>`;
+            cerrarBiblioteca();
+        };
+        lista.appendChild(img);
+    });
+    modal.style.display = 'flex';
+}
+
+function cerrarBiblioteca() { document.getElementById('modal-biblioteca').style.display = 'none'; }
+
+async function exportarYPublicar() {
     const lienzo = document.getElementById('lienzo-publicacion');
-    lienzo.classList.remove('formato-cuadrado', 'formato-horizontal');
-    lienzo.classList.add(formato === 'cuadrado' ? 'formato-cuadrado' : 'formato-horizontal');
-    document.querySelectorAll('.btn-formato').forEach(btn => btn.classList.remove('activo'));
-    elemento.classList.add('activo');
+    const btn = document.querySelector('.btn-ejecutar-final');
+    const red = document.querySelector('.tarjeta-red-admin.seleccionada h4');
+    if (!red) return alert("Selecciona una red social.");
+    
+    btn.innerText = "PROCESANDO...";
+    btn.disabled = true;
+
+    const ids = ['preview-titulo', 'preview-subtitulo', 'preview-info'];
+    const ocultados = [];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        const txt = el.innerText.trim().toLowerCase();
+        // Corrección inteligente para el borrado de placeholders
+        if (txt === textosPorDefecto[id].toLowerCase() || txt === 'subtítulo' || txt === 'subtitulo') {
+            el.style.visibility = 'hidden';
+            ocultados.push(el);
+        }
+    });
+
+    try {
+        let bg = lienzo.classList.contains('prime-light') ? "#ffffff" : (lienzo.classList.contains('prime-impact') ? "#c5a059" : "#001a2c");
+        const canvas = await html2canvas(lienzo, { scale: 3, backgroundColor: bg, useCORS: true });
+        ocultados.forEach(el => el.style.visibility = 'visible');
+
+        const link = document.createElement('a');
+        link.download = `Post_PrimeLaw_${Date.now()}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+
+        const t = document.getElementById('preview-titulo').innerText;
+        const i = document.getElementById('preview-info').innerText;
+        const txtT = (t.toLowerCase() === textosPorDefecto['preview-titulo'].toLowerCase()) ? '' : t.toUpperCase();
+        const txtI = (i.toLowerCase() === textosPorDefecto['preview-info'].toLowerCase()) ? '' : i;
+        await navigator.clipboard.writeText(`${txtT}\n\n${txtI}\n\n⚖️ Prime Law El Salvador`.trim());
+
+        const urls = { 'facebook': 'https://www.facebook.com', 'instagram': 'https://www.instagram.com', 'whatsapp': 'https://web.whatsapp.com', 'linkedin': 'https://www.linkedin.com' };
+        if (urls[red.innerText.toLowerCase()]) window.open(urls[red.innerText.toLowerCase()], '_blank');
+        document.getElementById('notificacion-exito').style.display = 'block';
+    } catch (err) { alert("Error al exportar."); }
+    finally { btn.innerText = "GENERAR Y ABRIR REDES"; btn.disabled = false; }
 }
 
 const dropZone = document.getElementById('drop-zone');
@@ -110,108 +216,34 @@ function procesarImagen(archivo) {
         fondo.style.backgroundImage = `url('${e.target.result}')`;
         fondo.style.backgroundSize = "cover";
         fondo.style.backgroundPosition = "center";
-        dropZone.innerHTML = `<i class="fa-solid fa-check" style="color: #c5a059;"></i> <p>Imagen cargada</p>`;
+        document.getElementById('drop-zone').innerHTML = `<i class="fa-solid fa-check" style="color: #c5a059;"></i> <p>Imagen cargada</p>`;
     };
     reader.readAsDataURL(archivo);
 }
-
-function abrirBiblioteca() {
-    const modal = document.getElementById('modal-biblioteca');
-    const lista = document.getElementById('lista-recursos');
-    lista.innerHTML = '';
-    imagenesGaleria.forEach(url => {
-        const img = document.createElement('img');
-        img.src = url;
-        img.className = 'recurso-galeria';
-        img.onclick = () => {
-            const fondo = document.getElementById('fondo-post');
-            fondo.style.backgroundImage = `url('${url}')`;
-            fondo.style.backgroundSize = "cover";
-            dropZone.innerHTML = `<i class="fa-solid fa-check" style="color: #c5a059;"></i> <p>Galería cargada</p>`;
-            cerrarBiblioteca();
-        };
-        lista.appendChild(img);
-    });
-    modal.style.display = 'flex';
-}
-
-function cerrarBiblioteca() { document.getElementById('modal-biblioteca').style.display = 'none'; }
 
 function seleccionarUnaRed(elemento) {
     document.querySelectorAll('.tarjeta-red-admin').forEach(red => red.classList.remove('seleccionada'));
     elemento.classList.add('seleccionada');
 }
 
-async function exportarYPublicar() {
+function cambiarPlantilla(clase, elemento) {
     const lienzo = document.getElementById('lienzo-publicacion');
-    const btn = document.querySelector('.btn-ejecutar-final');
-    const red = document.querySelector('.tarjeta-red-admin.seleccionada h4');
-    if (!red) return alert("Selecciona una red social.");
-    
-    btn.innerText = "PROCESANDO...";
-    btn.disabled = true;
-
-    const ids = ['preview-titulo', 'preview-subtitulo', 'preview-info'];
-    const ocultados = [];
-
-    ids.forEach(id => {
-        const el = document.getElementById(id);
-        const textoActual = el.innerText.trim().toLowerCase();
-        const textoGuia = textosPorDefecto[id].toLowerCase();
-        
-        // Compara ignorando mayúsculas/minúsculas y tildes básicas
-        if (textoActual === textoGuia || textoActual === 'subtítulo' || textoActual === 'subtitulo') {
-            el.style.visibility = 'hidden';
-            ocultados.push(el);
-        }
-    });
-
-    try {
-        let bg = "#001a2c";
-        if(lienzo.classList.contains('prime-light')) bg = "#ffffff";
-        if(lienzo.classList.contains('prime-impact')) bg = "#c5a059";
-        
-        const canvas = await html2canvas(lienzo, { 
-            scale: 3, 
-            backgroundColor: bg, 
-            useCORS: true,
-            logging: false
-        });
-        
-        ocultados.forEach(el => el.style.visibility = 'visible');
-
-        const link = document.createElement('a');
-        link.download = `Post_PrimeLaw_${Date.now()}.png`;
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-
-        const t = document.getElementById('preview-titulo').innerText;
-        const i = document.getElementById('preview-info').innerText;
-        
-        const esPlaceholderT = (t.toLowerCase() === textosPorDefecto['preview-titulo'].toLowerCase());
-        const esPlaceholderI = (i.toLowerCase() === textosPorDefecto['preview-info'].toLowerCase());
-
-        const txtTit = esPlaceholderT ? '' : t.toUpperCase();
-        const txtInfo = esPlaceholderI ? '' : i;
-        const finalTxt = `${txtTit}\n\n${txtInfo}\n\n⚖️ Prime Law El Salvador`.trim();
-
-        await navigator.clipboard.writeText(finalTxt);
-        const urls = { 'facebook': 'https://www.facebook.com', 'instagram': 'https://www.instagram.com', 'whatsapp': 'https://web.whatsapp.com', 'linkedin': 'https://www.linkedin.com' };
-        if (urls[red.innerText.toLowerCase()]) window.open(urls[red.innerText.toLowerCase()], '_blank');
-        document.getElementById('notificacion-exito').style.display = 'block';
-    } catch (err) { 
-        ocultados.forEach(el => el.style.visibility = 'visible');
-        alert("Error al exportar."); 
-    } finally { 
-        btn.innerText = "GENERAR Y ABRIR REDES"; 
-        btn.disabled = false; 
-    }
+    const clasesF = Array.from(lienzo.classList).filter(c => c.startsWith('formato-'));
+    lienzo.className = `lienzo-post ${clase} ${clasesF.join(' ')}`;
+    document.querySelectorAll('.opcion-plantilla').forEach(op => op.classList.remove('activa'));
+    elemento.classList.add('activa');
 }
 
-function iniciarApp() {
+function cambiarTamano(formato, elemento) {
+    const lienzo = document.getElementById('lienzo-publicacion');
+    lienzo.classList.remove('formato-cuadrado', 'formato-horizontal');
+    lienzo.classList.add(formato === 'cuadrado' ? 'formato-cuadrado' : 'formato-horizontal');
+    document.querySelectorAll('.btn-formato').forEach(btn => btn.classList.remove('activo'));
+    elemento.classList.add('activo');
+}
+
+document.addEventListener("DOMContentLoaded", () => {
     actualizarLienzo();
     ['preview-titulo', 'preview-subtitulo', 'preview-info', 'preview-lista-contenedor'].forEach(id => habilitarArrastre(id));
-}
-
-document.addEventListener("DOMContentLoaded", iniciarApp);
+});
 window.onclick = (e) => { if (e.target == document.getElementById('modal-biblioteca')) cerrarBiblioteca(); };
