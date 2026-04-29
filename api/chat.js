@@ -6,7 +6,7 @@ export default async function handler(req, res) {
         const token = process.env.HF_TOKEN;
 
         const response = await fetch(
-            "https://api-inference.huggingface.co/models/Qwen/Qwen2.5-72B-Instruct",
+            "https://api-inference.huggingface.co/models/google/gemma-2-2b-it",
             {
                 headers: { 
                     "Authorization": `Bearer ${token}`,
@@ -14,8 +14,8 @@ export default async function handler(req, res) {
                 },
                 method: "POST",
                 body: JSON.stringify({ 
-                    inputs: `Responde como experto legal de Prime Law El Salvador de forma breve: ${prompt}`,
-                    parameters: { max_new_tokens: 300 }
+                    inputs: prompt,
+                    parameters: { max_new_tokens: 300, return_full_text: false }
                 }),
             }
         );
@@ -23,13 +23,13 @@ export default async function handler(req, res) {
         const result = await response.json();
 
         if (!response.ok) {
-            console.error("Error de HF:", result);
+            console.error("Detalle del error en HF:", result);
             return res.status(response.status).json(result);
         }
 
         return res.status(200).json(result);
     } catch (error) {
-        console.error("Error crítico:", error.message);
+        console.error("Error crítico en servidor:", error.message);
         return res.status(500).json({ error: error.message });
     }
 }

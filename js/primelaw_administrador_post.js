@@ -89,23 +89,20 @@ async function consultarIA() {
         const response = await fetch("/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ prompt: promptUser })
+            body: JSON.stringify({ prompt: `Eres el experto legal de Prime Law El Salvador. Responde de forma profesional y breve en español a lo siguiente: ${promptUser}` })
         });
 
         const result = await response.json();
         
         if (result.error) {
+            if(result.estimated_time) return alert("La IA se está cargando, intenta en unos segundos.");
             throw new Error(result.error);
         }
 
-        let resIA = result[0].generated_text;
-
-        if (resIA.includes('[/INST]')) {
-            resIA = resIA.split('[/INST]')[1].trim();
-        }
+        const resIA = result[0]?.generated_text || result.generated_text || "No se obtuvo respuesta.";
 
         cajaRespuesta.style.display = 'block';
-        textoRespuesta.innerText = resIA;
+        textoRespuesta.innerText = resIA.trim();
 
     } catch (error) {
         console.error("Error:", error);
