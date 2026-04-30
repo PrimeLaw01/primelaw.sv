@@ -75,6 +75,20 @@ function actualizarLienzo() {
     elementos.forEach(id => habilitarArrastre(id));
 }
 
+
+function alinearTexto(idPreview, alineacion) {
+    const el = document.getElementById(idPreview);
+    if (el) {
+        el.style.textAlign = alineacion;
+        if (idPreview === 'preview-lista-contenedor') {
+            el.style.display = 'flex';
+            el.style.flexDirection = 'column';
+            el.style.alignItems = alineacion === 'center' ? 'center' : 'flex-start';
+        }
+    }
+}
+
+
 function habilitarEscalado(idElemento) {
     const el = document.getElementById(idElemento);
     if (!el) return;

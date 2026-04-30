@@ -819,3 +819,15 @@ h1, h2, h3 {
 .grupo-input input, .grupo-input textarea {
     width: 100%;
 }
+
+.separador-mini {
+    width: 1px;
+    height: 15px;
+    background: #ddd;
+    margin: 0 5px;
+    display: inline-block;
+}
+
+.controles-zoom-mini button i {
+    font-size: 10px;
+}

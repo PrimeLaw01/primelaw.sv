@@ -54,7 +54,7 @@
                                 <i class="fa-solid fa-bolt"></i> ChatGPT (General)
                             </button>
                             <button onclick="irA('claude')" class="ia-btn btn-claude">
-                                <i class="fa-solid fa-feather"></i> Claude (Análisis Legal)
+                                <i class="fa-solid fa-feather"></i> Claude (Análisis legal)
                             </button>
                             <button onclick="irA('gemini')" class="ia-btn btn-gemini">
                                 <i class="fa-brands fa-google"></i> Google Gemini
@@ -75,7 +75,7 @@
                     </div>
 
                     <div class="caja-herramienta">
-                        <h3><i class="fa-solid fa-palette"></i> Estilo de Plantilla</h3>
+                        <h3><i class="fa-solid fa-palette"></i> Estilo de plantilla</h3>
                         <div class="galeria-plantillas">
                             <div class="opcion-plantilla activa" onclick="cambiarPlantilla('prime-classic', this)">
                                 <div class="mini-prev classic"></div>
@@ -92,8 +92,11 @@
                     <div class="controles-flujo">
                         <div class="grupo-input full">
                             <div class="cabecera-input-zoom">
-                                <label>Título del Post</label>
+                                <label>Título del post</label>
                                 <div class="controles-zoom-mini">
+                                    <button type="button" onclick="alinearTexto('preview-titulo', 'left')"><i class="fa-solid fa-align-left"></i></button>
+                                    <button type="button" onclick="alinearTexto('preview-titulo', 'center')"><i class="fa-solid fa-align-center"></i></button>
+                                    <span class="separador-mini"></span>
                                     <button type="button" onclick="cambiarFuente('preview-titulo', 2)"><i class="fa-solid fa-plus"></i></button>
                                     <button type="button" onclick="cambiarFuente('preview-titulo', -2)"><i class="fa-solid fa-minus"></i></button>
                                 </div>
@@ -104,6 +107,9 @@
                             <div class="cabecera-input-zoom">
                                 <label>Subtítulo / Eslogan</label>
                                 <div class="controles-zoom-mini">
+                                    <button type="button" onclick="alinearTexto('preview-subtitulo', 'left')"><i class="fa-solid fa-align-left"></i></button>
+                                    <button type="button" onclick="alinearTexto('preview-subtitulo', 'center')"><i class="fa-solid fa-align-center"></i></button>
+                                    <span class="separador-mini"></span>
                                     <button type="button" onclick="cambiarFuente('preview-subtitulo', 2)"><i class="fa-solid fa-plus"></i></button>
                                     <button type="button" onclick="cambiarFuente('preview-subtitulo', -2)"><i class="fa-solid fa-minus"></i></button>
                                 </div>
@@ -112,8 +118,11 @@
                         </div>
                         <div class="grupo-input full">
                             <div class="cabecera-input-zoom">
-                                <label>Cuerpo del Texto</label>
+                                <label>Cuerpo del texto</label>
                                 <div class="controles-zoom-mini">
+                                    <button type="button" onclick="alinearTexto('preview-info', 'left')"><i class="fa-solid fa-align-left"></i></button>
+                                    <button type="button" onclick="alinearTexto('preview-info', 'center')"><i class="fa-solid fa-align-center"></i></button>
+                                    <span class="separador-mini"></span>
                                     <button type="button" onclick="cambiarFuente('preview-info', 2)"><i class="fa-solid fa-plus"></i></button>
                                     <button type="button" onclick="cambiarFuente('preview-info', -2)"><i class="fa-solid fa-minus"></i></button>
                                 </div>
@@ -122,8 +131,11 @@
                         </div>
                         <div class="grupo-input">
                             <div class="cabecera-input-zoom">
-                                <label>Título de Lista</label>
+                                <label>Título de lista</label>
                                 <div class="controles-zoom-mini">
+                                    <button type="button" onclick="alinearTexto('preview-titulo-puntos', 'left')"><i class="fa-solid fa-align-left"></i></button>
+                                    <button type="button" onclick="alinearTexto('preview-titulo-puntos', 'center')"><i class="fa-solid fa-align-center"></i></button>
+                                    <span class="separador-mini"></span>
                                     <button type="button" onclick="cambiarFuente('preview-titulo-puntos', 2)"><i class="fa-solid fa-plus"></i></button>
                                     <button type="button" onclick="cambiarFuente('preview-titulo-puntos', -2)"><i class="fa-solid fa-minus"></i></button>
                                 </div>
@@ -134,6 +146,9 @@
                             <div class="cabecera-input-zoom">
                                 <label>Viñetas (separa por ;)</label>
                                 <div class="controles-zoom-mini">
+                                    <button type="button" onclick="alinearTexto('preview-viñetas', 'left')"><i class="fa-solid fa-align-left"></i></button>
+                                    <button type="button" onclick="alinearTexto('preview-viñetas', 'center')"><i class="fa-solid fa-align-center"></i></button>
+                                    <span class="separador-mini"></span>
                                     <button type="button" onclick="cambiarFuente('preview-viñetas', 2)"><i class="fa-solid fa-plus"></i></button>
                                     <button type="button" onclick="cambiarFuente('preview-viñetas', -2)"><i class="fa-solid fa-minus"></i></button>
                                 </div>
@@ -141,14 +156,14 @@
                             <input type="text" id="input-viñetas" placeholder="Item 1; Item 2..." oninput="actualizarLienzo()">
                         </div>
                         <div class="grupo-input full">
-                            <label>Imagen de Fondo</label>
+                            <label>Imagen de fondo</label>
                             <div id="drop-zone" class="zona-drop">
                                 <i class="fa-solid fa-image"></i>
                                 <p>Arrastra una imagen o haz clic para subir</p>
                                 <input type="file" id="subir-fondo" accept="image/png, image/jpeg, image/webp" hidden>
                             </div>
                             <button type="button" class="btn-biblioteca" onclick="abrirBiblioteca()">
-                                <i class="fa-solid fa-photo-film"></i> Ver Galería de Imágenes
+                                <i class="fa-solid fa-photo-film"></i> Ver Galería de imágenes
                             </button>
                         </div>
 
