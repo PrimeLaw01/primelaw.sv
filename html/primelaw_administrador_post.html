@@ -46,7 +46,8 @@
 
                     <div class="ia-tool-panel">
                         <h3 class="serif-font">Espacio de para ideas aparte</h3>
-                        <p>Selecciona una IA (este paso es opcional)</p>
+                        <p>Selecciona una IA</p>
+                        <p>También puedes usar el chatbot que está en la esquina inferior derecha</p>
                         
                         <div class="ia-options">
                             <button onclick="irA('chatgpt')" class="ia-btn btn-gpt">
@@ -59,6 +60,9 @@
                                 <i class="fa-brands fa-google"></i> Google Gemini
                             </button>
                         </div>
+                        <script>
+                        (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="6RyELz2Fc2rc_QrMltNXB";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+                        </script>
                     </div>
 
                     <div class="modulo-borrador">
