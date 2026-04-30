@@ -757,3 +757,66 @@ h1, h2, h3 {
 }
 
 .btn-util:hover { background: #c4a457; }
+
+#preview-titulo, #preview-subtitulo, #preview-info, #preview-lista-contenedor {
+    cursor: move;
+    user-select: none;
+    transition: outline 0.2s;
+}
+
+#preview-titulo:hover, #preview-subtitulo:hover, #preview-info:hover, #preview-lista-contenedor:hover {
+    outline: 1px dashed rgba(197, 160, 89, 0.5);
+}
+
+.controles-flotantes-tamano {
+    position: absolute;
+    top: -30px;
+    right: 0;
+    display: none;
+    gap: 5px;
+    z-index: 100;
+}
+
+#preview-titulo:hover .controles-flotantes-tamano,
+#preview-subtitulo:hover .controles-flotantes-tamano,
+#preview-info:hover .controles-flotantes-tamano,
+#preview-lista-contenedor:hover .controles-flotantes-tamano {
+    display: flex;
+}
+
+.cabecera-input-zoom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.controles-zoom-mini {
+    display: flex;
+    gap: 5px;
+}
+
+.controles-zoom-mini button {
+    background: #f0f0f0;
+    color: #1a2a3a;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.controles-zoom-mini button:hover {
+    background: #c5a059;
+    color: white;
+    border-color: #c5a059;
+}
+
+.grupo-input input, .grupo-input textarea {
+    width: 100%;
+}

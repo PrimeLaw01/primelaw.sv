@@ -73,6 +73,67 @@ function actualizarLienzo() {
     }
 }
 
+function habilitarEscalado(idElemento) {
+    const el = document.getElementById(idElemento);
+    if (!el) return;
+
+    let fontSize = parseInt(window.getComputedStyle(el).fontSize);
+
+    el.addEventListener("wheel", (e) => {
+        e.preventDefault();
+
+        const delta = e.deltaY > 0 ? -2 : 2;
+        fontSize = Math.max(10, fontSize + delta);
+
+        el.style.fontSize = `${fontSize}px`;
+    }, { passive: false });
+
+    let initialDist = 0;
+    el.addEventListener("touchmove", (e) => {
+        if (e.touches.length === 2) {
+            e.preventDefault();
+            const dist = Math.hypot(
+                e.touches[0].pageX - e.touches[1].pageX,
+                e.touches[0].pageY - e.touches[1].pageY
+            );
+
+            if (initialDist > 0) {
+                if (dist > initialDist) fontSize += 1;
+                else fontSize -= 1;
+                el.style.fontSize = `${fontSize}px`;
+            }
+            initialDist = dist;
+        }
+    }, { passive: false });
+
+    el.addEventListener("touchend", () => { initialDist = 0; });
+}
+
+function annadirControlesVisuales(idElemento) {
+    const el = document.getElementById(idElemento);
+    if (!el) return;
+
+    const controles = document.createElement('div');
+    controles.className = 'controles-flotantes-tamano';
+    controles.innerHTML = `
+        <button class="btn-zoom" onclick="cambiarFuente('${idElemento}', 2)">+</button>
+        <button class="btn-zoom" onclick="cambiarFuente('${idElemento}', -2)">-</button>
+    `;
+
+    el.style.position = 'relative';
+    el.appendChild(controles);
+}
+
+function cambiarFuente(id, delta) {
+    const el = document.getElementById(id);
+    const texto = el.tagName === 'DIV' ? el.querySelector('h1, h2, p, strong') : el;
+    
+    if (texto) {
+        let currentSize = parseInt(window.getComputedStyle(texto).fontSize);
+        texto.style.fontSize = (currentSize + delta) + "px";
+    }
+}
+
 
 function irA(plataforma) {
     const urls = {
@@ -215,8 +276,26 @@ function cambiarTamano(formato, elemento) {
     elemento.classList.add('activo');
 }
 
+function cambiarFuente(idPreview, delta) {
+    const el = document.getElementById(idPreview);
+    if (!el) return;
+
+    let currentSize = parseInt(window.getComputedStyle(el).fontSize);
+    
+    el.style.fontSize = (currentSize + delta) + "px";
+    
+    console.log(`Nuevo tamaño para ${idPreview}: ${el.style.fontSize}`);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     actualizarLienzo();
-    ['preview-titulo', 'preview-subtitulo', 'preview-info', 'preview-lista-contenedor'].forEach(id => habilitarArrastre(id));
+    
+    const elementosInteractivos = ['preview-titulo', 'preview-subtitulo', 'preview-info', 'preview-lista-contenedor'];
+    
+    elementosInteractivos.forEach(id => {
+        habilitarArrastre(id);
+        habilitarEscalado(id);
+        añadirControlesVisuales(id);
+    });
 });
 window.onclick = (e) => { if (e.target == document.getElementById('modal-biblioteca')) cerrarBiblioteca(); };
