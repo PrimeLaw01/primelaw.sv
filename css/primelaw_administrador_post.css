@@ -276,12 +276,11 @@ h1, h2, h3 {
 
 
 #preview-titulo, #preview-subtitulo, #preview-info, #preview-lista-contenedor {
-    position: absolute;
+    position: relative;
     cursor: move;
-    user-select: none;
+    z-index: 10;
+    display: inline-block;
 }
-
-
 
 #preview-titulo:hover, 
 #preview-subtitulo:hover, 

@@ -71,6 +71,8 @@ function actualizarLienzo() {
             listaUl.appendChild(li);
         });
     }
+    const elementos = ['preview-titulo', 'preview-subtitulo', 'preview-info', 'preview-lista-contenedor'];
+    elementos.forEach(id => habilitarArrastre(id));
 }
 
 function habilitarEscalado(idElemento) {
