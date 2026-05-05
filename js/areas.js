@@ -93,121 +93,95 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 function limpiarEntornoAdmin() {
-    if (window.self !== window.top) {
-        const urlPadre = document.referrer;
-        const hostname = window.location.hostname;
-        
-        const esAdmin = urlPadre.includes('primelaw_administrador_post.html') || 
-                        hostname === "127.0.0.1" || 
-                        hostname === "localhost" || 
-                        window.location.search.includes('admin=true');
+    const esIframe = window.self !== window.top;
+    const urlPadre = document.referrer;
+    const hostname = window.location.hostname;
+    const esAdminParam = window.location.search.includes('admin=true');
 
-        if (esAdmin) {
-            const estiloOcultar = document.createElement('style');
-            estiloOcultar.innerHTML = `
-                html, body {
-                    background: #ffffff !important;
-                    margin: 0 !important;
-                    padding: 0 !important;
-                }
-                body::-webkit-scrollbar { display: none; }
+    const esAdmin = esIframe || 
+                    hostname === "127.0.0.1" || 
+                    hostname === "localhost" || 
+                    esAdminParam ||
+                    urlPadre.includes('primelaw_administrador_post.html');
 
-                /* BUSCADOR */
-                .seccion-ruta-legal { padding: 0 !important; }
-                .contenedor-busqueda {
-                    display: flex !important;
-                    padding: 8px !important;
-                    position: sticky !important;
-                    top: 0 !important;
-                    z-index: 1000 !important;
-                    background: white !important;
-                    border-bottom: 1px solid #eee;
-                }
+    if (esAdmin) {
+        const estiloOcultar = document.createElement('style');
+        estiloOcultar.innerHTML = `
+            header, footer, .contenedor-regresar, .nav-container, .barra-copyright, .whatsapp-float { 
+                display: none !important; 
+            }
+            html, body { 
+                background: #ffffff !important; 
+                margin: 0 !important; 
+                padding: 0 !important; 
+                overflow-x: hidden;
+            }
+            body::-webkit-scrollbar { display: none; }
+            .seccion-ruta-legal { padding: 0 !important; }
+            .contenedor-busqueda {
+                display: flex !important;
+                padding: 10px !important;
+                position: sticky !important;
+                top: 0 !important;
+                z-index: 1000 !important;
+                background: white !important;
+                border-bottom: 1px solid #eee;
+            }
+            .contenedor-cards-areas { 
+                display: block !important; 
+                padding: 10px !important; 
+                columns: auto !important;
+            }
+            .tarjeta-area-vertical {
+                display: flex !important;
+                flex-direction: row !important;
+                height: 90px !important;
+                margin-bottom: 10px !important;
+                padding: 8px !important;
+                border: 1px solid #eee !important;
+                border-radius: 8px !important;
+                background: white !important;
+                opacity: 1 !important;
+                transform: none !important;
+                visibility: visible !important;
+            }
+            .imagen-tarjeta-v {
+                width: 70px !important;
+                height: 70px !important;
+                min-width: 70px !important;
+                object-fit: cover !important;
+                border-radius: 4px !important;
+            }
+            .contenido-tarjeta-v {
+                padding: 0 12px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+            }
+            .contenido-tarjeta-v h3 { font-size: 14px !important; margin: 0 !important; }
+            .contenido-tarjeta-v p { font-size: 11px !important; margin: 2px 0 0 0 !important; }
+            .modal-contenido { width: 95% !important; max-height: 90vh !important; }
+        `;
+        document.head.appendChild(estiloOcultar);
 
-                /* TARJETAS MINI */
-                .contenedor-cards-areas { display: block !important; padding: 8px !important; }
-                
-                .tarjeta-area-vertical {
-                    display: flex !important;
-                    flex-direction: row !important;
-                    height: 85px !important;
-                    margin-bottom: 8px !important;
-                    padding: 5px !important;
-                    border: 1px solid #ddd !important;
-                    border-radius: 8px !important;
-                    overflow: hidden !important;
-                    opacity: 1 !important;
-                    transform: none !important;
-                    background: white !important;
-                }
+        const aplicarLogica = () => {
+            const buscador = document.getElementById('input-busqueda');
+            if (buscador && !buscador.dataset.hooked) {
+                buscador.addEventListener('input', filtrarAreas);
+                buscador.dataset.hooked = "true";
+            }
+            document.querySelectorAll('.tarjeta-area-vertical').forEach(t => {
+                t.classList.add('activo');
+            });
+        };
 
-                .imagen-tarjeta-v {
-                    width: 75px !important;
-                    height: 100% !important;
-                    min-width: 75px !important;
-                    border-radius: 5px !important;
-                    object-fit: cover !important;
-                }
-
-                .contenido-tarjeta-v {
-                    padding: 0 10px !important;
-                    display: flex !important;
-                    flex-direction: column !important;
-                    justify-content: center !important;
-                    width: calc(100% - 75px) !important;
-                }
-
-                .contenido-tarjeta-v h3 { font-size: 13px !important; margin: 0 !important; color: #003f63 !important; }
-                .contenido-tarjeta-v p { 
-                    font-size: 11px !important; 
-                    margin: 2px 0 !important; 
-                    display: -webkit-box !important;
-                    -webkit-line-clamp: 2 !important;
-                    -webkit-box-orient: vertical !important;
-                    overflow: hidden !important;
-                }
-
-                /* --- AJUSTES DEL MODAL (LETRA PEQUEÑA) --- */
-                .modal-contenido { width: 95% !important; padding: 15px !important; max-height: 85vh !important; }
-                #modal-titulo { font-size: 17px !important; margin-bottom: 10px !important; }
-                .descripcion-legal { font-size: 12px !important; line-height: 1.4 !important; }
-                
-                /* Título de servicios específicos */
-                .modal-body h3 { 
-                    font-size: 13px !important; 
-                    margin: 10px 0 5px 0 !important; 
-                }
-
-                /* Lista de servicios específicos */
-                .lista-servicios { padding-top: 5px !important; }
-                .lista-servicios li { 
-                    font-size: 11.5px !important; /* Ajuste para el administrador */
-                    line-height: 1.3 !important;
-                    margin-bottom: 4px !important;
-                    padding-left: 20px !important;
-                }
-                .lista-servicios li::before { 
-                    font-size: 14px !important; 
-                    top: -1px !important; 
-                }
-
-                /* OCULTAR INTERFAZ PÚBLICA */
-                header, footer, .contenedor-regresar, .nav-container, .barra-copyright { display: none !important; }
-            `;
-            document.head.appendChild(estiloOcultar);
-
-            const ejecutarLimpieza = () => {
-                const buscador = document.getElementById('input-busqueda');
-                if (buscador) buscador.addEventListener('input', filtrarAreas);
-
-                document.querySelectorAll('.tarjeta-area-vertical').forEach(card => {
-                    card.classList.add('activo');
-                });
-            };
-
-            ejecutarLimpieza();
-            setTimeout(ejecutarLimpieza, 500);
+        if (document.readyState === 'complete') {
+            aplicarLogica();
+        } else {
+            window.addEventListener('load', aplicarLogica);
         }
+        setTimeout(aplicarLogica, 500);
+        setTimeout(aplicarLogica, 1500);
     }
 }
 
@@ -215,15 +189,14 @@ function filtrarAreas() {
     const input = document.getElementById('input-busqueda');
     if (!input) return;
     const texto = input.value.toLowerCase().trim();
+    
     document.querySelectorAll('.tarjeta-area-vertical').forEach(t => {
-        const contenido = t.innerText.toLowerCase();
+        const contenido = t.textContent.toLowerCase();
         if (contenido.includes(texto)) {
             t.style.setProperty('display', 'flex', 'important');
             t.style.setProperty('opacity', '1', 'important');
-            t.dataset.filtrado = "";
         } else {
             t.style.setProperty('display', 'none', 'important');
-            t.dataset.filtrado = "true";
         }
     });
 }
