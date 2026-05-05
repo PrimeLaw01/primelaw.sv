@@ -126,29 +126,38 @@ function limpiarEntornoAdmin() {
                     border-bottom: 1px solid #eee;
                 }
 
-                /* TARJETAS MINI */
-                .contenedor-cards-areas { display: block !important; padding: 8px !important; }
+                /* TARJETAS MINI - RESET ESTRUCTURAL */
+                .contenedor-cards-areas { 
+                    display: block !important; 
+                    padding: 8px !important; 
+                }
                 
                 .tarjeta-area-vertical {
                     display: flex !important;
                     flex-direction: row !important;
+                    align-items: center !important;
                     height: 85px !important;
+                    min-height: 85px !important;
                     margin-bottom: 8px !important;
                     padding: 5px !important;
                     border: 1px solid #ddd !important;
                     border-radius: 8px !important;
                     overflow: hidden !important;
+                    background: white !important;
                     opacity: 1 !important;
                     transform: none !important;
-                    background: white !important;
+                    box-sizing: border-box !important;
                 }
 
-                .imagen-tarjeta-v {
+                .tarjeta-area-vertical img.imagen-tarjeta-v {
                     width: 75px !important;
-                    height: 100% !important;
+                    height: 75px !important;
                     min-width: 75px !important;
+                    max-width: 75px !important;
                     border-radius: 5px !important;
                     object-fit: cover !important;
+                    flex-shrink: 0 !important;
+                    margin: 0 !important;
                 }
 
                 .contenido-tarjeta-v {
@@ -157,59 +166,70 @@ function limpiarEntornoAdmin() {
                     flex-direction: column !important;
                     justify-content: center !important;
                     width: calc(100% - 75px) !important;
+                    flex-grow: 1 !important;
+                    text-align: left !important;
                 }
 
-                .contenido-tarjeta-v h3 { font-size: 13px !important; margin: 0 !important; color: #003f63 !important; }
+                .contenido-tarjeta-v h3 { 
+                    font-size: 13px !important; 
+                    margin: 0 !important; 
+                    color: #003f63 !important;
+                    line-height: 1.2 !important;
+                }
+
                 .contenido-tarjeta-v p { 
                     font-size: 11px !important; 
-                    margin: 2px 0 !important; 
+                    margin: 2px 0 0 0 !important; 
+                    line-height: 1.3 !important;
                     display: -webkit-box !important;
                     -webkit-line-clamp: 2 !important;
                     -webkit-box-orient: vertical !important;
                     overflow: hidden !important;
+                    color: #444 !important;
                 }
 
-                /* --- AJUSTES DEL MODAL (LETRA PEQUEÑA) --- */
+                /* --- AJUSTES DEL MODAL --- */
                 .modal-contenido { width: 95% !important; padding: 15px !important; max-height: 85vh !important; }
                 #modal-titulo { font-size: 17px !important; margin-bottom: 10px !important; }
                 .descripcion-legal { font-size: 12px !important; line-height: 1.4 !important; }
                 
-                /* Título de servicios específicos */
-                .modal-body h3 { 
-                    font-size: 13px !important; 
-                    margin: 10px 0 5px 0 !important; 
-                }
+                .modal-body h3 { font-size: 13px !important; margin: 10px 0 5px 0 !important; }
 
-                /* Lista de servicios específicos */
                 .lista-servicios { padding-top: 5px !important; }
                 .lista-servicios li { 
-                    font-size: 11.5px !important; /* Ajuste para el administrador */
+                    font-size: 11.5px !important; 
                     line-height: 1.3 !important;
                     margin-bottom: 4px !important;
                     padding-left: 20px !important;
                 }
-                .lista-servicios li::before { 
-                    font-size: 14px !important; 
-                    top: -1px !important; 
-                }
+                .lista-servicios li::before { font-size: 14px !important; top: -1px !important; }
 
                 /* OCULTAR INTERFAZ PÚBLICA */
-                header, footer, .contenedor-regresar, .nav-container, .barra-copyright { display: none !important; }
-            `;
-            document.head.appendChild(estiloOcultar);
+                header, footer, .contenedor-regresar, .nav-container, .barra-copyright, .whatsapp-float { display: none !important; }
+        `;
+        document.head.appendChild(estiloOcultar);
 
-            const ejecutarLimpieza = () => {
-                const buscador = document.getElementById('input-busqueda');
-                if (buscador) buscador.addEventListener('input', filtrarAreas);
+        const ejecutarLimpieza = () => {
+            const buscador = document.getElementById('input-busqueda');
+            if (buscador && !buscador.dataset.ready) {
+                buscador.addEventListener('input', filtrarAreas);
+                buscador.dataset.ready = "true";
+            }
 
-                document.querySelectorAll('.tarjeta-area-vertical').forEach(card => {
-                    card.classList.add('activo');
-                });
-            };
+            document.querySelectorAll('.tarjeta-area-vertical').forEach(card => {
+                card.classList.add('activo');
+            });
+        };
 
+        if (document.readyState === 'complete') {
             ejecutarLimpieza();
-            setTimeout(ejecutarLimpieza, 500);
+        } else {
+            window.addEventListener('load', ejecutarLimpieza);
         }
+        
+        // Refuerzo por si el contenido es dinámico
+        setTimeout(ejecutarLimpieza, 500);
+        setTimeout(ejecutarLimpieza, 1500);
     }
 }
 
