@@ -93,18 +93,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 function limpiarEntornoAdmin() {
-    if (window.self !== window.top) {
-        const urlPadre = document.referrer;
-        const hostname = window.location.hostname;
-        
-        const esAdmin = urlPadre.includes('primelaw_administrador_post.html') || 
-                        hostname === "127.0.0.1" || 
-                        hostname === "localhost" || 
-                        window.location.search.includes('admin=true');
+    const esIframe = window.self !== window.top;
+    const urlPadre = document.referrer;
+    const hostname = window.location.hostname;
+    const esAdminParam = window.location.search.includes('admin=true');
 
-        if (esAdmin) {
-            const estiloOcultar = document.createElement('style');
-            estiloOcultar.innerHTML = `
+    const esAdmin = esIframe || 
+                    hostname === "127.0.0.1" || 
+                    hostname === "localhost" || 
+                    esAdminParam ||
+                    urlPadre.includes('primelaw_administrador_post.html');
+
+    if (esAdmin) {
+        const estiloOcultar = document.createElement('style');
+        estiloOcultar.innerHTML = `
                 html, body {
                     background: #ffffff !important;
                     margin: 0 !important;
