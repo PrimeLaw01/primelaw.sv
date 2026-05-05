@@ -102,7 +102,7 @@ function limpiarEntornoAdmin() {
                     hostname === "127.0.0.1" || 
                     hostname === "localhost" || 
                     esAdminParam ||
-                    urlPadre.includes('primelaw_administrador_post.html');
+                    urlPadre.includes('html/primelaw_administrador_post.html');
 
     if (esAdmin) {
         const estiloOcultar = document.createElement('style');
