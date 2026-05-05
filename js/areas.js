@@ -114,52 +114,70 @@ function limpiarEntornoAdmin() {
                 background: #ffffff !important; 
                 margin: 0 !important; 
                 padding: 0 !important; 
-                overflow-x: hidden;
             }
             body::-webkit-scrollbar { display: none; }
             .seccion-ruta-legal { padding: 0 !important; }
+            
             .contenedor-busqueda {
                 display: flex !important;
-                padding: 10px !important;
+                padding: 15px !important;
                 position: sticky !important;
                 top: 0 !important;
                 z-index: 1000 !important;
                 background: white !important;
                 border-bottom: 1px solid #eee;
             }
+
             .contenedor-cards-areas { 
-                display: block !important; 
-                padding: 10px !important; 
-                columns: auto !important;
+                display: flex !important; 
+                flex-direction: column !important;
+                gap: 20px !important;
+                padding: 20px !important; 
             }
+
             .tarjeta-area-vertical {
                 display: flex !important;
                 flex-direction: row !important;
-                height: 90px !important;
-                margin-bottom: 10px !important;
-                padding: 8px !important;
-                border: 1px solid #eee !important;
-                border-radius: 8px !important;
+                min-height: 120px !important;
+                padding: 15px !important;
+                border: 1px solid #e0e0e0 !important;
+                border-radius: 12px !important;
                 background: white !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
                 opacity: 1 !important;
                 transform: none !important;
                 visibility: visible !important;
+                margin: 0 !important;
             }
+
             .imagen-tarjeta-v {
-                width: 70px !important;
-                height: 70px !important;
-                min-width: 70px !important;
+                width: 100px !important;
+                height: 100px !important;
+                min-width: 100px !important;
                 object-fit: cover !important;
-                border-radius: 4px !important;
+                border-radius: 8px !important;
             }
+
             .contenido-tarjeta-v {
-                padding: 0 12px !important;
+                padding: 0 15px !important;
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: center !important;
+                text-align: left !important;
             }
-            .contenido-tarjeta-v h3 { font-size: 14px !important; margin: 0 !important; }
-            .contenido-tarjeta-v p { font-size: 11px !important; margin: 2px 0 0 0 !important; }
+
+            .contenido-tarjeta-v h3 { 
+                font-size: 16px !important; 
+                margin: 0 0 5px 0 !important; 
+                line-height: 1.2 !important;
+            }
+
+            .contenido-tarjeta-v p { 
+                font-size: 13px !important; 
+                margin: 0 !important; 
+                line-height: 1.4 !important;
+            }
+
             .modal-contenido { width: 95% !important; max-height: 90vh !important; }
         `;
         document.head.appendChild(estiloOcultar);
