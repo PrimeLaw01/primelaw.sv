@@ -116,7 +116,6 @@ function limpiarEntornoAdmin() {
                 padding: 0 !important; 
             }
             body::-webkit-scrollbar { display: none; }
-            .seccion-ruta-legal { padding: 0 !important; }
             
             .contenedor-busqueda {
                 display: flex !important;
@@ -129,9 +128,7 @@ function limpiarEntornoAdmin() {
             }
 
             .contenedor-cards-areas { 
-                display: flex !important; 
-                flex-direction: column !important;
-                gap: 12px !important;
+                display: block !important;
                 padding: 15px !important; 
             }
 
@@ -139,47 +136,50 @@ function limpiarEntornoAdmin() {
                 display: flex !important;
                 flex-direction: row !important;
                 align-items: center !important;
-                height: auto !important;
-                min-height: 100px !important;
-                padding: 10px !important;
-                border: 1px solid #e0e0e0 !important;
-                border-radius: 10px !important;
+                width: 100% !important;
+                height: 80px !important;
+                padding: 8px !important;
+                margin-bottom: 10px !important;
+                border: 1px solid #eee !important;
+                border-radius: 8px !important;
                 background: white !important;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.03) !important;
+                box-sizing: border-box !important;
                 opacity: 1 !important;
                 transform: none !important;
-                margin: 0 !important;
             }
 
-            .imagen-tarjeta-v {
-                width: 80px !important;
-                height: 80px !important;
-                min-width: 80px !important;
-                max-width: 80px !important;
+            /* Selector ultra específico para la imagen */
+            .tarjeta-area-vertical img.imagen-tarjeta-v {
+                width: 65px !important;
+                height: 65px !important;
+                min-width: 65px !important;
+                max-width: 65px !important;
                 object-fit: cover !important;
-                border-radius: 6px !important;
+                border-radius: 5px !important;
                 flex-shrink: 0 !important;
+                display: block !important;
             }
 
             .contenido-tarjeta-v {
                 padding: 0 12px !important;
-                flex-grow: 1 !important;
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: center !important;
+                flex: 1 !important;
                 overflow: hidden !important;
+                text-align: left !important;
             }
 
             .contenido-tarjeta-v h3 { 
-                font-size: 15px !important; 
-                margin: 0 0 4px 0 !important; 
+                font-size: 14px !important; 
+                margin: 0 !important; 
                 color: #003f63 !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
             }
 
             .contenido-tarjeta-v p { 
-                font-size: 12px !important; 
-                margin: 0 !important; 
-                line-height: 1.3 !important;
+                font-size: 11px !important; 
+                margin: 2px 0 0 0 !important; 
+                line-height: 1.2 !important;
                 display: -webkit-box !important;
                 -webkit-line-clamp: 2 !important;
                 -webkit-box-orient: vertical !important;
