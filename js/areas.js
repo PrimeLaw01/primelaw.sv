@@ -128,7 +128,9 @@ function limpiarEntornoAdmin() {
             }
 
             .contenedor-cards-areas { 
-                display: block !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 10px !important;
                 padding: 15px !important; 
             }
 
@@ -137,9 +139,9 @@ function limpiarEntornoAdmin() {
                 flex-direction: row !important;
                 align-items: center !important;
                 width: 100% !important;
-                height: 80px !important;
-                padding: 8px !important;
-                margin-bottom: 10px !important;
+                height: auto !important; /* Cambiado a auto para que no corte el texto */
+                min-height: 80px !important;
+                padding: 10px !important;
                 border: 1px solid #eee !important;
                 border-radius: 8px !important;
                 background: white !important;
@@ -148,42 +150,37 @@ function limpiarEntornoAdmin() {
                 transform: none !important;
             }
 
-            /* Selector ultra específico para la imagen */
             .tarjeta-area-vertical img.imagen-tarjeta-v {
-                width: 65px !important;
-                height: 65px !important;
-                min-width: 65px !important;
-                max-width: 65px !important;
+                width: 60px !important;
+                height: 60px !important;
+                min-width: 60px !important;
+                max-width: 60px !important;
                 object-fit: cover !important;
-                border-radius: 5px !important;
+                border-radius: 6px !important;
                 flex-shrink: 0 !important;
-                display: block !important;
+                margin-right: 15px !important; /* Espacio manual entre imagen y texto */
             }
 
             .contenido-tarjeta-v {
-                padding: 0 12px !important;
                 flex: 1 !important;
-                overflow: hidden !important;
+                padding: 0 !important;
+                margin: 0 !important;
                 text-align: left !important;
+                display: block !important; /* Reset para asegurar visibilidad */
             }
 
             .contenido-tarjeta-v h3 { 
                 font-size: 14px !important; 
-                margin: 0 !important; 
+                margin: 0 0 2px 0 !important; 
                 color: #003f63 !important;
-                white-space: nowrap !important;
-                overflow: hidden !important;
-                text-overflow: ellipsis !important;
+                line-height: 1.2 !important;
             }
 
             .contenido-tarjeta-v p { 
                 font-size: 11px !important; 
-                margin: 2px 0 0 0 !important; 
-                line-height: 1.2 !important;
-                display: -webkit-box !important;
-                -webkit-line-clamp: 2 !important;
-                -webkit-box-orient: vertical !important;
-                overflow: hidden !important;
+                margin: 0 !important; 
+                line-height: 1.3 !important;
+                color: #666 !important;
             }
 
             .modal-contenido { width: 95% !important; max-height: 90vh !important; }
@@ -207,7 +204,6 @@ function limpiarEntornoAdmin() {
             window.addEventListener('load', aplicarLogica);
         }
         setTimeout(aplicarLogica, 500);
-        setTimeout(aplicarLogica, 1500);
     }
 }
 
