@@ -120,7 +120,7 @@ function limpiarEntornoAdmin() {
             
             .contenedor-busqueda {
                 display: flex !important;
-                padding: 15px !important;
+                padding: 10px !important;
                 position: sticky !important;
                 top: 0 !important;
                 z-index: 1000 !important;
@@ -131,51 +131,59 @@ function limpiarEntornoAdmin() {
             .contenedor-cards-areas { 
                 display: flex !important; 
                 flex-direction: column !important;
-                gap: 20px !important;
-                padding: 20px !important; 
+                gap: 12px !important;
+                padding: 15px !important; 
             }
 
             .tarjeta-area-vertical {
                 display: flex !important;
                 flex-direction: row !important;
-                min-height: 120px !important;
-                padding: 15px !important;
+                align-items: center !important;
+                height: auto !important;
+                min-height: 100px !important;
+                padding: 10px !important;
                 border: 1px solid #e0e0e0 !important;
-                border-radius: 12px !important;
+                border-radius: 10px !important;
                 background: white !important;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.03) !important;
                 opacity: 1 !important;
                 transform: none !important;
-                visibility: visible !important;
                 margin: 0 !important;
             }
 
             .imagen-tarjeta-v {
-                width: 100px !important;
-                height: 100px !important;
-                min-width: 100px !important;
+                width: 80px !important;
+                height: 80px !important;
+                min-width: 80px !important;
+                max-width: 80px !important;
                 object-fit: cover !important;
-                border-radius: 8px !important;
+                border-radius: 6px !important;
+                flex-shrink: 0 !important;
             }
 
             .contenido-tarjeta-v {
-                padding: 0 15px !important;
+                padding: 0 12px !important;
+                flex-grow: 1 !important;
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: center !important;
-                text-align: left !important;
+                overflow: hidden !important;
             }
 
             .contenido-tarjeta-v h3 { 
-                font-size: 16px !important; 
-                margin: 0 0 5px 0 !important; 
-                line-height: 1.2 !important;
+                font-size: 15px !important; 
+                margin: 0 0 4px 0 !important; 
+                color: #003f63 !important;
             }
 
             .contenido-tarjeta-v p { 
-                font-size: 13px !important; 
+                font-size: 12px !important; 
                 margin: 0 !important; 
-                line-height: 1.4 !important;
+                line-height: 1.3 !important;
+                display: -webkit-box !important;
+                -webkit-line-clamp: 2 !important;
+                -webkit-box-orient: vertical !important;
+                overflow: hidden !important;
             }
 
             .modal-contenido { width: 95% !important; max-height: 90vh !important; }
