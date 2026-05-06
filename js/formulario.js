@@ -61,6 +61,22 @@ function redirigirADerecho(nombreTermino) {
     }
 }
 
+function configurarBotonesDetalle() {
+    const botones = document.querySelectorAll('.boton-buscar');
+    
+    botones.forEach(boton => {
+        boton.addEventListener('click', function() {
+            const contenedor = this.closest('.info-area');
+            if (contenedor) {
+                const titulo = contenedor.querySelector('.nombre-area').innerText.trim();
+                redirigirADerecho(titulo);
+            }
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', configurarBotonesDetalle);
+
 function buscarDesdeInicio() {
     const query = document.getElementById('busqueda-inicio').value.trim();
     redirigirADerecho(query);
