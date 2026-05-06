@@ -3,77 +3,70 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 
 const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-
 (function() {
     emailjs.init("kXiBDG5kOPaKhjPX7");
 })();
 
-const formulario = document.querySelector('form');
+const formulario = document.getElementById('formulario-prime');
 
-formulario.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const datos = {
-        nombre: formulario.querySelector('input[placeholder*="José"]').value,
-        telefono: formulario.querySelector('input[placeholder*="0000"]').value,
-        asunto: formulario.querySelector('input[placeholder*="Asesoría"]').value,
-        mensaje: formulario.querySelector('textarea').value
-    };
+if (formulario) {
+    formulario.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const campos = formulario.querySelectorAll('input, textarea');
+        const datos = {
+            nombre: campos[0].value,
+            telefono: campos[1].value,
+            asunto: campos[2].value,
+            mensaje: campos[3].value
+        };
 
-    const { error } = await _supabase.from('consultas_contacto').insert([datos]);
+        const { error } = await _supabase.from('consultas_contacto').insert([datos]);
 
-    if (!error) {
-        emailjs.send("service_v3t2fnl", "template_7j1x2ve", {
-            nombre: datos.nombre,
-            telefono: datos.telefono,
-            asunto: datos.asunto,
-            mensaje: datos.mensaje,
-            reply_to: "primelaw.sv@gmail.com"
-        })
-        .then(() => {
-            alert("¡Consulta enviada! Hemos guardado su información y le contactaremos pronto.");
-            formulario.reset();
-        }, (err) => {
-            alert("Los datos se guardaron, pero hubo un error enviando el correo de aviso.");
-            console.error("Error EmailJS:", err);
-        });
+        if (!error) {
+            emailjs.send("service_v3t2fnl", "template_7j1x2ve", {
+                nombre: datos.nombre,
+                telefono: datos.telefono,
+                asunto: datos.asunto,
+                mensaje: datos.mensaje,
+                reply_to: "primelaw.sv@gmail.com"
+            })
+            .then(() => {
+                alert("¡Consulta enviada exitosamente!");
+                formulario.reset();
+            }, (err) => {
+                console.error(err);
+            });
+        }
+    });
+}
 
+const derechosData = [
+    { nombre: "Derecho Administrativo", img: "images/derAdministrativo.png" },
+    { nombre: "Derecho Corporativo", img: "images/derCorporativo.png" },
+    { nombre: "Derecho Civil", img: "images/derCivil.png" },
+    { nombre: "Derecho Mercantil", img: "images/derMercantil.png" },
+    { nombre: "Derecho Tributario", img: "images/derTributario.png" },
+    { nombre: "Derecho Aduanero", img: "images/derAduanero.png" },
+    { nombre: "Derecho Laboral", img: "images/derLaboral.png" },
+    { nombre: "Derecho Consumo", img: "images/derConsumo.png" },
+    { nombre: "Propiedad Intelectual", img: "images/derPropiedadIntelectual.png" },
+    { nombre: "Derecho Ambiental", img: "images/derAmbiental.png" },
+    { nombre: "Derecho Notarial", img: "images/derNotarial.png" }
+];
+
+function redirigirADerecho(nombreTermino) {
+    const rutaDestino = "html/areas.html";
+    if (nombreTermino !== "") {
+        window.location.href = `${rutaDestino}?buscar=${encodeURIComponent(nombreTermino)}`;
     } else {
-        alert("Error al guardar en la base de datos: " + error.message);
-    }
-});
-
-
-function buscarDesdeInicio() {
-    const query = document.getElementById('busqueda-inicio').value.trim();
-    
-    if (query !== "") {
-        window.location.href = `html/areas.html?buscar=${encodeURIComponent(query)}`;
-    } else {
-        window.location.href = `html/areas.html`;
+        window.location.href = rutaDestino;
     }
 }
 
-document.getElementById('busqueda-inicio').addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        buscarDesdeInicio();
-    }
-});
-
-
-const derechosData = [
-    { nombre: "Derecho Administrativo", slug: "derecho-administrativo", img: "images/derAdministrativo.png" },
-    { nombre: "Derecho Corporativo", slug: "derecho-corporativo", img: "images/derCorporativo.png" },
-    { nombre: "Derecho Civil", slug: "derecho-civil", img: "images/derCivil.png" },
-    { nombre: "Derecho Mercantil", slug: "derecho-mercantil", img: "images/derMercantil.png" },
-    { nombre: "Derecho Tributario", slug: "derecho-tributario", img: "images/derTributario.png" },
-    { nombre: "Derecho Aduanero", slug: "derecho-aduanero", img: "images/derAduanero.png" },
-    { nombre: "Derecho Laboral", slug: "derecho-laboral", img: "images/derLaboral.png" },
-    { nombre: "Derecho Consumo", slug: "derecho-consumo", img: "images/derConsumo.png" },
-    { nombre: "Propiedad Intelectual", slug: "propiedad-intelectual", img: "images/derPropiedadIntelectual.png" },
-    { nombre: "Derecho Ambiental", slug: "derecho-ambiental", img: "images/derAmbiental.png" },
-    { nombre: "Derecho Notarial", slug: "derecho-notarial", img: "images/derNotarial.png" }
-];
+function buscarDesdeInicio() {
+    const query = document.getElementById('busqueda-inicio').value.trim();
+    redirigirADerecho(query);
+}
 
 function mostrarSugerencias() {
     const input = document.getElementById('busqueda-inicio');
@@ -98,7 +91,7 @@ function mostrarSugerencias() {
                 <img src="${derecho.img}">
                 <span>${derecho.nombre}</span>
             `;
-            div.onclick = () => redirigirADerecho(derecho.slug);
+            div.onclick = () => redirigirADerecho(derecho.nombre);
             lista.appendChild(div);
         });
     } else {
@@ -106,7 +99,6 @@ function mostrarSugerencias() {
     }
 }
 
-// Función para el botón "Ver opciones"
 function toggleOpciones() {
     const lista = document.getElementById('lista-sugerencias');
     if (lista.style.display === "block") {
@@ -120,19 +112,23 @@ function toggleOpciones() {
                 <img src="${derecho.img}">
                 <span>${derecho.nombre}</span>
             `;
-            div.onclick = () => redirigirADerecho(derecho.slug);
+            div.onclick = () => redirigirADerecho(derecho.nombre);
             lista.appendChild(div);
         });
         lista.style.display = "block";
     }
 }
 
-function redirigirADerecho(slug) {
-    window.location.href = `html/areas.html?buscar=${slug}`;
+const inputBusqueda = document.getElementById('busqueda-inicio');
+if (inputBusqueda) {
+    inputBusqueda.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') buscarDesdeInicio();
+    });
 }
 
 document.addEventListener('click', (e) => {
     if (!e.target.closest('.contenedor-busqueda-principal')) {
-        document.getElementById('lista-sugerencias').style.display = "none";
+        const lista = document.getElementById('lista-sugerencias');
+        if (lista) lista.style.display = "none";
     }
 });
