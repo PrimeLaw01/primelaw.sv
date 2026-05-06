@@ -78,13 +78,19 @@ function actualizarLienzo() {
 
 function alinearTexto(idPreview, alineacion) {
     const el = document.getElementById(idPreview);
-    if (el) {
-        el.style.textAlign = alineacion;
-        if (idPreview === 'preview-lista-contenedor') {
-            el.style.display = 'flex';
-            el.style.flexDirection = 'column';
-            el.style.alignItems = alineacion === 'center' ? 'center' : 'flex-start';
-        }
+    if (!el) return;
+
+    el.style.textAlign = alineacion;
+
+    if (idPreview === 'preview-lista-contenedor' || idPreview === 'preview-viñetas') {
+        const contenedor = document.getElementById('preview-lista-contenedor');
+        contenedor.style.display = 'flex';
+        contenedor.style.flexDirection = 'column';
+        
+        contenedor.style.alignItems = alineacion === 'center' ? 'center' : 'flex-start';
+        
+        const lista = document.getElementById('preview-viñetas');
+        lista.style.listStylePosition = alineacion === 'center' ? 'inside' : 'outside';
     }
 }
 
