@@ -56,18 +56,19 @@ function actualizarLienzo() {
     const sVal = document.getElementById('input-subtitulo').value;
     const iVal = document.getElementById('input-info').value;
     
-    document.getElementById('preview-titulo').innerText = tVal || textosPorDefecto['preview-titulo'];
-    document.getElementById('preview-subtitulo').innerText = sVal || textosPorDefecto['preview-subtitulo'];
-    document.getElementById('preview-info').innerText = iVal || textosPorDefecto['preview-info'];
+    document.getElementById('preview-titulo').innerHTML = tVal.replace(/\n/g, '<br>') || textosPorDefecto['preview-titulo'];
+    document.getElementById('preview-subtitulo').innerHTML = sVal.replace(/\n/g, '<br>') || textosPorDefecto['preview-subtitulo'];
+    document.getElementById('preview-info').innerHTML = iVal.replace(/\n/g, '<br>') || textosPorDefecto['preview-info'];
     
-    document.getElementById('preview-titulo-puntos').innerText = document.getElementById('input-puntos').value || "";
+    document.getElementById('preview-titulo-puntos').innerHTML = document.getElementById('input-puntos').value || "";
+    
     const viñetas = document.getElementById('input-viñetas').value;
     const listaUl = document.getElementById('preview-viñetas');
     listaUl.innerHTML = "";
     if (viñetas) {
         viñetas.split(';').forEach(p => {
             const li = document.createElement('li');
-            li.innerText = p.trim();
+            li.innerHTML = p.trim();
             listaUl.appendChild(li);
         });
     }
@@ -311,6 +312,27 @@ function cambiarFuente(idPreview, delta) {
     el.style.fontSize = (currentSize + delta) + "px";
     
     console.log(`Nuevo tamaño para ${idPreview}: ${el.style.fontSize}`);
+}
+
+function aplicarFormato(idInput, tag) {
+    const textarea = document.getElementById(idInput);
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const textoCompleto = textarea.value;
+    const seleccionado = textoCompleto.substring(start, end);
+
+    if (seleccionado.length > 0) {
+        const nuevoTexto = 
+            textoCompleto.substring(0, start) + 
+            `<${tag}>${seleccionado}</${tag}>` + 
+            textoCompleto.substring(end);
+
+        textarea.value = nuevoTexto;
+        actualizarLienzo();
+        textarea.focus();
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
