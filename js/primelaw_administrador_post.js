@@ -321,3 +321,29 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 window.onclick = (e) => { if (e.target == document.getElementById('modal-biblioteca')) cerrarBiblioteca(); };
+
+async function chequearAcceso() {
+    const { data: { session } } = await _supabase.auth.getSession();
+
+    if (!session) {
+        window.location.href = 'login_admin.html';
+    }
+}
+
+chequearAcceso();
+
+async function cerrarSesion() {
+    try {
+        const { error } = await authClient.auth.signOut();
+        
+        if (error) throw error;
+
+        localStorage.removeItem('admin_name');
+        
+        window.location.href = 'login_admin.html';
+        
+    } catch (error) {
+        console.error('Error al cerrar sesión:', error.message);
+        window.location.href = 'login_admin.html';
+    }
+}

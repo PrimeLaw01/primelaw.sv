@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Acceso Admin | Prime Law</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Lora:ital,wght@0,400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="contenedor-login-prime">
+        <form id="form-login">
+            <img src="../images/logo-sin-fondo.png" class="logo-login" alt="Prime Law">
+            <h2>Acceso Admin</h2>
+            
+            <div class="campo-input">
+                <label>Correo Electrónico</label>
+                <input type="email" id="email" placeholder="ejemplo@primelaw.com" required>
+            </div>
+
+            <div class="campo-input">
+                <label>Contraseña</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn-entrar">INGRESAR</button>
+            <p id="error-msg" class="error-auth">Credenciales no válidas</p>
+        </form>
+        <div class="footer-login">PRIME LAW EL SALVADOR</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/login_admin.js"></script>
+</body>
+</html>

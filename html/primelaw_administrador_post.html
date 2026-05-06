@@ -4,18 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador de Publicaciones | Prime Law</title>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     
-
     <link rel="icon" type="image/png" href="../images/logo-sin-fondo.png">
-    <link rel="shortcut icon" href="../images/logo-sin-fondo.png">
-    <link rel="apple-touch-icon" href="../images/logo-sin-fondo.png">
-
-
     <link rel="stylesheet" href="../css/inicio.css">
     <link rel="stylesheet" href="../css/primelaw_administrador_post.css">
+
+    <script>
+        const URL_AUTH = 'https://geopgruedclsmwdfuebi.supabase.co';
+        const KEY_AUTH = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb3BncnVlZGNsc213ZGZ1ZWJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5ODc1MjIsImV4cCI6MjA5MjU2MzUyMn0.xwcFE6zs4FYIicIXVqQljHNAPxPAWBcDXl1jbCL3mdo';
+        const authClient = supabase.createClient(URL_AUTH, KEY_AUTH);
+
+        async function verificarSesion() {
+            const { data: { session } } = await authClient.auth.getSession();
+
+            if (!session) {
+                window.location.href = 'login_admin.html';
+            }
+        }
+
+        verificarSesion();
+
+        async function cerrarSesion() {
+            await authClient.auth.signOut();
+            window.location.href = 'login_admin.html';
+        }
+    </script>
 </head>
 <body>
 
@@ -24,7 +42,37 @@
             <img src="../images/logo-sin-fondo.png" alt="Logo Prime Law" class="logo-admin">
             <span class="nombre-firma">PRIME LAW</span>
         </div>
+
+        <div class="contenedor-salida">
+            <button onclick="cerrarSesion()" class="btn-cerrar-sesion">
+                <span>CERRAR SESIÓN</span>
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+        </div>
     </header>
+
+    <nav class="barra-gestion-servicios">
+        <div class="contenedor-botones-gestion">
+            <button class="btn-gestion" onclick="mostrarSeccion('admin')">
+                <i class="fa-solid fa-user-shield"></i> Panel Admin
+            </button>
+            <button class="btn-gestion" onclick="mostrarSeccion('nosotros')">
+                <i class="fa-solid fa-users-gear"></i> Quiénes Somos
+            </button>
+            <button class="btn-gestion" onclick="mostrarSeccion('servicios')">
+                <i class="fa-solid fa-gavel"></i> Info. Servicios
+            </button>
+            <button class="btn-gestion" onclick="mostrarSeccion('perfil')">
+                <i class="fa-solid fa-id-card"></i> Sobre Mí
+            </button>
+            <button class="btn-gestion" onclick="mostrarSeccion('areas')">
+                <i class="fa-solid fa-layer-group"></i> Editar Áreas
+            </button>
+            <button class="btn-gestion" onclick="mostrarSeccion('miniaturas')">
+                <i class="fa-solid fa-images"></i> Info. Miniaturas
+            </button>
+        </div>
+    </nav>
 
     <main class="contenedor-principal">
         

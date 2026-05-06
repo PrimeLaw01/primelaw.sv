@@ -42,6 +42,9 @@ h1, h2, h3 {
     border-bottom: 2px solid var(--oro-prime);
     height: 70px;
 }
+.contenedor-salida {
+    margin-left: auto;
+}
 
 .contenedor-logo {
     display: flex;
@@ -830,4 +833,97 @@ h1, h2, h3 {
 
 .controles-zoom-mini button i {
     font-size: 10px;
+}
+
+.btn-cerrar-sesion {
+    background: transparent;
+    color: #c5a059;
+    border: 1px solid rgba(197, 160, 89, 0.5);
+    padding: 8px 18px;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.btn-cerrar-sesion i {
+    font-size: 14px;
+}
+
+.btn-cerrar-sesion:hover {
+    background-color: #c5a059;
+    color: #001a2c;
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
+    transform: scale(1.05);
+}
+
+.btn-cerrar-sesion:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 600px) {
+    .btn-cerrar-sesion span {
+        display: none;
+    }
+    .nombre-firma {
+        font-size: 14px;
+    }
+}
+
+.barra-gestion-servicios {
+    background-color: #f4f1ea; /* Fondo neutro para separar secciones */
+    border-bottom: 1px solid var(--oro-prime);
+    padding: 12px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.contenedor-botones-gestion {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.btn-gestion {
+    background: white;
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    color: var(--azul-prime);
+    padding: 10px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-gestion i {
+    color: var(--oro-prime);
+    font-size: 14px;
+}
+
+.btn-gestion:hover {
+    background-color: var(--oro-prime);
+    color: white;
+    border-color: var(--oro-prime);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(197, 160, 89, 0.2);
+}
+
+.btn-gestion:hover i {
+    color: white;
 }
