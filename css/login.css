@@ -110,8 +110,7 @@ h2 {
     font-size: 0.85rem;
     margin-top: 15px;
     display: none;
-    border-left: 2px solid #ff6b6b;
-    padding-left: 10px;
+    text-align: center;
 }
 
 .footer-login {
