@@ -31,6 +31,7 @@ if (formulario) {
         })
         .catch((err) => {
             alert("Error detectado: " + err.text); 
+            alert("Por favor, comunicarse a nuestro WhatsApp.");
             console.log("Estado del error:", err.status);
             console.error("Error completo:", err);
         });
