@@ -137,115 +137,127 @@
                         </div>
                     </div>
 
-                    <div class="controles-flujo">
-                        <div class="grupo-input full">
-                            <div class="cabecera-input-zoom">
-                                <label>Título del post</label>
-                                <div class="controles-zoom-mini">
-                                    <button type="button" onclick="alinearTexto('preview-titulo', 'left')"><i class="fa-solid fa-align-left"></i></button>
-                                    <button type="button" onclick="alinearTexto('preview-titulo', 'center')"><i class="fa-solid fa-align-center"></i></button>
-                                    <span class="separador-mini"></span>
-                                    <button type="button" onclick="cambiarFuente('preview-titulo', 2)"><i class="fa-solid fa-plus"></i></button>
-                                    <button type="button" onclick="cambiarFuente('preview-titulo', -2)"><i class="fa-solid fa-minus"></i></button>
-                                </div>
-                            </div>
-                            <input type="text" id="input-titulo" placeholder="Ej: Derecho Civil" oninput="actualizarLienzo()">
-                        </div>
-                        <div class="grupo-input full">
-                            <div class="cabecera-input-zoom">
-                                <label>Subtítulo / Eslogan</label>
-                                <div class="controles-zoom-mini">
-                                    <button type="button" onclick="alinearTexto('preview-subtitulo', 'left')"><i class="fa-solid fa-align-left"></i></button>
-                                    <button type="button" onclick="alinearTexto('preview-subtitulo', 'center')"><i class="fa-solid fa-align-center"></i></button>
-                                    <span class="separador-mini"></span>
-                                    <button type="button" onclick="cambiarFuente('preview-subtitulo', 2)"><i class="fa-solid fa-plus"></i></button>
-                                    <button type="button" onclick="cambiarFuente('preview-subtitulo', -2)"><i class="fa-solid fa-minus"></i></button>
-                                </div>
-                            </div>
-                            <input type="text" id="input-subtitulo" placeholder="Ej: Asesoría Integral" oninput="actualizarLienzo()">
-                        </div>
-                        <div class="grupo-input full">
-                            <div class="cabecera-input-zoom">
-                                <label>Cuerpo del texto</label>
-                                <div class="controles-zoom-mini">
-                                    <button type="button" onclick="alinearTexto('preview-info', 'left')"><i class="fa-solid fa-align-left"></i></button>
-                                    <button type="button" onclick="alinearTexto('preview-info', 'center')"><i class="fa-solid fa-align-center"></i></button>
-                                    <span class="separador-mini"></span>
-                                    <button type="button" onclick="cambiarFuente('preview-info', 2)"><i class="fa-solid fa-plus"></i></button>
-                                    <button type="button" onclick="cambiarFuente('preview-info', -2)"><i class="fa-solid fa-minus"></i></button>
-                                </div>
-                            </div>
-                            <textarea id="input-info" rows="2" oninput="actualizarLienzo()"></textarea>
-                        </div>
-                        <div class="grupo-input">
-                            <div class="cabecera-input-zoom">
-                                <label>Título de lista</label>
-                                <div class="controles-zoom-mini">
-                                    <button type="button" onclick="alinearTexto('preview-titulo-puntos', 'left')"><i class="fa-solid fa-align-left"></i></button>
-                                    <button type="button" onclick="alinearTexto('preview-titulo-puntos', 'center')"><i class="fa-solid fa-align-center"></i></button>
-                                    <span class="separador-mini"></span>
-                                    <button type="button" onclick="cambiarFuente('preview-titulo-puntos', 2)"><i class="fa-solid fa-plus"></i></button>
-                                    <button type="button" onclick="cambiarFuente('preview-titulo-puntos', -2)"><i class="fa-solid fa-minus"></i></button>
-                                </div>
-                            </div>
-                            <input type="text" id="input-puntos" placeholder="Ej: Requisitos:" oninput="actualizarLienzo()">
-                        </div>
-                        <div class="grupo-input">
-                            <div class="cabecera-input-zoom">
-                                <label>Viñetas (separa por ;)</label>
-                                <div class="controles-zoom-mini">
-                                    <button type="button" onclick="alinearTexto('preview-viñetas', 'left')"><i class="fa-solid fa-align-left"></i></button>
-                                    <button type="button" onclick="alinearTexto('preview-viñetas', 'center')"><i class="fa-solid fa-align-center"></i></button>
-                                    <span class="separador-mini"></span>
-                                    <button type="button" onclick="cambiarFuente('preview-viñetas', 2)"><i class="fa-solid fa-plus"></i></button>
-                                    <button type="button" onclick="cambiarFuente('preview-viñetas', -2)"><i class="fa-solid fa-minus"></i></button>
-                                </div>
-                            </div>
-                            <input type="text" id="input-viñetas" placeholder="Item 1; Item 2..." oninput="actualizarLienzo()">
-                        </div>
-                        <div class="grupo-input full">
-                            <label>Imagen de fondo</label>
-                            <div id="drop-zone" class="zona-drop">
-                                <i class="fa-solid fa-image"></i>
-                                <p>Arrastra una imagen o haz clic para subir</p>
-                                <input type="file" id="subir-fondo" accept="image/png, image/jpeg, image/webp" hidden>
-                            </div>
-                            <button type="button" class="btn-biblioteca" onclick="abrirBiblioteca()">
-                                <i class="fa-solid fa-photo-film"></i> Ver Galería de imágenes
-                            </button>
-                        </div>
-
-                        <div id="modal-biblioteca" class="modal-biblioteca">
-                            <div class="contenido-modal">
-                                <div class="cabecera-modal">
-                                    <h3>GALERÍA DE RECURSOS VISUALES</h3>
-                                    <span class="cerrar-modal" onclick="cerrarBiblioteca()">&times;</span>
-                                </div>
-                                <div id="lista-recursos" class="malla-recursos">
+                    <div class="interfaz-creador">
+                        <div class="controles-flujo">
+                            <div class="grupo-input full">
+                                <div class="cabecera-input-zoom">
+                                    <label>Título del post</label>
+                                    <div class="controles-zoom-mini">
+                                        <button type="button" onclick="alinearTexto('preview-titulo', 'left')"><i class="fa-solid fa-align-left"></i></button>
+                                        <button type="button" onclick="alinearTexto('preview-titulo', 'center')"><i class="fa-solid fa-align-center"></i></button>
+                                        <button type="button" onclick="alinearTexto('preview-titulo', 'justify')"><i class="fa-solid fa-align-justify"></i></button>
+                                        <span class="separador-mini"></span>
+                                        <button type="button" onclick="cambiarFuente('preview-titulo', 2)"><i class="fa-solid fa-plus"></i></button>
+                                        <button type="button" onclick="cambiarFuente('preview-titulo', -2)"><i class="fa-solid fa-minus"></i></button>
                                     </div>
+                                </div>
+                                <input type="text" id="input-titulo" placeholder="Ej: Derecho Civil" oninput="actualizarLienzo()">
+                            </div>
+
+                            <div class="grupo-input full">
+                                <div class="cabecera-input-zoom">
+                                    <label>Subtítulo / Eslogan</label>
+                                    <div class="controles-zoom-mini">
+                                        <button type="button" onclick="alinearTexto('preview-subtitulo', 'left')"><i class="fa-solid fa-align-left"></i></button>
+                                        <button type="button" onclick="alinearTexto('preview-subtitulo', 'center')"><i class="fa-solid fa-align-center"></i></button>
+                                        <button type="button" onclick="alinearTexto('preview-subtitulo', 'justify')"><i class="fa-solid fa-align-justify"></i></button>
+                                        <span class="separador-mini"></span>
+                                        <button type="button" onclick="cambiarFuente('preview-subtitulo', 2)"><i class="fa-solid fa-plus"></i></button>
+                                        <button type="button" onclick="cambiarFuente('preview-subtitulo', -2)"><i class="fa-solid fa-minus"></i></button>
+                                    </div>
+                                </div>
+                                <input type="text" id="input-subtitulo" placeholder="Ej: Asesoría Integral" oninput="actualizarLienzo()">
+                            </div>
+
+                            <div class="grupo-input full">
+                                <div class="cabecera-input-zoom">
+                                    <label>Cuerpo del texto</label>
+                                    <div class="controles-zoom-mini">
+                                        <button type="button" onclick="alinearTexto('preview-info', 'left')"><i class="fa-solid fa-align-left"></i></button>
+                                        <button type="button" onclick="alinearTexto('preview-info', 'center')"><i class="fa-solid fa-align-center"></i></button>
+                                        <button type="button" onclick="alinearTexto('preview-info', 'justify')"><i class="fa-solid fa-align-justify"></i></button>
+                                        <span class="separador-mini"></span>
+                                        <button type="button" onclick="cambiarFuente('preview-info', 2)"><i class="fa-solid fa-plus"></i></button>
+                                        <button type="button" onclick="cambiarFuente('preview-info', -2)"><i class="fa-solid fa-minus"></i></button>
+                                    </div>
+                                </div>
+                                <textarea id="input-info" rows="2" oninput="actualizarLienzo()"></textarea>
+                            </div>
+
+                            <div class="grupo-input">
+                                <div class="cabecera-input-zoom">
+                                    <label>Título de lista</label>
+                                    <div class="controles-zoom-mini">
+                                        <button type="button" onclick="alinearTexto('preview-titulo-puntos', 'left')"><i class="fa-solid fa-align-left"></i></button>
+                                        <button type="button" onclick="alinearTexto('preview-titulo-puntos', 'center')"><i class="fa-solid fa-align-center"></i></button>
+                                        <button type="button" onclick="alinearTexto('preview-titulo-puntos', 'justify')"><i class="fa-solid fa-align-justify"></i></button>
+                                        <span class="separador-mini"></span>
+                                        <button type="button" onclick="cambiarFuente('preview-titulo-puntos', 2)"><i class="fa-solid fa-plus"></i></button>
+                                        <button type="button" onclick="cambiarFuente('preview-titulo-puntos', -2)"><i class="fa-solid fa-minus"></i></button>
+                                    </div>
+                                </div>
+                                <input type="text" id="input-puntos" placeholder="Ej: Requisitos:" oninput="actualizarLienzo()">
+                            </div>
+
+                            <div class="grupo-input">
+                                <div class="cabecera-input-zoom">
+                                    <label>Viñetas (separa por ;)</label>
+                                    <div class="controles-zoom-mini">
+                                        <button type="button" onclick="alinearTexto('preview-viñetas', 'left')"><i class="fa-solid fa-align-left"></i></button>
+                                        <button type="button" onclick="alinearTexto('preview-viñetas', 'center')"><i class="fa-solid fa-align-center"></i></button>
+                                        <button type="button" onclick="alinearTexto('preview-viñetas', 'justify')"><i class="fa-solid fa-align-justify"></i></button>
+                                        <span class="separador-mini"></span>
+                                        <button type="button" onclick="cambiarFuente('preview-viñetas', 2)"><i class="fa-solid fa-plus"></i></button>
+                                        <button type="button" onclick="cambiarFuente('preview-viñetas', -2)"><i class="fa-solid fa-minus"></i></button>
+                                    </div>
+                                </div>
+                                <input type="text" id="input-viñetas" placeholder="Item 1; Item 2..." oninput="actualizarLienzo()">
+                            </div>
+                        </div>
+                            <div class="grupo-input full">
+                                <label>Imagen de fondo</label>
+                                <div id="drop-zone" class="zona-drop">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p>Arrastra una imagen o haz clic para subir</p>
+                                    <input type="file" id="subir-fondo" accept="image/png, image/jpeg, image/webp" hidden>
+                                </div>
+                                <button type="button" class="btn-biblioteca" onclick="abrirBiblioteca()">
+                                    <i class="fa-solid fa-photo-film"></i> Ver Galería de imágenes
+                                </button>
+                            </div>
+
+                            <div id="modal-biblioteca" class="modal-biblioteca">
+                                <div class="contenido-modal">
+                                    <div class="cabecera-modal">
+                                        <h3>GALERÍA DE RECURSOS VISUALES</h3>
+                                        <span class="cerrar-modal" onclick="cerrarBiblioteca()">&times;</span>
+                                    </div>
+                                    <div id="lista-recursos" class="malla-recursos">
+                                        </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="visualizador-premium">
-                    <div class="selector-formato-flotante">
-                        <button class="btn-formato activo" onclick="cambiarTamano('cuadrado', this)">Cuadrado</button>
-                        <button class="btn-formato" onclick="cambiarTamano('horizontal', this)">Horizontal</button>
-                    </div>
-
-                    <div id="lienzo-publicacion" class="lienzo-post prime-classic formato-cuadrado">
-                        <div id="fondo-post" class="capa-fondo"></div>
-                        <div class="contenido-post">
-                            <h1 id="preview-titulo">Título</h1>
-                            <h2 id="preview-subtitulo">Subtítulo</h2>
-                            <p id="preview-info">Descripción...</p>
-                            <div class="seccion-lista" id="preview-lista-contenedor">
-                                <strong id="preview-titulo-puntos"></strong>
-                                <ul id="preview-viñetas"></ul>
-                            </div>
+                    <div class="visualizador-premium">
+                        <div class="selector-formato-flotante">
+                            <button class="btn-formato activo" onclick="cambiarTamano('cuadrado', this)">Cuadrado</button>
+                            <button class="btn-formato" onclick="cambiarTamano('horizontal', this)">Horizontal</button>
                         </div>
-                        <div class="marca-agua">PRIME LAW SV</div>
+
+                        <div id="lienzo-publicacion" class="lienzo-post prime-classic formato-cuadrado">
+                            <div id="fondo-post" class="capa-fondo"></div>
+                            <div class="contenido-post">
+                                <h1 id="preview-titulo">Título</h1>
+                                <h2 id="preview-subtitulo">Subtítulo</h2>
+                                <p id="preview-info">Descripción...</p>
+                                <div class="seccion-lista" id="preview-lista-contenedor">
+                                    <strong id="preview-titulo-puntos"></strong>
+                                    <ul id="preview-viñetas"></ul>
+                                </div>
+                            </div>
+                            <div class="marca-agua">PRIME LAW SV</div>
+                        </div>
                     </div>
                 </div>
             </div>

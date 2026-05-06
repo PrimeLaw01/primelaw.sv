@@ -84,13 +84,17 @@ function alinearTexto(idPreview, alineacion) {
 
     if (idPreview === 'preview-lista-contenedor' || idPreview === 'preview-viñetas') {
         const contenedor = document.getElementById('preview-lista-contenedor');
-        contenedor.style.display = 'flex';
-        contenedor.style.flexDirection = 'column';
-        
-        contenedor.style.alignItems = alineacion === 'center' ? 'center' : 'flex-start';
+        if (contenedor) {
+            contenedor.style.display = 'flex';
+            contenedor.style.flexDirection = 'column';
+            
+            contenedor.style.alignItems = alineacion === 'center' ? 'center' : 'flex-start';
+        }
         
         const lista = document.getElementById('preview-viñetas');
-        lista.style.listStylePosition = alineacion === 'center' ? 'inside' : 'outside';
+        if (lista) {
+            lista.style.listStylePosition = alineacion === 'center' ? 'inside' : 'outside';
+        }
     }
 }
 

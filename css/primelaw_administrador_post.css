@@ -188,10 +188,12 @@ h1, h2, h3 {
 
 .visualizador-premium {
     background: #e9ecef;
-    padding: 50px;
+    padding: 30px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
+    width: fit-content;
+    min-width: 600px;
     align-items: center;
     
     position: sticky; 
@@ -221,11 +223,60 @@ h1, h2, h3 {
     overflow: hidden;
     box-shadow: var(--sombra-premium);
     transition: all 0.4s ease;
-    padding: 40px;
+    padding: 30px;
 }
 
-.formato-cuadrado { width: 500px; height: 500px; }
-.formato-horizontal { width: 600px; height: 337px; }
+.malla-edicion-paso1 {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 20px;
+}
+
+.panel-herramientas {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.visualizador-premium {
+    flex: 0 0 auto;
+    width: fit-content;
+    min-width: 600px;
+    position: sticky;
+    top: 100px;
+    background: #e9ecef;
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+}
+
+.controles-flujo {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+@media (max-width: 1100px) {
+    .malla-edicion-paso1 {
+        flex-direction: column;
+        align-items: center;
+    }
+    .visualizador-premium {
+        position: relative;
+        top: 0;
+        width: 100%;
+        max-width: 500px;
+    }
+}
+
+.formato-cuadrado { width: 550px; height: 550px; }
+.formato-horizontal { width: 650px; height: 365px; }
 
 .capa-fondo {
     position: absolute;
@@ -262,8 +313,8 @@ h1, h2, h3 {
 
 #preview-lista-contenedor {
     position: absolute;
-    top: 240px;
-    left: 40px;
+    top: 280px;
+    left: 45px;
     min-width: 200px;
     z-index: 10;
     pointer-events: auto;
@@ -879,7 +930,7 @@ h1, h2, h3 {
 }
 
 .barra-gestion-servicios {
-    background-color: #f4f1ea; /* Fondo neutro para separar secciones */
+    background-color: #f4f1ea;
     border-bottom: 1px solid var(--oro-prime);
     padding: 12px 0;
     display: flex;
