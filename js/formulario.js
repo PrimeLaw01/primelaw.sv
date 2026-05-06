@@ -10,33 +10,30 @@ const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 const formulario = document.getElementById('formulario-prime');
 
 if (formulario) {
-    formulario.addEventListener('submit', async (e) => {
+    formulario.addEventListener('submit', function(e) {
         e.preventDefault();
-        const campos = formulario.querySelectorAll('input, textarea');
-        const datos = {
-            nombre: campos[0].value,
-            telefono: campos[1].value,
-            asunto: campos[2].value,
-            mensaje: campos[3].value
+        
+        const camposInput = formulario.querySelectorAll('input');
+        const campoTexto = formulario.querySelector('textarea');
+        
+        const datosEnvio = {
+            nombre: camposInput[0].value,
+            telefono: camposInput[1].value,
+            asunto: camposInput[2].value,
+            mensaje: campoTexto.value,
+            reply_to: "primelaw.sv@gmail.com"
         };
 
-        const { error } = await _supabase.from('consultas_contacto').insert([datos]);
-
-        if (!error) {
-            emailjs.send("service_v3t2fnl", "template_7j1x2ve", {
-                nombre: datos.nombre,
-                telefono: datos.telefono,
-                asunto: datos.asunto,
-                mensaje: datos.mensaje,
-                reply_to: "primelaw.sv@gmail.com"
-            })
-            .then(() => {
-                alert("¡Consulta enviada exitosamente!");
-                formulario.reset();
-            }, (err) => {
-                console.error(err);
-            });
-        }
+        emailjs.send("service_v3t2fnl", "template_7j1x2ve", datosEnvio)
+        .then(() => {
+            alert("¡Consulta enviada exitosamente!");
+            formulario.reset();
+        })
+        .catch((err) => {
+            alert("Error detectado: " + err.text); 
+            console.log("Estado del error:", err.status);
+            console.error("Error completo:", err);
+        });
     });
 }
 
