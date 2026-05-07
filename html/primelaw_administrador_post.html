@@ -76,153 +76,154 @@
 
     <main class="contenedor-principal">
         
-        <section class="seccion-paso" id="paso-diseno">
-            <div class="indicador-etapa">01</div>
-            <h2 class="titulo-etapa">CENTRAL DE DISEÑO LEGAL</h2>
-            
-            <div class="malla-edicion-paso1">
-                <div class="panel-herramientas">
-                    
-                    <div class="caja-herramienta">
-                        <h3><i class="fa-solid fa-magnifying-glass-chart"></i> Consulta de Contenidos Prime Law</h3>
-                        <p style="font-size: 11px; color: #888; margin-bottom: 10px;">Desliza para copiar textos de servicios existentes</p>
+        <div id="seccion-admin-posts" class="seccion-tab activa">    
+            <section class="seccion-paso" id="paso-diseno">
+                <div class="indicador-etapa">01</div>
+                <h2 class="titulo-etapa">CENTRAL DE DISEÑO LEGAL</h2>
+                
+                <div class="malla-edicion-paso1">
+                    <div class="panel-herramientas">
                         
-                        <div class="marco-recorte-iframe">
-                            <iframe src="https://primelawsv.vercel.app/html/areas.html" sandbox="allow-forms allow-scripts allow-same-origin" class="ventana-interna-mini"></iframe>
-                        </div>
-                    </div>
-
-                    <div class="ia-tool-panel">
-                        <h3 class="serif-font">Espacio de para ideas aparte</h3>
-                        <p>Selecciona una IA</p>
-                        <p style="color: #01057d; font-style: italic;"><br>También puedes usar el chatbot que está en la esquina inferior derecha</p>
-                        
-                        <div class="ia-options">
-                            <button onclick="irA('chatgpt')" class="ia-btn btn-gpt">
-                                <i class="fa-solid fa-bolt"></i> ChatGPT (General)
-                            </button>
-                            <button onclick="irA('claude')" class="ia-btn btn-claude">
-                                <i class="fa-solid fa-feather"></i> Claude (Análisis legal)
-                            </button>
-                            <button onclick="irA('gemini')" class="ia-btn btn-gemini">
-                                <i class="fa-brands fa-google"></i> Google Gemini
-                            </button>
-                        </div>
-                        <script>
-                        (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="6RyELz2Fc2rc_QrMltNXB";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-                        </script>
-                    </div>
-
-                    <div class="modulo-borrador">
-                        <h3 class="serif-font"><i class="fa-solid fa-pen-to-square"></i> Borrador de ideas</h3>
-                        <p>Pega aquí las respuestas de la IA y dales forma antes de crear el post:</p>
-                        <textarea id="bloc-notas" placeholder="Escribe o pega tus ideas aquí..."></textarea>
-                        <div class="controles-borrador">
-                            <button onclick="borrarBorrador()" class="btn-limpiar">Limpiar</button>
-                        </div>
-                    </div>
-
-                    <div class="caja-herramienta">
-                        <h3><i class="fa-solid fa-palette"></i> Estilo de plantilla</h3>
-                        <div class="galeria-plantillas">
-                            <div class="opcion-plantilla activa" onclick="cambiarPlantilla('prime-classic', this)">
-                                <div class="mini-prev classic"></div>
-                            </div>
-                            <div class="opcion-plantilla" onclick="cambiarPlantilla('prime-light', this)">
-                                <div class="mini-prev light"></div>
-                            </div>
-                            <div class="opcion-plantilla" onclick="cambiarPlantilla('prime-impact', this)">
-                                <div class="mini-prev impact"></div>
-                            </div>
-                            <div class="opcion-plantilla" onclick="cambiarPlantilla('prime-dark-white', this)">
-                                <div class="mini-prev dark-white"></div>
-                            </div>
-                            <div class="opcion-plantilla" onclick="cambiarPlantilla('prime-gray', this)">
-                                <div class="mini-prev gray-scale"></div>
-                            </div>
-                            <div class="opcion-plantilla" onclick="cambiarPlantilla('prime-minimal-white', this)">
-                                <div class="mini-prev minimal-white"></div>
+                        <div class="caja-herramienta">
+                            <h3><i class="fa-solid fa-magnifying-glass-chart"></i> Consulta de Contenidos Prime Law</h3>
+                            <p style="font-size: 11px; color: #888; margin-bottom: 10px;">Desliza para copiar textos de servicios existentes</p>
+                            
+                            <div class="marco-recorte-iframe">
+                                <iframe src="https://primelawsv.vercel.app/html/areas.html" sandbox="allow-forms allow-scripts allow-same-origin" class="ventana-interna-mini"></iframe>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="interfaz-creador">
-                        <div class="controles-flujo">
-                            <div class="grupo-input full">
-                                <div class="cabecera-input-zoom">
-                                    <label>Título del post</label>
-                                    <div class="controles-zoom-mini">
-                                        <button type="button" onclick="alinearTexto('preview-titulo', 'left')"><i class="fa-solid fa-align-left"></i></button>
-                                        <button type="button" onclick="alinearTexto('preview-titulo', 'center')"><i class="fa-solid fa-align-center"></i></button>
-                                        <button type="button" onclick="alinearTexto('preview-titulo', 'justify')"><i class="fa-solid fa-align-justify"></i></button>
-                                        <span class="separador-mini"></span>
-                                        <button type="button" onclick="cambiarFuente('preview-titulo', 2)"><i class="fa-solid fa-plus"></i></button>
-                                        <button type="button" onclick="cambiarFuente('preview-titulo', -2)"><i class="fa-solid fa-minus"></i></button>
-                                    </div>
-                                </div>
-                                <input type="text" id="input-titulo" placeholder="Ej: Derecho Civil" oninput="actualizarLienzo()">
+                        <div class="ia-tool-panel">
+                            <h3 class="serif-font">Espacio de para ideas aparte</h3>
+                            <p>Selecciona una IA</p>
+                            <p style="color: #01057d; font-style: italic;"><br>También puedes usar el chatbot que está en la esquina inferior derecha</p>
+                            
+                            <div class="ia-options">
+                                <button onclick="irA('chatgpt')" class="ia-btn btn-gpt">
+                                    <i class="fa-solid fa-bolt"></i> ChatGPT (General)
+                                </button>
+                                <button onclick="irA('claude')" class="ia-btn btn-claude">
+                                    <i class="fa-solid fa-feather"></i> Claude (Análisis legal)
+                                </button>
+                                <button onclick="irA('gemini')" class="ia-btn btn-gemini">
+                                    <i class="fa-brands fa-google"></i> Google Gemini
+                                </button>
                             </div>
+                            <script>
+                            (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="6RyELz2Fc2rc_QrMltNXB";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+                            </script>
+                        </div>
 
-                            <div class="grupo-input full">
-                                <div class="cabecera-input-zoom">
-                                    <label>Subtítulo / Eslogan</label>
-                                    <div class="controles-zoom-mini">
-                                        <button type="button" onclick="alinearTexto('preview-subtitulo', 'left')"><i class="fa-solid fa-align-left"></i></button>
-                                        <button type="button" onclick="alinearTexto('preview-subtitulo', 'center')"><i class="fa-solid fa-align-center"></i></button>
-                                        <button type="button" onclick="alinearTexto('preview-subtitulo', 'justify')"><i class="fa-solid fa-align-justify"></i></button>
-                                        <span class="separador-mini"></span>
-                                        <button type="button" onclick="cambiarFuente('preview-subtitulo', 2)"><i class="fa-solid fa-plus"></i></button>
-                                        <button type="button" onclick="cambiarFuente('preview-subtitulo', -2)"><i class="fa-solid fa-minus"></i></button>
-                                    </div>
-                                </div>
-                                <input type="text" id="input-subtitulo" placeholder="Ej: Asesoría Integral" oninput="actualizarLienzo()">
-                            </div>
-
-                            <div class="grupo-input full">
-                                <div class="cabecera-input-zoom">
-                                    <label>Cuerpo del texto</label>
-                                    <div class="controles-zoom-mini">
-                                        <button type="button" onclick="alinearTexto('preview-info', 'left')"><i class="fa-solid fa-align-left"></i></button>
-                                        <button type="button" onclick="alinearTexto('preview-info', 'center')"><i class="fa-solid fa-align-center"></i></button>
-                                        <button type="button" onclick="alinearTexto('preview-info', 'justify')"><i class="fa-solid fa-align-justify"></i></button>
-                                        <span class="separador-mini"></span>
-                                        <button type="button" onclick="cambiarFuente('preview-info', 2)"><i class="fa-solid fa-plus"></i></button>
-                                        <button type="button" onclick="cambiarFuente('preview-info', -2)"><i class="fa-solid fa-minus"></i></button>
-                                    </div>
-                                </div>
-                                <textarea id="input-info" rows="2" oninput="actualizarLienzo()"></textarea>
-                            </div>
-
-                            <div class="grupo-input">
-                                <div class="cabecera-input-zoom">
-                                    <label>Título de lista</label>
-                                    <div class="controles-zoom-mini">
-                                        <button type="button" onclick="alinearTexto('preview-titulo-puntos', 'left')"><i class="fa-solid fa-align-left"></i></button>
-                                        <button type="button" onclick="alinearTexto('preview-titulo-puntos', 'center')"><i class="fa-solid fa-align-center"></i></button>
-                                        <button type="button" onclick="alinearTexto('preview-titulo-puntos', 'justify')"><i class="fa-solid fa-align-justify"></i></button>
-                                        <span class="separador-mini"></span>
-                                        <button type="button" onclick="cambiarFuente('preview-titulo-puntos', 2)"><i class="fa-solid fa-plus"></i></button>
-                                        <button type="button" onclick="cambiarFuente('preview-titulo-puntos', -2)"><i class="fa-solid fa-minus"></i></button>
-                                    </div>
-                                </div>
-                                <input type="text" id="input-puntos" placeholder="Ej: Requisitos:" oninput="actualizarLienzo()">
-                            </div>
-
-                            <div class="grupo-input">
-                                <div class="cabecera-input-zoom">
-                                    <label>Viñetas (separa por ;)</label>
-                                    <div class="controles-zoom-mini">
-                                        <button type="button" onclick="alinearTexto('preview-viñetas', 'left')"><i class="fa-solid fa-align-left"></i></button>
-                                        <button type="button" onclick="alinearTexto('preview-viñetas', 'center')"><i class="fa-solid fa-align-center"></i></button>
-                                        <button type="button" onclick="alinearTexto('preview-viñetas', 'justify')"><i class="fa-solid fa-align-justify"></i></button>
-                                        <span class="separador-mini"></span>
-                                        <button type="button" onclick="cambiarFuente('preview-viñetas', 2)"><i class="fa-solid fa-plus"></i></button>
-                                        <button type="button" onclick="cambiarFuente('preview-viñetas', -2)"><i class="fa-solid fa-minus"></i></button>
-                                    </div>
-                                </div>
-                                <input type="text" id="input-viñetas" placeholder="Item 1; Item 2..." oninput="actualizarLienzo()">
+                        <div class="modulo-borrador">
+                            <h3 class="serif-font"><i class="fa-solid fa-pen-to-square"></i> Borrador de ideas</h3>
+                            <p>Pega aquí las respuestas de la IA y dales forma antes de crear el post:</p>
+                            <textarea id="bloc-notas" placeholder="Escribe o pega tus ideas aquí..."></textarea>
+                            <div class="controles-borrador">
+                                <button onclick="borrarBorrador()" class="btn-limpiar">Limpiar</button>
                             </div>
                         </div>
+
+                        <div class="caja-herramienta">
+                            <h3><i class="fa-solid fa-palette"></i> Estilo de plantilla</h3>
+                            <div class="galeria-plantillas">
+                                <div class="opcion-plantilla activa" onclick="cambiarPlantilla('prime-classic', this)">
+                                    <div class="mini-prev classic"></div>
+                                </div>
+                                <div class="opcion-plantilla" onclick="cambiarPlantilla('prime-light', this)">
+                                    <div class="mini-prev light"></div>
+                                </div>
+                                <div class="opcion-plantilla" onclick="cambiarPlantilla('prime-impact', this)">
+                                    <div class="mini-prev impact"></div>
+                                </div>
+                                <div class="opcion-plantilla" onclick="cambiarPlantilla('prime-dark-white', this)">
+                                    <div class="mini-prev dark-white"></div>
+                                </div>
+                                <div class="opcion-plantilla" onclick="cambiarPlantilla('prime-gray', this)">
+                                    <div class="mini-prev gray-scale"></div>
+                                </div>
+                                <div class="opcion-plantilla" onclick="cambiarPlantilla('prime-minimal-white', this)">
+                                    <div class="mini-prev minimal-white"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="interfaz-creador">
+                            <div class="controles-flujo">
+                                <div class="grupo-input full">
+                                    <div class="cabecera-input-zoom">
+                                        <label>Título del post</label>
+                                        <div class="controles-zoom-mini">
+                                            <button type="button" onclick="alinearTexto('preview-titulo', 'left')"><i class="fa-solid fa-align-left"></i></button>
+                                            <button type="button" onclick="alinearTexto('preview-titulo', 'center')"><i class="fa-solid fa-align-center"></i></button>
+                                            <button type="button" onclick="alinearTexto('preview-titulo', 'justify')"><i class="fa-solid fa-align-justify"></i></button>
+                                            <span class="separador-mini"></span>
+                                            <button type="button" onclick="cambiarFuente('preview-titulo', 2)"><i class="fa-solid fa-plus"></i></button>
+                                            <button type="button" onclick="cambiarFuente('preview-titulo', -2)"><i class="fa-solid fa-minus"></i></button>
+                                        </div>
+                                    </div>
+                                    <input type="text" id="input-titulo" placeholder="Ej: Derecho Civil" oninput="actualizarLienzo()">
+                                </div>
+
+                                <div class="grupo-input full">
+                                    <div class="cabecera-input-zoom">
+                                        <label>Subtítulo / Eslogan</label>
+                                        <div class="controles-zoom-mini">
+                                            <button type="button" onclick="alinearTexto('preview-subtitulo', 'left')"><i class="fa-solid fa-align-left"></i></button>
+                                            <button type="button" onclick="alinearTexto('preview-subtitulo', 'center')"><i class="fa-solid fa-align-center"></i></button>
+                                            <button type="button" onclick="alinearTexto('preview-subtitulo', 'justify')"><i class="fa-solid fa-align-justify"></i></button>
+                                            <span class="separador-mini"></span>
+                                            <button type="button" onclick="cambiarFuente('preview-subtitulo', 2)"><i class="fa-solid fa-plus"></i></button>
+                                            <button type="button" onclick="cambiarFuente('preview-subtitulo', -2)"><i class="fa-solid fa-minus"></i></button>
+                                        </div>
+                                    </div>
+                                    <input type="text" id="input-subtitulo" placeholder="Ej: Asesoría Integral" oninput="actualizarLienzo()">
+                                </div>
+
+                                <div class="grupo-input full">
+                                    <div class="cabecera-input-zoom">
+                                        <label>Cuerpo del texto</label>
+                                        <div class="controles-zoom-mini">
+                                            <button type="button" onclick="alinearTexto('preview-info', 'left')"><i class="fa-solid fa-align-left"></i></button>
+                                            <button type="button" onclick="alinearTexto('preview-info', 'center')"><i class="fa-solid fa-align-center"></i></button>
+                                            <button type="button" onclick="alinearTexto('preview-info', 'justify')"><i class="fa-solid fa-align-justify"></i></button>
+                                            <span class="separador-mini"></span>
+                                            <button type="button" onclick="cambiarFuente('preview-info', 2)"><i class="fa-solid fa-plus"></i></button>
+                                            <button type="button" onclick="cambiarFuente('preview-info', -2)"><i class="fa-solid fa-minus"></i></button>
+                                        </div>
+                                    </div>
+                                    <textarea id="input-info" rows="2" oninput="actualizarLienzo()"></textarea>
+                                </div>
+
+                                <div class="grupo-input">
+                                    <div class="cabecera-input-zoom">
+                                        <label>Título de lista</label>
+                                        <div class="controles-zoom-mini">
+                                            <button type="button" onclick="alinearTexto('preview-titulo-puntos', 'left')"><i class="fa-solid fa-align-left"></i></button>
+                                            <button type="button" onclick="alinearTexto('preview-titulo-puntos', 'center')"><i class="fa-solid fa-align-center"></i></button>
+                                            <button type="button" onclick="alinearTexto('preview-titulo-puntos', 'justify')"><i class="fa-solid fa-align-justify"></i></button>
+                                            <span class="separador-mini"></span>
+                                            <button type="button" onclick="cambiarFuente('preview-titulo-puntos', 2)"><i class="fa-solid fa-plus"></i></button>
+                                            <button type="button" onclick="cambiarFuente('preview-titulo-puntos', -2)"><i class="fa-solid fa-minus"></i></button>
+                                        </div>
+                                    </div>
+                                    <input type="text" id="input-puntos" placeholder="Ej: Requisitos:" oninput="actualizarLienzo()">
+                                </div>
+
+                                <div class="grupo-input">
+                                    <div class="cabecera-input-zoom">
+                                        <label>Viñetas (separa por ;)</label>
+                                        <div class="controles-zoom-mini">
+                                            <button type="button" onclick="alinearTexto('preview-viñetas', 'left')"><i class="fa-solid fa-align-left"></i></button>
+                                            <button type="button" onclick="alinearTexto('preview-viñetas', 'center')"><i class="fa-solid fa-align-center"></i></button>
+                                            <button type="button" onclick="alinearTexto('preview-viñetas', 'justify')"><i class="fa-solid fa-align-justify"></i></button>
+                                            <span class="separador-mini"></span>
+                                            <button type="button" onclick="cambiarFuente('preview-viñetas', 2)"><i class="fa-solid fa-plus"></i></button>
+                                            <button type="button" onclick="cambiarFuente('preview-viñetas', -2)"><i class="fa-solid fa-minus"></i></button>
+                                        </div>
+                                    </div>
+                                    <input type="text" id="input-viñetas" placeholder="Item 1; Item 2..." oninput="actualizarLienzo()">
+                                </div>
+                            </div>
                             <div class="grupo-input full">
                                 <label>Imagen de fondo</label>
                                 <div id="drop-zone" class="zona-drop">
@@ -242,7 +243,7 @@
                                         <span class="cerrar-modal" onclick="cerrarBiblioteca()">&times;</span>
                                     </div>
                                     <div id="lista-recursos" class="malla-recursos">
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -269,55 +270,139 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="seccion-paso" id="paso-redes">
-            <div class="indicador-etapa">02</div>
-            <h2 class="titulo-etapa">CANALES DE DIFUSIÓN</h2>
-            <div class="malla-redes-pasos">
-                <div class="tarjeta-red-admin" onclick="seleccionarUnaRed(this)">
-                    <i class="fa-brands fa-whatsapp"></i>
-                    <h4>WhatsApp</h4>
+            <section class="seccion-paso" id="paso-redes">
+                <div class="indicador-etapa">02</div>
+                <h2 class="titulo-etapa">CANALES DE DIFUSIÓN</h2>
+                <div class="malla-redes-pasos">
+                    <div class="tarjeta-red-admin" onclick="seleccionarUnaRed(this)">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <h4>WhatsApp</h4>
+                    </div>
+                    <div class="tarjeta-red-admin" onclick="seleccionarUnaRed(this)">
+                        <i class="fa-brands fa-facebook-f"></i>
+                        <h4>Facebook</h4>
+                    </div>
+                    <div class="tarjeta-red-admin" onclick="seleccionarUnaRed(this)">
+                        <i class="fa-brands fa-instagram"></i>
+                        <h4>Instagram</h4>
+                    </div>
+                    <div class="tarjeta-red-admin" onclick="seleccionarUnaRed(this)">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                        <h4>LinkedIn</h4>
+                    </div>
                 </div>
-                <div class="tarjeta-red-admin" onclick="seleccionarUnaRed(this)">
-                    <i class="fa-brands fa-facebook-f"></i>
-                    <h4>Facebook</h4>
-                </div>
-                <div class="tarjeta-red-admin" onclick="seleccionarUnaRed(this)">
-                    <i class="fa-brands fa-instagram"></i>
-                    <h4>Instagram</h4>
-                </div>
-                <div class="tarjeta-red-admin" onclick="seleccionarUnaRed(this)">
-                    <i class="fa-brands fa-linkedin-in"></i>
-                    <h4>LinkedIn</h4>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="seccion-paso" id="paso-final">
-            <div class="indicador-etapa">03</div>
-            <h2 class="titulo-etapa">FINALIZAR Y PUBLICAR</h2>
-            
-            <div class="panel-despliegue-final">
-                <p class="instruccion-final">
-                    Al procesar, se descargará la publicación en alta definición y se copiará el texto de ella a tu portapapeles automáticamente.
-                </p>
+            <section class="seccion-paso" id="paso-final">
+                <div class="indicador-etapa">03</div>
+                <h2 class="titulo-etapa">FINALIZAR Y PUBLICAR</h2>
                 
-                <button class="btn-ejecutar-final" onclick="exportarYPublicar()">
-                    GENERAR Y ABRIR REDES
-                </button>
-                
-                <div id="notificacion-exito" class="notificacion-oculta">
-                    <i class="fa-solid fa-check-double"></i> 
-                    ¡Proceso completado con éxito!
-                </div>
-            </div>
-        </section>
+                <div class="panel-despliegue-final">
+                    <p class="instruccion-final">
+                        Al procesar, se descargará la publicación en alta definición y se copiará el texto de ella a tu portapapeles automáticamente.
+                    </p>
+                    
+                    <button class="btn-ejecutar-final" onclick="exportarYPublicar()">
+                        GENERAR Y ABRIR REDES
+                    </button>
+                    
+                    <div id="notificacion-exito" class="notificacion-oculta">
+                        <i class="fa-solid fa-check-double"></i> 
+                        ¡Proceso completado con éxito!
+                    </div>
+                </div> 
+            </section> 
+        </div> 
+        
+        <div id="seccion-nosotros" class="seccion-tab" style="display: none;">
+            <section class="seccion-paso">
+                <h2 class="titulo-etapa">GESTIÓN DE EQUIPO PROFESIONAL</h2>
+                    
+                    <div class="malla-edicion-paso1">
+                        <div class="panel-herramientas">
+                            <form id="form-nuevo-miembro" class="caja-herramienta">
+                                <h3><i class="fa-solid fa-user-plus"></i> Gestionar Integrante</h3>
+                                
+                                <div class="grupo-input full">
+                                    <label>Nombre Completo</label>
+                                    <input type="text" id="member-nombre" placeholder="Ej: Mtro. Juan Pérez" required>
+                                </div>
+
+                                <div class="grupo-input full">
+                                    <label>Cargo / Rol en la Firma</label>
+                                    <input type="text" id="member-cargo" placeholder="Ej: Especialista en Derecho Civil" required>
+                                </div>
+
+                                <div class="grupo-input full">
+                                    <label>Títulos y Especialidades (Separa por comas)</label>
+                                    <textarea id="member-titulos" rows="2" placeholder="Abogado y Notario, Máster en Tributario, etc."></textarea>
+                                </div>
+
+                                <div class="grupo-input full">
+                                    <label>Frase Personal / Bienvenida</label>
+                                    <textarea id="member-frase" rows="2" placeholder="Escribe un mensaje breve o cita profesional..."></textarea>
+                                </div>
+
+                                <div class="grupo-input full">
+                                    <label>Foto de Perfil</label>
+                                    <div class="contenedor-subida-foto" style="display: flex; align-items: center; gap: 10px;">
+                                        <input type="file" id="member-foto-archivo" accept="image/png, image/jpeg" style="display:none;">
+                                        <button type="button" class="btn-subir-archivo" onclick="document.getElementById('member-foto-archivo').click()">
+                                            <i class="fa-solid fa-cloud-arrow-up"></i> Seleccionar Imagen
+                                        </button>
+                                        <img id="previsualizacion-foto" src="" alt="Previsualización" style="display:none; width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #c5a059;">
+                                        <input type="hidden" id="member-foto-url">
+                                    </div>
+                                </div>
+
+                                <div class="grupo-input full">
+                                    <label>Orden de aparición (Número)</label>
+                                    <input type="number" id="member-orden" value="1">
+                                </div>
+
+                                <button type="submit" class="btn-guardar-miembro">
+                                    GUARDAR INTEGRANTE
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="visualizador-premium">
+                            <h3 style="color: var(--azul-prime); margin-bottom: 20px; font-family: 'Cinzel';">Estado del Equipo</h3>
+                            <div id="lista-miembros-admin" style="width: 100%; display: flex; flex-direction: column; gap: 10px;">
+                                <p style="font-size: 13px; color: #666; text-align: center;">Cargando integrantes...</p>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+        </div>
+        <div id="seccion-servicios" class="seccion-tab" style="display: none;">
+            <section class="seccion-paso">
+                <h2 class="titulo-etapa">EDITAR SERVICIOS</h2>
+            </section>
+        </div>
+
+        <div id="seccion-perfil" class="seccion-tab" style="display: none;">
+            <section class="seccion-paso">
+                <h2 class="titulo-etapa">SOBRE MÍ</h2>
+            </section>
+        </div>
+
+        <div id="seccion-areas" class="seccion-tab" style="display: none;">
+            <section class="seccion-paso">
+                <h2 class="titulo-etapa">EDITAR ÁREAS</h2>
+            </section>
+        </div>
+
+        <div id="seccion-miniaturas" class="seccion-tab" style="display: none;">
+            <section class="seccion-paso">
+                <h2 class="titulo-etapa">INFO. MINIATURAS</h2>
+            </section>
+        </div>
 
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/primelaw_administrador_post.js"></script>
 </body>
 </html>

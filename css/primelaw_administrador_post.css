@@ -1038,3 +1038,122 @@ h1, h2, h3 {
 .btn-gestion:hover i {
     color: white;
 }
+
+.seccion-tab {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.seccion-tab.activa {
+    display: block;
+    opacity: 1;
+}
+
+.seccion-tab.activa, 
+#seccion-nosotros[style*="display: block"] {
+    display: block !important;
+    min-height: 500px;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background-color: #f9f9f9; 
+}
+
+/* Aseguramos que el texto dentro sea visible */
+#seccion-nosotros * {
+    color: #001a2c !important;
+}
+
+/* Contenedor de la lista */
+#lista-miembros-admin {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* Tarjetas de integrantes */
+.miembro-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-left: 5px solid #c5a059;
+    transition: transform 0.2s ease;
+}
+
+.miembro-card:hover {
+    transform: translateX(5px);
+}
+
+.miembro-info strong {
+    color: #001a2c;
+    font-size: 1.1rem;
+    display: block;
+}
+
+.miembro-info small {
+    color: #666;
+    font-style: italic;
+}
+
+/* Botones de acción */
+.btn-editar, .btn-eliminar {
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    font-size: 14px;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+}
+
+.btn-editar { background-color: #001a2c; }
+.btn-editar:hover { background-color: #c5a059; }
+
+.btn-eliminar { background-color: #e74c3c; }
+.btn-eliminar:hover { background-color: #c0392b; }
+
+/* Botón principal del formulario */
+.btn-guardar-miembro {
+    background: #c5a059;
+    color: #001a2c;
+    font-weight: bold;
+    border: none;
+    padding: 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-guardar-miembro:hover {
+    color: #c5a059;
+    transform: translateY(-2px);
+}
+
+.grupo-input label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #001a2c;
+    font-size: 14px;
+}
+
+.grupo-input {
+    margin-bottom: 20px;
+}
+
+.contenedor-subida-foto {
+    margin-top: 5px;
+}

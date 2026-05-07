@@ -2,6 +2,8 @@ const SUPABASE_URL = 'https://geopgruedclsmwdfuebi.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb3BncnVlZGNsc213ZGZ1ZWJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5ODc1MjIsImV4cCI6MjA5MjU2MzUyMn0.xwcFE6zs4FYIicIXVqQljHNAPxPAWBcDXl1jbCL3mdo';
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+let idEditando = null;
+
 const imagenesGaleria = [
     '../images/derAdministrativo.png', '../images/derCorporativo.png',
     '../images/derCivil.png', '../images/derMercantil.png',
@@ -76,7 +78,6 @@ function actualizarLienzo() {
     elementos.forEach(id => habilitarArrastre(id));
 }
 
-
 function alinearTexto(idPreview, alineacion) {
     const el = document.getElementById(idPreview);
     if (!el) return;
@@ -88,7 +89,6 @@ function alinearTexto(idPreview, alineacion) {
         if (contenedor) {
             contenedor.style.display = 'flex';
             contenedor.style.flexDirection = 'column';
-            
             contenedor.style.alignItems = alineacion === 'center' ? 'center' : 'flex-start';
         }
         
@@ -98,7 +98,6 @@ function alinearTexto(idPreview, alineacion) {
         }
     }
 }
-
 
 function habilitarEscalado(idElemento) {
     const el = document.getElementById(idElemento);
@@ -136,7 +135,7 @@ function habilitarEscalado(idElemento) {
     el.addEventListener("touchend", () => { initialDist = 0; });
 }
 
-function annadirControlesVisuales(idElemento) {
+function añadirControlesVisuales(idElemento) {
     const el = document.getElementById(idElemento);
     if (!el) return;
 
@@ -161,7 +160,6 @@ function cambiarFuente(id, delta) {
     }
 }
 
-
 function irA(plataforma) {
     const urls = {
         'chatgpt': 'https://chat.openai.com',
@@ -171,7 +169,6 @@ function irA(plataforma) {
     
     window.open(urls[plataforma], '_blank');
 }
-
 
 function borrarBorrador() {
     const areaNotas = document.getElementById('bloc-notas');
@@ -222,21 +219,8 @@ async function exportarYPublicar() {
     btn.innerText = "PROCESANDO...";
     btn.disabled = true;
 
-    const ids = ['preview-titulo', 'preview-subtitulo', 'preview-info'];
-    const ocultados = [];
-    ids.forEach(id => {
-        const el = document.getElementById(id);
-        const txt = el.innerText.trim().toLowerCase();
-        if (txt === textosPorDefecto[id].toLowerCase() || txt === 'subtítulo' || txt === 'subtitulo') {
-            el.style.visibility = 'hidden';
-            ocultados.push(el);
-        }
-    });
-
     try {
-        let bg = lienzo.classList.contains('prime-light') ? "#ffffff" : (lienzo.classList.contains('prime-impact') ? "#c5a059" : "#001a2c");
-        const canvas = await html2canvas(lienzo, { scale: 3, backgroundColor: bg, useCORS: true });
-        ocultados.forEach(el => el.style.visibility = 'visible');
+        const canvas = await html2canvas(lienzo, { scale: 3, useCORS: true });
 
         const link = document.createElement('a');
         link.download = `Post_PrimeLaw_${Date.now()}.png`;
@@ -245,41 +229,13 @@ async function exportarYPublicar() {
 
         const t = document.getElementById('preview-titulo').innerText;
         const i = document.getElementById('preview-info').innerText;
-        const txtT = (t.toLowerCase() === textosPorDefecto['preview-titulo'].toLowerCase()) ? '' : t.toUpperCase();
-        const txtI = (i.toLowerCase() === textosPorDefecto['preview-info'].toLowerCase()) ? '' : i;
-        await navigator.clipboard.writeText(`${txtT}\n\n${txtI}\n\n⚖️ Prime Law El Salvador`.trim());
+        await navigator.clipboard.writeText(`${t}\n\n${i}\n\n⚖️ Prime Law El Salvador`.trim());
 
         const urls = { 'facebook': 'https://www.facebook.com', 'instagram': 'https://www.instagram.com', 'whatsapp': 'https://web.whatsapp.com', 'linkedin': 'https://www.linkedin.com' };
         if (urls[red.innerText.toLowerCase()]) window.open(urls[red.innerText.toLowerCase()], '_blank');
         document.getElementById('notificacion-exito').style.display = 'block';
     } catch (err) { alert("Error al exportar."); }
     finally { btn.innerText = "GENERAR Y ABRIR REDES"; btn.disabled = false; }
-}
-
-const dropZone = document.getElementById('drop-zone');
-const fileInput = document.getElementById('subir-fondo');
-if (dropZone && fileInput) {
-    dropZone.onclick = () => fileInput.click();
-    dropZone.ondragover = (e) => { e.preventDefault(); dropZone.style.borderColor = "#c5a059"; };
-    dropZone.ondragleave = () => dropZone.style.borderColor = "#ddd";
-    dropZone.ondrop = (e) => {
-        e.preventDefault();
-        dropZone.style.borderColor = "#ddd";
-        if (e.dataTransfer.files.length) { fileInput.files = e.dataTransfer.files; procesarImagen(e.dataTransfer.files[0]); }
-    };
-    fileInput.onchange = function() { if (this.files[0]) procesarImagen(this.files[0]); };
-}
-
-function procesarImagen(archivo) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        const fondo = document.getElementById('fondo-post');
-        fondo.style.backgroundImage = `url('${e.target.result}')`;
-        fondo.style.backgroundSize = "cover";
-        fondo.style.backgroundPosition = "center";
-        document.getElementById('drop-zone').innerHTML = `<i class="fa-solid fa-check" style="color: #c5a059;"></i> <p>Imagen cargada</p>`;
-    };
-    reader.readAsDataURL(archivo);
 }
 
 function seleccionarUnaRed(elemento) {
@@ -303,73 +259,189 @@ function cambiarTamano(formato, elemento) {
     elemento.classList.add('activo');
 }
 
-function cambiarFuente(idPreview, delta) {
-    const el = document.getElementById(idPreview);
-    if (!el) return;
+function mostrarSeccion(seccion) {
+    console.log("Cambiando a sección:", seccion);
 
-    let currentSize = parseInt(window.getComputedStyle(el).fontSize);
+    // 1. Identificamos todos los contenedores principales por sus IDs exactos
+    const adminPosts = document.getElementById('seccion-admin-posts');
+    const nosotros = document.getElementById('seccion-nosotros');
+    const servicios = document.getElementById('seccion-servicios');
+    const perfil = document.getElementById('seccion-perfil');
+    const areas = document.getElementById('seccion-areas');
+    const miniaturas = document.getElementById('seccion-miniaturas');
+
+    // 2. Creamos un array con ellos para ocultarlos todos de un solo golpe
+    const todas = [adminPosts, nosotros, servicios, perfil, areas, miniaturas];
     
-    el.style.fontSize = (currentSize + delta) + "px";
-    
-    console.log(`Nuevo tamaño para ${idPreview}: ${el.style.fontSize}`);
-}
+    todas.forEach(s => { 
+        if (s) {
+            s.style.display = 'none'; // Esto quita el espacio que ocupan
+            s.classList.remove('activa');
+        }
+    });
 
-function aplicarFormato(idInput, tag) {
-    const textarea = document.getElementById(idInput);
-    if (!textarea) return;
+    // 3. Mostramos solo la sección que el usuario pidió
+    let idTarget = (seccion === 'admin') ? 'seccion-admin-posts' : `seccion-${seccion}`;
+    const elTarget = document.getElementById(idTarget);
 
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const textoCompleto = textarea.value;
-    const seleccionado = textoCompleto.substring(start, end);
-
-    if (seleccionado.length > 0) {
-        const nuevoTexto = 
-            textoCompleto.substring(0, start) + 
-            `<${tag}>${seleccionado}</${tag}>` + 
-            textoCompleto.substring(end);
-
-        textarea.value = nuevoTexto;
-        actualizarLienzo();
-        textarea.focus();
+    if (elTarget) {
+        elTarget.style.display = 'block'; // La mostramos al principio del contenedor
+        elTarget.classList.add('activa');
+        
+        // Si es la sección de integrantes, cargamos los datos de Supabase
+        if (seccion === 'nosotros') {
+            cargarMiembrosAdmin();
+        }
+        
+        // UX: Hacemos scroll hacia arriba automáticamente para que se vea la sección
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        console.error("No se encontró la sección:", idTarget);
     }
 }
 
+// --- NUEVA LÓGICA CRUD SIN RESUMIR ---
+
+async function subirFotoABucket(archivo) {
+    const nombreLimpio = archivo.name.replace(/[^a-zA-Z0-9.]/g, "_");
+    const nombreFinal = `${Date.now()}_${nombreLimpio}`;
+    const { data, error } = await _supabase.storage.from('fotos-equipo').upload(nombreFinal, archivo);
+    if (error) throw new Error("Error al subir imagen: " + error.message);
+    const { data: urlData } = _supabase.storage.from('fotos-equipo').getPublicUrl(nombreFinal);
+    return urlData.publicUrl;
+}
+
+async function cargarMiembrosAdmin() {
+    const lista = document.getElementById('lista-miembros-admin');
+    if (!lista) return;
+    lista.innerHTML = '<p style="text-align:center; color:#c5a059;">Sincronizando equipo...</p>';
+    const { data: miembros, error } = await _supabase.from('quienes_somos').select('*').order('orden', { ascending: true });
+    if (error) {
+        lista.innerHTML = `<p style="color:red; text-align:center;">Error: ${error.message}</p>`;
+        return;
+    }
+    lista.innerHTML = miembros.map(m => `
+        <div style="background: white; padding: 12px; border-radius: 8px; border-left: 5px solid #c5a059; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <img src="${m.foto_url || '../images/usuario-sin-foto.png'}" style="width:40px; height:40px; border-radius:50%; object-fit:cover; border: 1px solid #eee;">
+                <div>
+                    <strong style="color: #001a2c; font-size:14px; display:block;">${m.nombre}</strong>
+                    <small style="color: #666;">${m.cargo} (Orden: ${m.orden})</small>
+                </div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+                <button onclick="prepararEdicion('${m.id}')" style="background-color: #c5a059; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer;"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button onclick="eliminarMiembro('${m.id}')" style="background-color: #960000; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer;"><i class="fa-solid fa-trash"></i></button>
+            </div>
+        </div>
+    `).join('');
+}
+
+async function prepararEdicion(id) {
+    const { data: m, error } = await _supabase.from('quienes_somos').select('*').eq('id', id).single();
+    if (error || !m) return;
+    idEditando = m.id;
+    document.getElementById('member-nombre').value = m.nombre;
+    document.getElementById('member-cargo').value = m.cargo;
+    document.getElementById('member-titulos').value = m.titulos ? m.titulos.join(', ') : '';
+    document.getElementById('member-frase').value = m.frase_personal;
+    document.getElementById('member-foto-url').value = m.foto_url;
+    document.getElementById('member-orden').value = m.orden;
+    const btn = document.querySelector('#form-nuevo-miembro button[type="submit"]');
+    btn.innerText = "ACTUALIZAR INTEGRANTE";
+    btn.style.background = "#c5a059";
+    document.getElementById('form-nuevo-miembro').scrollIntoView({ behavior: 'smooth' });
+}
+
+async function eliminarMiembro(id) {
+    if (confirm("¿Estás seguro de que deseas eliminar a este integrante?")) {
+        const { error } = await _supabase.from('quienes_somos').delete().eq('id', id);
+        if (error) alert("Error: " + error.message);
+        else cargarMiembrosAdmin();
+    }
+}
+
+// --- EVENTOS INICIALES ---
+
 document.addEventListener("DOMContentLoaded", () => {
     actualizarLienzo();
-    
     const elementosInteractivos = ['preview-titulo', 'preview-subtitulo', 'preview-info', 'preview-lista-contenedor'];
-    
     elementosInteractivos.forEach(id => {
         habilitarArrastre(id);
         habilitarEscalado(id);
         añadirControlesVisuales(id);
     });
+
+    const fileInputMiembro = document.getElementById('member-foto-archivo');
+    const previewImg = document.getElementById('previsualizacion-foto');
+    if (fileInputMiembro) {
+        fileInputMiembro.addEventListener('change', function(e) {
+            const archivo = e.target.files[0];
+            if (archivo) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    previewImg.src = event.target.result;
+                    previewImg.style.display = 'block';
+                }
+                reader.readAsDataURL(archivo);
+            }
+        });
+    }
+
+    const formMiembro = document.getElementById('form-nuevo-miembro');
+    if (formMiembro) {
+        formMiembro.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btnSubmit = formMiembro.querySelector('button[type="submit"]');
+            btnSubmit.innerText = "PROCESANDO...";
+            btnSubmit.disabled = true;
+            try {
+                let urlFotoFinal = document.getElementById('member-foto-url').value;
+                const inputArchivo = document.getElementById('member-foto-archivo');
+                if (inputArchivo.files && inputArchivo.files[0]) {
+                    urlFotoFinal = await subirFotoABucket(inputArchivo.files[0]);
+                }
+                const titulosArray = document.getElementById('member-titulos').value.split(',').map(t => t.trim());
+                const datos = {
+                    nombre: document.getElementById('member-nombre').value,
+                    cargo: document.getElementById('member-cargo').value,
+                    titulos: titulosArray,
+                    frase_personal: document.getElementById('member-frase').value,
+                    foto_url: urlFotoFinal,
+                    orden: parseInt(document.getElementById('member-orden').value),
+                    activo: true
+                };
+                const { error } = idEditando 
+                    ? await _supabase.from('quienes_somos').update(datos).eq('id', idEditando)
+                    : await _supabase.from('quienes_somos').insert([datos]);
+                if (error) throw error;
+                alert(idEditando ? "¡Integrante actualizado!" : "¡Integrante registrado!");
+                idEditando = null;
+                formMiembro.reset();
+                if(previewImg) previewImg.style.display = 'none';
+                btnSubmit.innerText = "GUARDAR INTEGRANTE";
+                btnSubmit.style.background = "";
+                cargarMiembrosAdmin();
+            } catch (err) { alert("Error: " + err.message); }
+            finally { btnSubmit.disabled = false; }
+        });
+    }
 });
-window.onclick = (e) => { if (e.target == document.getElementById('modal-biblioteca')) cerrarBiblioteca(); };
 
-async function chequearAcceso() {
-    const { data: { session } } = await _supabase.auth.getSession();
-
-    if (!session) {
-        window.location.href = 'login_admin.html';
-    }
-}
-
-chequearAcceso();
-
-async function cerrarSesion() {
-    try {
-        const { error } = await authClient.auth.signOut();
-        
-        if (error) throw error;
-
-        localStorage.removeItem('admin_name');
-        
-        window.location.href = 'login_admin.html';
-        
-    } catch (error) {
-        console.error('Error al cerrar sesión:', error.message);
-        window.location.href = 'login_admin.html';
-    }
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('subir-fondo');
+if (dropZone && fileInput) {
+    dropZone.onclick = () => fileInput.click();
+    fileInput.onchange = function() {
+        if (this.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const fondo = document.getElementById('fondo-post');
+                fondo.style.backgroundImage = `url('${e.target.result}')`;
+                fondo.style.backgroundSize = "cover";
+                dropZone.innerHTML = `<i class="fa-solid fa-check" style="color: #c5a059;"></i> <p>Imagen cargada</p>`;
+            };
+            reader.readAsDataURL(this.files[0]);
+        }
+    };
 }

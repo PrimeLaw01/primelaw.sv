@@ -146,3 +146,95 @@ document.addEventListener('click', (e) => {
         if (lista) lista.style.display = "none";
     }
 });
+
+
+async function cargarEquipo() {
+    const { data: equipo, error } = await _supabase
+        .from('quienes_somos')
+        .select('*')
+        .eq('activo', true)
+        .order('orden', { ascending: true });
+
+    if (error) return console.error(error.message);
+
+    const contenedor = document.getElementById('contenedor-equipo');
+    contenedor.innerHTML = ''; 
+
+    equipo.forEach(persona => {
+        const listaTitulos = persona.titulos.map(t => `<li>${t}</li>`).join('');
+
+        const slideHTML = `
+            <div class="swiper-slide">
+                <div class="tarjeta-fundador revelar activo"> 
+                    <div class="contenedor-foto-perfil revelar-izq activo">
+                        <h3 class="nombre-lic">${persona.nombre}</h3>
+                        <img src="${persona.foto_url}" alt="${persona.nombre}" class="foto-perfil">
+                    </div>
+
+                    <div class="info-fundador revelar-der activo">
+                        <h3 class="cargo-fundador">${persona.cargo}</h3>
+                        <ul class="lista-titulos">${listaTitulos}</ul>
+                        <p class="frase-personal">${persona.frase_personal}</p>
+                        <a href="../html/perfil.html?id=${persona.id}" style="text-decoration: none;">
+                            <button class="boton-primario">Conoce más sobre mí</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+        contenedor.innerHTML += slideHTML;
+    });
+
+    // Configuración de Swiper con flechas y puntos
+    new Swiper('.swiper-equipo', {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        grabCursor: true,
+        // Configuración de flechas
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        // Configuración de puntos (circulitos)
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+            dynamicBullets: true, // Los hace ver más modernos
+        },
+    });
+}
+
+document.addEventListener('DOMContentLoaded', cargarEquipo);
+
+async function cargarDetallePerfil() {
+    const parametros = new URLSearchParams(window.location.search);
+    const idPersona = parametros.get('id');
+
+    if (!idPersona) return;
+
+    const { data: persona, error } = await _supabase
+        .from('quienes_somos')
+        .select('*')
+        .eq('id', idPersona)
+        .single();
+
+    if (error || !persona) {
+        console.error('Perfil no encontrado');
+        return;
+    }
+
+    // Inyectar datos en los elementos existentes de tu página de perfil
+    document.title = `Perfil | ${persona.nombre}`;
+    
+    const nombreElem = document.getElementById('nombre-perfil');
+    const fotoElem = document.getElementById('foto-perfil');
+    
+    if (nombreElem) nombreElem.innerText = persona.nombre;
+    if (fotoElem) fotoElem.src = persona.foto_url;
+}
+
+// Solo ejecutar si estamos en la página de perfil
+if (window.location.pathname.includes('perfil.html')) {
+    document.addEventListener('DOMContentLoaded', cargarDetallePerfil);
+}
