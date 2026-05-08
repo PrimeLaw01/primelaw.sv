@@ -40,7 +40,7 @@ if (formulario) {
 
 const derechosData = [
     { nombre: "Derecho Administrativo", img: "images/derAdministrativo.png" },
-    { nombre: "Derecho Corporativo", img: "images/derCorporativo.png" },
+    { nombre: "Derecho Corporativo", img: "images/derAdministrativo.png" },
     { nombre: "Derecho Civil", img: "images/derCivil.png" },
     { nombre: "Derecho Mercantil", img: "images/derMercantil.png" },
     { nombre: "Derecho Tributario", img: "images/derTributario.png" },
@@ -87,49 +87,53 @@ function mostrarSugerencias() {
     const lista = document.getElementById('lista-sugerencias');
     const texto = input.value.toLowerCase().trim();
 
-    lista.innerHTML = "";
+    if (lista) {
+        lista.innerHTML = "";
 
-    if (texto === "") {
-        lista.style.display = "none";
-        return;
-    }
+        if (texto === "") {
+            lista.style.display = "none";
+            return;
+        }
 
-    const filtrados = derechosData.filter(d => d.nombre.toLowerCase().includes(texto));
+        const filtrados = derechosData.filter(d => d.nombre.toLowerCase().includes(texto));
 
-    if (filtrados.length > 0) {
-        lista.style.display = "block";
-        filtrados.forEach(derecho => {
-            const div = document.createElement('div');
-            div.className = 'item-sugerencia';
-            div.innerHTML = `
-                <img src="${derecho.img}">
-                <span>${derecho.nombre}</span>
-            `;
-            div.onclick = () => redirigirADerecho(derecho.nombre);
-            lista.appendChild(div);
-        });
-    } else {
-        lista.style.display = "none";
+        if (filtrados.length > 0) {
+            lista.style.display = "block";
+            filtrados.forEach(derecho => {
+                const div = document.createElement('div');
+                div.className = 'item-sugerencia';
+                div.innerHTML = `
+                    <img src="${derecho.img}">
+                    <span>${derecho.nombre}</span>
+                `;
+                div.onclick = () => redirigirADerecho(derecho.nombre);
+                lista.appendChild(div);
+            });
+        } else {
+            lista.style.display = "none";
+        }
     }
 }
 
 function toggleOpciones() {
     const lista = document.getElementById('lista-sugerencias');
-    if (lista.style.display === "block") {
-        lista.style.display = "none";
-    } else {
-        lista.innerHTML = "";
-        derechosData.forEach(derecho => {
-            const div = document.createElement('div');
-            div.className = 'item-sugerencia';
-            div.innerHTML = `
-                <img src="${derecho.img}">
-                <span>${derecho.nombre}</span>
-            `;
-            div.onclick = () => redirigirADerecho(derecho.nombre);
-            lista.appendChild(div);
-        });
-        lista.style.display = "block";
+    if (lista) {
+        if (lista.style.display === "block") {
+            lista.style.display = "none";
+        } else {
+            lista.innerHTML = "";
+            derechosData.forEach(derecho => {
+                const div = document.createElement('div');
+                div.className = 'item-sugerencia';
+                div.innerHTML = `
+                    <img src="${derecho.img}">
+                    <span>${derecho.nombre}</span>
+                `;
+                div.onclick = () => redirigirADerecho(derecho.nombre);
+                lista.appendChild(div);
+            });
+            lista.style.display = "block";
+        }
     }
 }
 
@@ -147,7 +151,6 @@ document.addEventListener('click', (e) => {
     }
 });
 
-
 async function cargarEquipo() {
     const { data: equipo, error } = await _supabase
         .from('quienes_somos')
@@ -158,10 +161,15 @@ async function cargarEquipo() {
     if (error) return console.error(error.message);
 
     const contenedor = document.getElementById('contenedor-equipo');
+    if (!contenedor) return;
+    
     contenedor.innerHTML = ''; 
 
     equipo.forEach(persona => {
         const listaTitulos = persona.titulos.map(t => `<li>${t}</li>`).join('');
+        
+        // Enlace corregido para evitar error de UUID en el perfil dinámico
+        const urlPerfil = `html/perfil.html?id=${persona.id}`;
 
         const slideHTML = `
             <div class="swiper-slide">
@@ -175,7 +183,7 @@ async function cargarEquipo() {
                         <h3 class="cargo-fundador">${persona.cargo}</h3>
                         <ul class="lista-titulos">${listaTitulos}</ul>
                         <p class="frase-personal">${persona.frase_personal}</p>
-                        <a href="../html/perfil.html?id=${persona.id}" style="text-decoration: none;">
+                        <a href="${urlPerfil}" style="text-decoration: none;">
                             <button class="boton-primario">Conoce más sobre mí</button>
                         </a>
                     </div>
@@ -185,56 +193,21 @@ async function cargarEquipo() {
         contenedor.innerHTML += slideHTML;
     });
 
-    // Configuración de Swiper con flechas y puntos
     new Swiper('.swiper-equipo', {
         slidesPerView: 1,
         spaceBetween: 30,
         loop: true,
         grabCursor: true,
-        // Configuración de flechas
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
-        // Configuración de puntos (circulitos)
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
-            dynamicBullets: true, // Los hace ver más modernos
+            dynamicBullets: true,
         },
     });
 }
 
 document.addEventListener('DOMContentLoaded', cargarEquipo);
-
-async function cargarDetallePerfil() {
-    const parametros = new URLSearchParams(window.location.search);
-    const idPersona = parametros.get('id');
-
-    if (!idPersona) return;
-
-    const { data: persona, error } = await _supabase
-        .from('quienes_somos')
-        .select('*')
-        .eq('id', idPersona)
-        .single();
-
-    if (error || !persona) {
-        console.error('Perfil no encontrado');
-        return;
-    }
-
-    // Inyectar datos en los elementos existentes de tu página de perfil
-    document.title = `Perfil | ${persona.nombre}`;
-    
-    const nombreElem = document.getElementById('nombre-perfil');
-    const fotoElem = document.getElementById('foto-perfil');
-    
-    if (nombreElem) nombreElem.innerText = persona.nombre;
-    if (fotoElem) fotoElem.src = persona.foto_url;
-}
-
-// Solo ejecutar si estamos en la página de perfil
-if (window.location.pathname.includes('perfil.html')) {
-    document.addEventListener('DOMContentLoaded', cargarDetallePerfil);
-}
