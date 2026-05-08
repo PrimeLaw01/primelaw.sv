@@ -386,6 +386,68 @@
         <div id="seccion-perfil" class="seccion-tab" style="display: none;">
             <section class="seccion-paso">
                 <h2 class="titulo-etapa">SOBRE MÍ</h2>
+
+                <div class="seccion-admin">
+                    <h2 class="titulo-admin">Gestionar Perfiles "Sobre Mí"</h2>
+
+                    <div class="grupo-selector">
+                        <label>Seleccionar Abogado:</label>
+                        <select id="selector-abogado-admin" class="input-premium">
+                            </select>
+                    </div>
+
+                    <form id="form-editar-perfil" class="grid-admin">
+                        <div>
+                            <label class="label-admin">Nombre Completo</label>
+                            <input type="text" id="edit-nombre" class="input-premium">
+                        </div>
+                        <div>
+                            <label class="label-admin">Cargo Profesional</label>
+                            <input type="text" id="edit-cargo" class="input-premium">
+                        </div>
+                        <div>
+                            <label class="label-admin">Foto Inicio (Home)</label>
+                            <input type="file" id="file-foto-inicio" class="input-premium" accept="image/*">
+                            <input type="hidden" id="edit-foto-inicio">
+                            <small id="url-inicio-status" style="color: var(--oro-prime)"></small>
+                        </div>
+                        <div>
+                            <label class="label-admin">Foto Perfil (Sobre Mí)</label>
+                            <input type="file" id="file-foto-perfil" class="input-premium" accept="image/*">
+                            <input type="hidden" id="edit-foto-perfil">
+                            <small id="url-perfil-status" style="color: var(--oro-prime)"></small>
+                        </div>
+                                            
+                        <div class="full-width">
+                            <label class="label-admin">Biografía Larga</label>
+                            <textarea id="edit-bio" class="input-premium" style="height: 100px;"></textarea>
+                        </div>
+
+
+                        <div class="full-width">
+                            <label class="label-admin">Formación Académica</label>
+                            <div id="lista-formacion" class="contenedor-dinamico"></div>
+                            <button type="button" class="btn-agregar" onclick="agregarCampo('lista-formacion')">+ Agregar Estudio</button>
+                        </div>
+
+                        <div class="full-width">
+                            <label class="label-admin">Experiencia Laboral</label>
+                            <div id="lista-experiencia" class="contenedor-dinamico"></div>
+                            <button type="button" class="btn-agregar" onclick="agregarCampo('lista-experiencia')">+ Agregar Experiencia</button>
+                        </div>
+
+                        <div class="full-width">
+                            <label class="label-admin">Acreditaciones</label>
+                            <div id="lista-acreditaciones" class="contenedor-dinamico"></div>
+                            <button type="button" class="btn-agregar" onclick="agregarCampo('lista-acreditaciones')">+ Agregar Acreditación</button>
+                        </div>
+
+                        <button type="submit" class="btn-guardar">Guardar Cambios en Base de Datos</button>
+                    </form>
+                </div>
+
+
+
             </section>
         </div>
 

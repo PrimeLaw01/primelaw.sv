@@ -182,7 +182,7 @@ async function cargarEquipo() {
                     <div class="info-fundador revelar-der activo">
                         <h3 class="cargo-fundador">${persona.cargo}</h3>
                         <ul class="lista-titulos">${listaTitulos}</ul>
-                        <p class="frase-personal">${persona.frase_personal}</p>
+                        <p class="frase-personal">${persona.frase_personal || ''}</p>
                         <a href="${urlPerfil}" style="text-decoration: none;">
                             <button class="boton-primario">Conoce más sobre mí</button>
                         </a>

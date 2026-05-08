@@ -1157,3 +1157,162 @@ h1, h2, h3 {
 .contenedor-subida-foto {
     margin-top: 5px;
 }
+
+
+/* Contenedor Principal del Formulario */
+.seccion-admin {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    max-width: 1100px;
+    margin: 20px auto;
+}
+
+.titulo-admin {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--azul-prime);
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--oro-prime);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+/* Selector de Abogado */
+.grupo-selector {
+    background: var(--gris-claro);
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    border-left: 5px solid var(--oro-prime);
+}
+
+.grupo-selector label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+    color: var(--azul-prime);
+}
+
+/* Grid del Formulario */
+.grid-admin {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+/* Ocupar todo el ancho en campos largos */
+.full-width {
+    grid-column: span 2;
+}
+
+/* Estilo de Inputs y Textareas */
+.input-premium {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.input-premium:focus {
+    outline: none;
+    border-color: var(--oro-prime);
+    box-shadow: 0 0 8px rgba(197, 160, 89, 0.2);
+}
+
+/* Campos de Código (JSON) */
+.code-area {
+    width: 100%;
+    height: 150px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 15px;
+    border-radius: 4px;
+    border: none;
+    resize: vertical;
+}
+
+.label-admin {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--azul-prime);
+    font-size: 0.9rem;
+}
+
+/* Botón Guardar */
+.btn-guardar {
+    grid-column: span 2;
+    background-color: var(--azul-prime);
+    color: var(--oro-prime);
+    padding: 15px;
+    border: 2px solid var(--oro-prime);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    letter-spacing: 2px;
+}
+
+.btn-guardar:hover {
+    background-color: var(--oro-prime);
+    color: white;
+}
+
+.alerta-info {
+    grid-column: span 2;
+    background: #e1f5fe;
+    color: #01579b;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+.contenedor-dinamico {
+    background: #f9f9f9;
+    padding: 15px;
+    border: 1px dashed #ccc;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.item-dinamico {
+    background: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border-left: 4px solid var(--oro-prime);
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.btn-eliminar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 2px 8px;
+}
+
+.btn-agregar {
+    background: #f1f1f1;
+    border: 1px solid var(--oro-prime);
+    color: var(--azul-prime);
+    padding: 8px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 20px;
+}

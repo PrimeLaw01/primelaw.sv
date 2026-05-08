@@ -445,3 +445,167 @@ if (dropZone && fileInput) {
         }
     };
 }
+
+
+async function subirImagen(file, carpeta) {
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}.${fileExt}`;
+    const filePath = `${carpeta}/${fileName}`;
+
+    const { error: uploadError } = await _supabase.storage
+        .from('fotos-abogados')
+        .upload(filePath, file);
+
+    if (uploadError) {
+        alert("Error al subir imagen: " + uploadError.message);
+        return null;
+    }
+
+    const { data } = _supabase.storage
+        .from('fotos-abogados')
+        .getPublicUrl(filePath);
+
+    return data.publicUrl;
+}
+
+function crearItemHTML(tipo, valores = {}) {
+    const div = document.createElement('div');
+    div.className = 'item-dinamico';
+    if (tipo === 'lista-acreditaciones') {
+        div.innerHTML = `
+            <input type="text" class="input-premium dato-lista" value="${valores.texto || (typeof valores === 'string' ? valores : '')}" placeholder="Acreditación...">
+            <button type="button" class="btn-eliminar" onclick="this.parentElement.remove()">×</button>
+        `;
+    } else {
+        div.innerHTML = `
+            <button type="button" class="btn-eliminar" onclick="this.parentElement.remove()">×</button>
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 10px;">
+                <input type="text" class="input-premium anio" value="${valores.anio || ''}" placeholder="Año (ej: 2021-2024)">
+                <input type="text" class="input-premium titulo" value="${valores.titulo || valores.puesto || ''}" placeholder="Título o Puesto">
+                <input type="text" class="input-premium institucion full-width" value="${valores.institucion || valores.lugar || ''}" placeholder="Institución o Empresa">
+                
+                <div class="full-width">
+                    <textarea class="input-premium descripcion" placeholder="Descripción...">${limpiarHTML(valores.descripcion || '')}</textarea>
+                    <small style="color: #666; font-style: italic;">Cada línea será un punto con triángulo dorado.</small>
+                </div>
+            </div>
+        `;
+    }
+    return div;
+}
+
+// 1. Quita las etiquetas HTML para que el admin vea solo texto limpio
+function limpiarHTML(html) {
+    if (!html) return "";
+    let temp = document.createElement("div");
+    temp.innerHTML = html;
+    // Extrae el texto de cada <li> y lo une con saltos de línea
+    const items = temp.querySelectorAll('li');
+    if (items.length > 0) {
+        return Array.from(items).map(li => li.innerText).join('\n');
+    }
+    return temp.innerText;
+}
+
+// 2. Toma el texto plano y le pone las etiquetas de Prime Law
+function convertirATriangulosDorados(texto) {
+    if (!texto.trim()) return "";
+    
+    // Si el texto ya tiene varios saltos de línea, lo convertimos en lista
+    const lineas = texto.split('\n').filter(linea => linea.trim() !== "");
+    
+    if (lineas.length > 1) {
+        let listaHTML = '<ul class="lista-vinetas-premium">';
+        lineas.forEach(linea => {
+            listaHTML += `<li>${linea.trim()}</li>`;
+        });
+        listaHTML += '</ul>';
+        return listaHTML;
+    }
+    
+    // Si es solo una línea, la dejamos como párrafo normal (con borde dorado)
+    return texto.trim();
+}
+
+function agregarCampo(idContenedor, valores = {}) {
+    const contenedor = document.getElementById(idContenedor);
+    if (contenedor) contenedor.appendChild(crearItemHTML(idContenedor, valores));
+}
+
+async function poblarSelectorAbogados() {
+    const { data: abogados } = await _supabase.from('quienes_somos').select('id, nombre').order('nombre');
+    const selector = document.getElementById('selector-abogado-admin');
+    selector.innerHTML = '<option value="">-- Seleccione un perfil --</option>';
+    abogados.forEach(a => {
+        let opt = document.createElement('option');
+        opt.value = a.id; opt.textContent = a.nombre;
+        selector.appendChild(opt);
+    });
+}
+
+document.getElementById('selector-abogado-admin').addEventListener('change', async (e) => {
+    const abogadoId = e.target.value;
+    if (!abogadoId) return;
+
+    const { data: p } = await _supabase.from('quienes_somos').select('*').eq('id', abogadoId).single();
+    
+    document.getElementById('edit-nombre').value = p.nombre || "";
+    document.getElementById('edit-cargo').value = p.cargo || "";
+    document.getElementById('edit-foto-inicio').value = p.foto_url || "";
+    document.getElementById('edit-foto-perfil').value = p.foto_perfil_detallada || "";
+    document.getElementById('edit-bio').value = p.biografia_larga || "";
+    
+    document.getElementById('url-inicio-status').textContent = p.foto_url ? "Imagen actual cargada" : "";
+    document.getElementById('url-perfil-status').textContent = p.foto_perfil_detallada ? "Imagen actual cargada" : "";
+
+    ['lista-formacion', 'lista-experiencia', 'lista-acreditaciones'].forEach(id => document.getElementById(id).innerHTML = '');
+    if (p.formacion) p.formacion.forEach(item => agregarCampo('lista-formacion', item));
+    if (p.experiencia) p.experiencia.forEach(item => agregarCampo('lista-experiencia', item));
+    if (p.acreditaciones) p.acreditaciones.forEach(item => agregarCampo('lista-acreditaciones', item));
+});
+
+document.getElementById('form-editar-perfil').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('selector-abogado-admin').value;
+    if (!id) return;
+
+    // Subir fotos si se seleccionaron archivos nuevos
+    const fileInicio = document.getElementById('file-foto-inicio').files[0];
+    const filePerfil = document.getElementById('file-foto-perfil').files[0];
+
+    let urlInicio = document.getElementById('edit-foto-inicio').value;
+    let urlPerfil = document.getElementById('edit-foto-perfil').value;
+
+    if (fileInicio) urlInicio = await subirImagen(fileInicio, 'home');
+    if (filePerfil) urlPerfil = await subirImagen(filePerfil, 'perfiles');
+
+    const obtenerJson = (idContenedor) => {
+        const items = document.querySelectorAll(`#${idContenedor} .item-dinamico`);
+        return Array.from(items).map(item => {
+            if (idContenedor === 'lista-acreditaciones') return item.querySelector('.dato-lista').value;
+            return {
+                anio: item.querySelector('.anio').value,
+                titulo: item.querySelector('.titulo').value,
+                institucion: item.querySelector('.institucion').value,
+                descripcion: convertirATriangulosDorados(item.querySelector('.descripcion').value)
+            };
+        });
+    };
+
+    const actualizaciones = {
+        nombre: document.getElementById('edit-nombre').value,
+        cargo: document.getElementById('edit-cargo').value,
+        foto_url: urlInicio,
+        foto_perfil_detallada: urlPerfil,
+        biografia_larga: document.getElementById('edit-bio').value,
+        formacion: obtenerJson('lista-formacion'),
+        experiencia: obtenerJson('lista-experiencia'),
+        acreditaciones: obtenerJson('lista-acreditaciones')
+    };
+
+    const { error } = await _supabase.from('quienes_somos').update(actualizaciones).eq('id', id);
+    if (error) alert("Error: " + error.message);
+    else alert("¡Perfil y fotos actualizados con éxito!");
+});
+
+document.addEventListener('DOMContentLoaded', poblarSelectorAbogados);

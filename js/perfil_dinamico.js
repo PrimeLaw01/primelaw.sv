@@ -12,9 +12,8 @@ async function cargarPerfil() {
 
     document.getElementById('nombre-profesional').innerText = p.nombre.toUpperCase();
     document.getElementById('cargo-profesional').innerText = p.cargo.toUpperCase();
-    document.getElementById('foto-profesional').src = p.foto_url;
+    document.getElementById('foto-profesional').src = p.foto_perfil_detallada || p.foto_url;
     document.getElementById('bio-profesional').innerHTML = `<p>${p.biografia_larga || p.frase_personal || ""}</p>`;
-
     const contenedor = document.getElementById('contenedor-detalles-dinamicos');
     let htmlFinal = "";
 
