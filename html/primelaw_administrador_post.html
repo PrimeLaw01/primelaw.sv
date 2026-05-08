@@ -377,9 +377,40 @@
                     </div>
             </section>
         </div>
+
         <div id="seccion-servicios" class="seccion-tab" style="display: none;">
             <section class="seccion-paso">
                 <h2 class="titulo-etapa">EDITAR SERVICIOS</h2>
+                
+                <div class="seccion-admin">
+                    <h2 class="titulo-admin">Configuración de Catálogo de Servicios</h2>
+                    
+                    <div class="grupo-selector">
+                        <label>Seleccionar Servicio para editar:</label>
+                        <select id="selector-servicio" class="input-premium">
+                            <option value="">-- Seleccionar Servicio --</option>
+                        </select>
+                    </div>
+
+                    <form id="form-servicio" class="grid-admin">
+                        <div class="full-width">
+                            <label class="label-admin">Descripción Principal del Servicio</label>
+                            <textarea id="serv-desc" class="input-premium" style="height:120px" placeholder="Escriba el párrafo introductorio del servicio..."></textarea>
+                        </div>
+
+                        <div class="full-width">
+                            <label class="label-admin">Puntos de la Lista (Checks azules)</label>
+                            <div id="lista-puntos-serv" class="contenedor-dinamico"></div>
+                            <button type="button" class="btn-agregar" onclick="agregarPuntoServicio()">
+                                <i class="fa-solid fa-plus"></i> Agregar Nuevo Punto
+                            </button>
+                        </div>
+
+                        <button type="submit" class="btn-guardar">
+                            <i class="fa-solid fa-floppy-disk"></i> GUARDAR CAMBIOS EN SERVICIOS
+                        </button>
+                    </form>
+                </div>
             </section>
         </div>
 
@@ -454,12 +485,58 @@
         <div id="seccion-areas" class="seccion-tab" style="display: none;">
             <section class="seccion-paso">
                 <h2 class="titulo-etapa">EDITAR ÁREAS</h2>
+                
+                <div class="contenedor-admin-premium">
+                    <div class="grupo-control">
+                        <label>Seleccionar Área Legal:</label>
+                        <select id="selector-area-admin" class="input-premium">
+                            <option value="">-- Seleccione un área --</option>
+                        </select>
+                    </div>
+
+                    <form id="form-editar-area" style="margin-top: 20px;">
+                        <div class="grupo-control">
+                            <label>Título del Área:</label>
+                            <input type="text" id="area-titulo" class="input-premium" placeholder="Ej: Derecho Mercantil">
+                        </div>
+
+                        <div class="grupo-control">
+                            <label>Descripción Detallada:</label>
+                            <textarea id="area-contenido" class="input-premium" rows="5" placeholder="Descripción que aparece en el modal..."></textarea>
+                        </div>
+
+                        <div class="grupo-control">
+                            <label>Servicios Incluidos (Lista):</label>
+                            <div id="lista-puntos-area" class="contenedor-puntos-dinamicos"></div>
+                            <button type="button" class="btn-admin-secundario" onclick="agregarPuntoArea()" style="margin-top:10px;">
+                                <i class="fa-solid fa-plus"></i> Agregar Punto
+                            </button>
+                        </div>
+
+                        <button type="submit" class="btn-ejecutar-final" style="width: 100%; margin-top: 30px;">
+                            GUARDAR CAMBIOS EN ÁREA
+                        </button>
+                    </form>
+                </div>
             </section>
         </div>
 
         <div id="seccion-miniaturas" class="seccion-tab" style="display: none;">
             <section class="seccion-paso">
-                <h2 class="titulo-etapa">INFO. MINIATURAS</h2>
+                <h2 class="titulo-etapa">EDITAR MINIATURAS</h2>
+                <div class="contenedor-admin-premium">
+                    <div class="grupo-control">
+                        <label>Seleccionar Área:</label>
+                        <select id="selector-miniatura-admin" class="input-premium">
+                            <option value="">-- Seleccione un área --</option>
+                        </select>
+
+                        <textarea id="texto-miniatura" class="input-premium" rows="3"></textarea>
+                    </div>
+                    <button type="button" class="btn-ejecutar-final" onclick="guardarMiniatura()">
+                        ACTUALIZAR TARJETA
+                    </button>
+                </div>
             </section>
         </div>
 

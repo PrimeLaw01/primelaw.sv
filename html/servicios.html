@@ -39,48 +39,25 @@
         </div>
 
     <main>
-        
         <section class="seccion-detalle-servicios">
             <div class="intro-servicios revelar">
                 <h1 class="titulo-pregunta">NUESTROS SERVICIOS</h1>
                 <p class="subtitulo-ayuda">Excelencia jurídica diseñada para su seguridad y crecimiento.</p>
             </div>
 
-            <div class="bloque-servicio revelar-izq">
-                <img src="../images/litigacion.png" alt="Litigación" class="imagen-servicio-detalle">
-                <div class="texto-servicio-detalle">
-                    <h2>Litigación</h2>
-                    <p>Representamos y defendemos sus intereses ante los tribunales de justicia con una estrategia agresiva y técnica. Nos especializamos en resolver conflictos complejos con el menor impacto para usted.</p>
-                    <ul class="check-lista">
-                        <li><i class="fa-solid fa-circle-check"></i> Defensa en Procesos Civiles y Mercantiles</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Recursos de Apelación y Casación</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Arbitraje y Resolución Alterna de Conflictos</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Litigios Administrativos y Contenciosos</li>
-                    </ul>
-                </div>
-            </div>
+            <div id="contenedor-servicios-dinamico"></div>
 
-            <div class="bloque-servicio invertido revelar-der">
-                <img src="../images/asesoria.png" alt="Asesoría" class="imagen-servicio-detalle">
-                <div class="texto-servicio-detalle">
-                    <h2>Asesoría</h2>
-                    <p>Acompañamos a empresas y particulares en la toma de decisiones estratégicas, previniendo riesgos legales antes de que se conviertan en problemas.</p>
-                    <ul class="check-lista">
-                        <li><i class="fa-solid fa-circle-check"></i> Consultoría Empresarial Preventiva</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Redacción y Revisión de Contratos</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Auditorías Legales (Due Diligence)</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Cumplimiento Normativo Corporativo</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div style="text-align: center;">
+            <div style="text-align: center; margin-top: 50px;">
                 <a href="../index.html#seccion-contacto">
                     <button class="boton-primario">Solicitar asesoría personalizada</button>
                 </a>
             </div>
         </section>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/servicios_dinamicos.js"></script>
+    
 
     <footer class="pie-pagina">
         <div class="contenedor-footer">

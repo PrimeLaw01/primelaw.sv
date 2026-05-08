@@ -6,7 +6,7 @@ const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 let datosAreas = [];
 
 async function precargarDatos() {
-    console.log("Precargando base de datos...");
+    console.log("Sincronizando miniaturas con la base de datos...");
     const { data, error } = await _supabase
         .from('informacion_derechos')
         .select('*');
@@ -15,8 +15,29 @@ async function precargarDatos() {
         console.error("Error precargando datos:", error.message);
         return;
     }
+    
     datosAreas = data;
-    console.log("Datos listos para usar.");
+
+    // --- LOGICA PARA ACTUALIZAR LAS TARJETAS ---
+    const tarjetas = document.querySelectorAll('.tarjeta-area-vertical');
+    
+    tarjetas.forEach(tarjeta => {
+        // Obtenemos el título de la tarjeta (ej: "Derecho Administrativo")
+        const tituloHTML = tarjeta.querySelector('h3').innerText.trim();
+        
+        // Buscamos el registro en la BD que coincida con ese título
+        const registroBD = datosAreas.find(a => a.titulo === tituloHTML);
+        
+        if (registroBD && registroBD.miniatura) {
+            const parrafo = tarjeta.querySelector('p');
+            if (parrafo) {
+                // REEMPLAZAMOS EL TEXTO ESTATICO POR EL DE LA BD
+                parrafo.innerText = registroBD.miniatura;
+            }
+        }
+    });
+    
+    console.log("Miniaturas sincronizadas.");
 }
 
 window.addEventListener('DOMContentLoaded', precargarDatos);

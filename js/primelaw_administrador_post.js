@@ -260,38 +260,46 @@ function cambiarTamano(formato, elemento) {
 }
 
 function mostrarSeccion(seccion) {
-    console.log("Cambiando a sección:", seccion);
-
-    const adminPosts = document.getElementById('seccion-admin-posts');
-    const nosotros = document.getElementById('seccion-nosotros');
-    const servicios = document.getElementById('seccion-servicios');
-    const perfil = document.getElementById('seccion-perfil');
-    const areas = document.getElementById('seccion-areas');
-    const miniaturas = document.getElementById('seccion-miniaturas');
-
-    const todas = [adminPosts, nosotros, servicios, perfil, areas, miniaturas];
+    const capas = [
+        'seccion-admin-posts', 'seccion-nosotros', 'seccion-servicios', 
+        'seccion-perfil', 'seccion-areas', 'seccion-miniaturas'
+    ];
     
-    todas.forEach(s => { 
-        if (s) {
-            s.style.display = 'none';
-            s.classList.remove('activa');
+    capas.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.style.display = 'none';
+            el.classList.remove('activa');
         }
     });
 
-    let idTarget = (seccion === 'admin') ? 'seccion-admin-posts' : `seccion-${seccion}`;
-    const elTarget = document.getElementById(idTarget);
+    let idDestino = (seccion === 'admin') ? 'seccion-admin-posts' : `seccion-${seccion}`;
+    const elDestino = document.getElementById(idDestino);
 
-    if (elTarget) {
-        elTarget.style.display = 'block';
-        elTarget.classList.add('activa');
+    if (elDestino) {
+        elDestino.style.display = 'block';
+        elDestino.classList.add('activa');
         
+        // --- DISPARADORES DE CARGA DE DATOS ---
         if (seccion === 'nosotros') {
-            cargarMiembrosAdmin();
+            if (typeof cargarMiembrosAdmin === 'function') cargarMiembrosAdmin();
+        }
+        if (seccion === 'servicios') {
+            if (typeof cargarSelectServicios === 'function') cargarSelectServicios();
+        }
+        if (seccion === 'perfil') {
+            if (typeof poblarSelectorAbogados === 'function') poblarSelectorAbogados();
+        }
+        if (seccion === 'areas') {
+            if (typeof cargarSelectorAreas === 'function') cargarSelectorAreas();
+        }
+        if (seccion === 'miniaturas') {
+            iniciarSeccionMiniaturas();
         }
         
         window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-        console.error("No se encontró la sección:", idTarget);
+        console.error("No se encontró la sección:", idDestino);
     }
 }
 
@@ -596,3 +604,307 @@ document.getElementById('form-editar-perfil').addEventListener('submit', async (
 });
 
 document.addEventListener('DOMContentLoaded', poblarSelectorAbogados);
+
+
+
+// --- SECCIÓN DE SERVICIOS ---
+
+async function cargarSelectServicios() {
+    try {
+        const { data, error } = await _supabase.from('servicios').select('id, nombre');
+        if (error) throw error;
+
+        const sel = document.getElementById('selector-servicio');
+        if (!sel) return;
+        
+        sel.innerHTML = '<option value="">-- Seleccionar Servicio --</option>';
+        data.forEach(s => {
+            const opt = document.createElement('option');
+            opt.value = s.id;
+            opt.textContent = s.nombre;
+            sel.appendChild(opt);
+        });
+    } catch (err) {
+        console.error("Error en cargarSelectServicios:", err);
+    }
+}
+
+function agregarPuntoServicio(valor = "") {
+    const container = document.getElementById('lista-puntos-serv');
+    if (!container) return;
+    
+    const div = document.createElement('div');
+    div.className = 'item-dinamico';
+    div.style = "display: flex; gap: 10px; align-items: center; margin-bottom: 10px;";
+    
+    div.innerHTML = `
+        <i class="fa-solid fa-circle-check" style="color: #007bff;"></i>
+        <input type="text" class="input-premium punto-dato" value="${valor}" placeholder="Ej: Defensa en Procesos" style="flex:1">
+        <button type="button" class="btn-eliminar" onclick="this.parentElement.remove()" style="position:static; padding: 5px 10px;">&times;</button>
+    `;
+    container.appendChild(div);
+}
+
+document.addEventListener('change', async (e) => {
+    if (e.target && e.target.id === 'selector-servicio') {
+        const id = e.target.value;
+        const container = document.getElementById('lista-puntos-serv');
+        const descField = document.getElementById('serv-desc');
+        
+        if(!id) {
+            if(descField) descField.value = "";
+            if(container) container.innerHTML = "";
+            return;
+        }
+        
+        const { data: s } = await _supabase.from('servicios').select('*').eq('id', id).single();
+        if (s) {
+            if(descField) descField.value = s.descripcion || "";
+            if(container) {
+                container.innerHTML = '';
+                if (s.lista_puntos && Array.isArray(s.lista_puntos)) {
+                    s.lista_puntos.forEach(p => agregarPuntoServicio(p));
+                }
+            }
+        }
+    }
+});
+
+document.addEventListener('submit', async (e) => {
+    if (e.target && e.target.id === 'form-servicio') {
+        e.preventDefault();
+        
+        const idServicio = document.getElementById('selector-servicio').value;
+        if (!idServicio) return alert("Por favor, selecciona un servicio primero.");
+        
+        const inputsPuntos = document.querySelectorAll('#lista-puntos-serv .punto-dato');
+        const puntosActualizados = [];
+        
+        inputsPuntos.forEach(input => {
+            if (input.value.trim() !== "") {
+                puntosActualizados.push(input.value.trim());
+            }
+        });
+
+        const nuevaDescripcion = document.getElementById('serv-desc').value;
+
+        try {
+            const { data, error } = await _supabase
+                .from('servicios')
+                .update({ 
+                    descripcion: nuevaDescripcion, 
+                    lista_puntos: puntosActualizados
+                })
+                .eq('id', idServicio);
+
+            if (error) {
+                console.error("Error detallado:", error);
+                alert("Error de BD: " + error.message);
+            } else {
+                alert("¡Servicio guardado exitosamente en la base de datos!");
+            }
+        } catch (err) {
+            console.error("Error inesperado:", err);
+            alert("Ocurrió un error inesperado al guardar.");
+        }
+    }
+});
+
+
+
+// --- SECCIÓN DE ÁREAS LEGALES (informacion_derechos) ---
+async function cargarSelectorAreas() {
+    try {
+        const { data, error } = await _supabase
+            .from('informacion_derechos')
+            .select('id, titulo')
+            .order('titulo', { ascending: true });
+
+        if (error) throw error;
+
+        const selector = document.getElementById('selector-area-admin');
+        if (!selector) return;
+
+        selector.innerHTML = '<option value="">-- Seleccione un área --</option>';
+        data.forEach(area => {
+            const opt = document.createElement('option');
+            opt.value = area.id;
+            opt.textContent = area.titulo;
+            selector.appendChild(opt);
+        });
+    } catch (err) {
+        console.error("Error al cargar áreas:", err.message);
+    }
+}
+
+function agregarPuntoArea(valor = "") {
+    const contenedor = document.getElementById('lista-puntos-area');
+    if (!contenedor) return;
+
+    const div = document.createElement('div');
+    div.className = 'item-dinamico';
+    div.style = "display: flex; gap: 10px; align-items: center; margin-bottom: 8px;";
+    
+    div.innerHTML = `
+        <i class="fa-solid fa-gavel" style="color: #c5a059;"></i>
+        <input type="text" class="input-premium punto-area-dato" value="${valor}" placeholder="Ej: Constitución de sociedades" style="flex:1">
+        <button type="button" class="btn-eliminar" onclick="this.parentElement.remove()" style="position:static; padding: 5px 10px;">&times;</button>
+    `;
+    contenedor.appendChild(div);
+}
+
+document.getElementById('selector-area-admin')?.addEventListener('change', async (e) => {
+    const id = e.target.value;
+    const form = document.getElementById('form-editar-area');
+    const contenedorPuntos = document.getElementById('lista-puntos-area');
+    
+    if (!id) {
+        form.reset();
+        contenedorPuntos.innerHTML = "";
+        return;
+    }
+
+    const { data: area, error } = await _supabase
+        .from('informacion_derechos')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+    if (area) {
+        document.getElementById('area-titulo').value = area.titulo || "";
+        document.getElementById('area-contenido').value = area.contenido_detallado || "";
+        
+        contenedorPuntos.innerHTML = "";
+        if (area.lista_items && Array.isArray(area.lista_items)) {
+            area.lista_items.forEach(punto => agregarPuntoArea(punto));
+        }
+    }
+});
+
+document.getElementById('form-editar-area')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const idArea = document.getElementById('selector-area-admin').value;
+    if (!idArea) return alert("Por favor, selecciona un área para editar.");
+
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.innerText = "GUARDANDO...";
+    btn.disabled = true;
+
+    const inputsPuntos = document.querySelectorAll('.punto-area-dato');
+    const listaActualizada = Array.from(inputsPuntos)
+        .map(input => input.value.trim())
+        .filter(val => val !== "");
+
+    const actualizaciones = {
+        titulo: document.getElementById('area-titulo').value,
+        contenido_detallado: document.getElementById('area-contenido').value,
+        lista_items: listaActualizada
+    };
+
+    try {
+        const { data, error, status } = await _supabase
+            .from('informacion_derechos')
+            .update(actualizaciones)
+            .eq('id', idArea)
+            .select();
+
+        console.log("Respuesta de Supabase:", { data, error, status });
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+            alert("No se encontró el registro o no tienes permisos para actualizarlo. Revisa las Políticas (RLS).");
+        } else {
+            alert("¡Área legal actualizada correctamente!");
+        }
+
+    } catch (err) {
+        console.error("Error completo:", err);
+        alert("Error al actualizar: " + err.message);
+    }
+});
+
+const observerAreas = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.target.id === 'seccion-areas' && mutation.target.style.display === 'block') {
+            cargarSelectorAreas();
+        }
+    });
+});
+
+const seccionAreasElement = document.getElementById('seccion-areas');
+if (seccionAreasElement) {
+    observerAreas.observe(seccionAreasElement, { attributes: true, attributeFilter: ['style'] });
+}
+
+
+// --- SECCIÓN DE MINIATURAS (VERSIÓN DEFINITIVA) ---
+
+async function iniciarSeccionMiniaturas() {
+    console.log("Iniciando cargador de miniaturas...");
+    const selector = document.getElementById('selector-miniatura-admin');
+    const campoTexto = document.getElementById('texto-miniatura');
+    
+    if (!selector) return;
+
+    // 1. Cargamos el selector
+    const { data, error } = await _supabase
+        .from('informacion_derechos')
+        .select('id, titulo')
+        .order('titulo');
+
+    if (error) return console.error("Error al cargar selector:", error);
+
+    selector.innerHTML = '<option value="">-- Seleccione un área --</option>';
+    data.forEach(area => {
+        const opt = document.createElement('option');
+        opt.value = area.id;
+        opt.textContent = area.titulo;
+        selector.appendChild(opt);
+    });
+
+    // 2. Quitamos eventos viejos y ponemos el nuevo directamente
+    selector.onchange = async (e) => {
+        const id = e.target.value;
+        if (!id) {
+            campoTexto.value = "";
+            return;
+        }
+
+        campoTexto.value = "Cargando...";
+
+        const { data: area, error: errArea } = await _supabase
+            .from('informacion_derechos')
+            .select('miniatura')
+            .eq('id', id)
+            .single();
+
+        if (errArea) {
+            console.error(errArea);
+            campoTexto.value = "Error al cargar.";
+        } else {
+            // Inyectamos el valor de la columna 'miniatura'
+            campoTexto.value = area.miniatura || "";
+        }
+    };
+}
+
+// Función para el botón "ACTUALIZAR TARJETA"
+async function guardarMiniatura() {
+    const id = document.getElementById('selector-miniatura-admin').value;
+    const texto = document.getElementById('texto-miniatura').value;
+    
+    if (!id) return alert("Selecciona un área.");
+
+    const { error } = await _supabase
+        .from('informacion_derechos')
+        .update({ miniatura: texto })
+        .eq('id', id);
+
+    if (error) {
+        alert("Error: " + error.message);
+    } else {
+        alert("¡Miniatura actualizada en la base de datos!");
+    }
+}
