@@ -262,7 +262,6 @@ function cambiarTamano(formato, elemento) {
 function mostrarSeccion(seccion) {
     console.log("Cambiando a sección:", seccion);
 
-    // 1. Identificamos todos los contenedores principales por sus IDs exactos
     const adminPosts = document.getElementById('seccion-admin-posts');
     const nosotros = document.getElementById('seccion-nosotros');
     const servicios = document.getElementById('seccion-servicios');
@@ -270,37 +269,31 @@ function mostrarSeccion(seccion) {
     const areas = document.getElementById('seccion-areas');
     const miniaturas = document.getElementById('seccion-miniaturas');
 
-    // 2. Creamos un array con ellos para ocultarlos todos de un solo golpe
     const todas = [adminPosts, nosotros, servicios, perfil, areas, miniaturas];
     
     todas.forEach(s => { 
         if (s) {
-            s.style.display = 'none'; // Esto quita el espacio que ocupan
+            s.style.display = 'none';
             s.classList.remove('activa');
         }
     });
 
-    // 3. Mostramos solo la sección que el usuario pidió
     let idTarget = (seccion === 'admin') ? 'seccion-admin-posts' : `seccion-${seccion}`;
     const elTarget = document.getElementById(idTarget);
 
     if (elTarget) {
-        elTarget.style.display = 'block'; // La mostramos al principio del contenedor
+        elTarget.style.display = 'block';
         elTarget.classList.add('activa');
         
-        // Si es la sección de integrantes, cargamos los datos de Supabase
         if (seccion === 'nosotros') {
             cargarMiembrosAdmin();
         }
         
-        // UX: Hacemos scroll hacia arriba automáticamente para que se vea la sección
         window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
         console.error("No se encontró la sección:", idTarget);
     }
 }
-
-// --- NUEVA LÓGICA CRUD SIN RESUMIR ---
 
 async function subirFotoABucket(archivo) {
     const nombreLimpio = archivo.name.replace(/[^a-zA-Z0-9.]/g, "_");
@@ -494,12 +487,10 @@ function crearItemHTML(tipo, valores = {}) {
     return div;
 }
 
-// 1. Quita las etiquetas HTML para que el admin vea solo texto limpio
 function limpiarHTML(html) {
     if (!html) return "";
     let temp = document.createElement("div");
     temp.innerHTML = html;
-    // Extrae el texto de cada <li> y lo une con saltos de línea
     const items = temp.querySelectorAll('li');
     if (items.length > 0) {
         return Array.from(items).map(li => li.innerText).join('\n');
@@ -507,11 +498,9 @@ function limpiarHTML(html) {
     return temp.innerText;
 }
 
-// 2. Toma el texto plano y le pone las etiquetas de Prime Law
 function convertirATriangulosDorados(texto) {
     if (!texto.trim()) return "";
     
-    // Si el texto ya tiene varios saltos de línea, lo convertimos en lista
     const lineas = texto.split('\n').filter(linea => linea.trim() !== "");
     
     if (lineas.length > 1) {
@@ -523,7 +512,6 @@ function convertirATriangulosDorados(texto) {
         return listaHTML;
     }
     
-    // Si es solo una línea, la dejamos como párrafo normal (con borde dorado)
     return texto.trim();
 }
 
@@ -569,7 +557,6 @@ document.getElementById('form-editar-perfil').addEventListener('submit', async (
     const id = document.getElementById('selector-abogado-admin').value;
     if (!id) return;
 
-    // Subir fotos si se seleccionaron archivos nuevos
     const fileInicio = document.getElementById('file-foto-inicio').files[0];
     const filePerfil = document.getElementById('file-foto-perfil').files[0];
 

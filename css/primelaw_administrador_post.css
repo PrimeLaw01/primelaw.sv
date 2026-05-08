@@ -1194,19 +1194,16 @@ h1, h2, h3 {
     color: var(--azul-prime);
 }
 
-/* Grid del Formulario */
 .grid-admin {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 }
 
-/* Ocupar todo el ancho en campos largos */
 .full-width {
     grid-column: span 2;
 }
 
-/* Estilo de Inputs y Textareas */
 .input-premium {
     width: 100%;
     padding: 12px 15px;
@@ -1224,7 +1221,6 @@ h1, h2, h3 {
     box-shadow: 0 0 8px rgba(197, 160, 89, 0.2);
 }
 
-/* Campos de Código (JSON) */
 .code-area {
     width: 100%;
     height: 150px;
@@ -1247,7 +1243,6 @@ h1, h2, h3 {
     font-size: 0.9rem;
 }
 
-/* Botón Guardar */
 .btn-guardar {
     grid-column: span 2;
     background-color: var(--azul-prime);
