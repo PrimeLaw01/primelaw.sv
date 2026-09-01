@@ -71,3 +71,57 @@ async function cargarPerfil() {
 }
 
 document.addEventListener('DOMContentLoaded', cargarPerfil);
+
+async function cargarCarruselEquipo() {
+    const contenedor = document.getElementById('contenedor-equipo');
+    if (!contenedor) return;
+
+    const { data: miembros, error } = await _supabase
+        .from('quienes_somos')
+        .select('*')
+        .order('orden', { ascending: true });
+
+    if (error || !miembros || miembros.length === 0) {
+        console.error('Error al cargar equipo o datos vacíos:', error);
+        return;
+    }
+
+    contenedor.innerHTML = miembros.map(m => `
+        <div class="swiper-slide">
+            <div class="tarjeta-equipo-slider">
+                <div class="foto-equipo-wrapper">
+                    <img src="${m.foto_url || '../images/logo.png'}" alt="${m.nombre}">
+                </div>
+                <h3>${m.nombre}</h3>
+                <p class="cargo-slider">${m.cargo || ''}</p>
+                <p class="frase-slider">"${m.frase_personal || ''}"</p>
+                <a href="../html/perfil.html?id=${m.id}" class="boton-ver-perfil">Ver perfil completo</a>
+            </div>
+        </div>
+    `).join('');
+
+    new Swiper('.swiper-equipo', {
+        slidesPerView: 1,
+        spaceBetween: 25,
+        loop: miembros.length > 1,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+            640: { slidesPerView: 1.2, spaceBetween: 20 },
+            768: { slidesPerView: 2, spaceBetween: 30 },
+            1024: { slidesPerView: 3, spaceBetween: 30 }
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('contenedor-equipo')) {
+        cargarCarruselEquipo();
+    }
+});
